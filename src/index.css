@@ -2,14 +2,68 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Subscription Swachh Design System - Soothing, modern, minimal */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Brand Colors - Soft & Soothing */
+    --background: 210 25% 98%;
+    --foreground: 215 25% 15%;
+    
+    /* Soft Blue Primary */
+    --primary: 210 65% 60%;
+    --primary-light: 210 70% 75%;
+    --primary-dark: 210 70% 45%;
+    --primary-foreground: 0 0% 100%;
+    
+    /* Soft Green Secondary */
+    --secondary: 150 40% 85%;
+    --secondary-foreground: 150 60% 25%;
+    
+    /* Success & Savings */
+    --success: 150 65% 55%;
+    --success-light: 150 60% 85%;
+    --success-foreground: 0 0% 100%;
+    
+    /* Gentle Accent */
+    --accent: 210 45% 92%;
+    --accent-foreground: 215 25% 25%;
+    
+    /* Muted & Subtle */
+    --muted: 210 20% 95%;
+    --muted-foreground: 215 15% 55%;
+    
+    /* Card & Surface */
+    --card: 0 0% 100%;
+    --card-foreground: 215 25% 15%;
+    
+    /* Border & Input */
+    --border: 210 25% 88%;
+    --input: 210 25% 90%;
+    --ring: 210 65% 60%;
+    
+    /* Destructive - Soft Red */
+    --destructive: 0 60% 65%;
+    --destructive-foreground: 0 0% 100%;
+    
+    /* Popover */
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 25% 15%;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(210 65% 60%), hsl(180 55% 65%));
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(210 20% 98%));
+    --gradient-savings: linear-gradient(120deg, hsl(150 65% 55%), hsl(120 60% 60%));
+    
+    /* Shadows */
+    --shadow-soft: 0 2px 12px hsl(210 25% 15% / 0.08);
+    --shadow-card: 0 4px 20px hsl(210 25% 15% / 0.1);
+    --shadow-button: 0 2px 8px hsl(210 65% 60% / 0.2);
+    
+    /* Radius */
+    --radius: 0.75rem;
+    --radius-lg: 1rem;
+    --radius-xl: 1.5rem;
 
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
@@ -56,8 +110,40 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    /* Dark mode with softer contrast */
+    --background: 215 25% 8%;
+    --foreground: 210 25% 95%;
+    
+    --primary: 210 65% 65%;
+    --primary-light: 210 70% 80%;
+    --primary-dark: 210 70% 50%;
+    --primary-foreground: 215 25% 8%;
+    
+    --secondary: 150 30% 20%;
+    --secondary-foreground: 150 40% 85%;
+    
+    --success: 150 55% 50%;
+    --success-light: 150 40% 25%;
+    --success-foreground: 0 0% 100%;
+    
+    --accent: 210 25% 15%;
+    --accent-foreground: 210 25% 85%;
+    
+    --muted: 210 25% 12%;
+    --muted-foreground: 215 15% 65%;
+    
+    --card: 215 25% 10%;
+    --card-foreground: 210 25% 95%;
+    
+    --border: 210 25% 20%;
+    --input: 210 25% 18%;
+    --ring: 210 65% 65%;
+    
+    --destructive: 0 60% 60%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --popover: 215 25% 10%;
+    --popover-foreground: 210 25% 95%;
 
     --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;
@@ -100,6 +186,64 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+  
+  /* Mobile-first typography */
+  .heading-xl {
+    @apply text-3xl font-bold tracking-tight;
+  }
+  
+  .heading-lg {
+    @apply text-2xl font-semibold tracking-tight;
+  }
+  
+  .heading-md {
+    @apply text-xl font-semibold;
+  }
+  
+  .heading-sm {
+    @apply text-lg font-medium;
+  }
+  
+  .body-lg {
+    @apply text-base leading-relaxed;
+  }
+  
+  .body-sm {
+    @apply text-sm leading-relaxed;
+  }
+  
+  .caption {
+    @apply text-xs text-muted-foreground;
+  }
+  
+  /* Custom animations */
+  .animate-slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+  
+  .animate-fade-in {
+    animation: fadeIn 0.4s ease-out;
+  }
+  
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
 }

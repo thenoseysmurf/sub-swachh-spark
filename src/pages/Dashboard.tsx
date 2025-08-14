@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { WidgetCard } from "@/components/ui/widget-card";
 import { useRouter } from "@/hooks/useRouter";
 import { TrendingUp, TrendingDown, Calendar, Filter, Settings, BarChart3, AlertCircle, Play, Pause } from "lucide-react";
-import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, LineChart, Line } from "recharts";
 const mockSubscriptions = [{
   id: 1,
   name: "Netflix",
@@ -149,7 +149,7 @@ export default function Dashboard() {
             
             <div className="h-32">
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={monthlySpendData}>
+                <LineChart data={monthlySpendData}>
                   <XAxis 
                     dataKey="month" 
                     axisLine={false}
@@ -157,12 +157,14 @@ export default function Dashboard() {
                     tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }}
                   />
                   <YAxis hide />
-                  <Bar 
+                  <Line 
+                    type="monotone"
                     dataKey="amount" 
-                    fill="hsl(var(--primary))"
-                    radius={[2, 2, 0, 0]}
+                    stroke="hsl(var(--primary))"
+                    strokeWidth={2}
+                    dot={{ fill: 'hsl(var(--primary))', strokeWidth: 2, r: 3 }}
                   />
-                </BarChart>
+                </LineChart>
               </ResponsiveContainer>
             </div>
             

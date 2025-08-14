@@ -176,9 +176,7 @@ export default function Dashboard() {
               </ResponsiveContainer>
             </div>
             
-            <p className="body-sm text-muted-foreground text-center">
-              Average: ₹{Math.round(monthlySpendData.reduce((sum, month) => sum + month.amount, 0) / 12).toLocaleString()}/month
-            </p>
+            <p className="body-sm text-muted-foreground text-center">Monthly Spend Analytics</p>
           </div>
         </WidgetCard>
 

@@ -1,96 +1,53 @@
 import { Button } from "@/components/ui/button";
-import { WidgetCard } from "@/components/ui/widget-card";
 import { useRouter } from "@/hooks/useRouter";
-import { Smartphone, Shield, TrendingDown, Users } from "lucide-react";
+import { Zap } from "lucide-react";
 
 const Index = () => {
   const router = useRouter();
 
   return (
     <div className="min-h-screen bg-gradient-primary">
-      <div className="px-4 py-12 space-y-8">
-        {/* Hero Section */}
-        <div className="text-center text-white space-y-6">
-          <div className="space-y-3">
-            <h1 className="text-4xl font-bold tracking-tight">
-              Subscription Swachh
-            </h1>
-            <p className="text-xl opacity-90 leading-relaxed">
-              Take control of your subscriptions.<br />
-              Save thousands every year.
-            </p>
-          </div>
-          
-          <div className="flex justify-center">
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
-              <p className="text-lg font-semibold">₹25,000+</p>
-              <p className="text-sm opacity-80">Average yearly savings</p>
-            </div>
+      <div className="px-6 py-16 flex flex-col items-center justify-center min-h-screen space-y-12">
+        {/* App Icon */}
+        <div className="relative">
+          <div className="w-24 h-24 rounded-3xl bg-gradient-to-br from-green-400 via-blue-400 to-purple-500 flex items-center justify-center shadow-2xl">
+            <Zap className="w-12 h-12 text-white" />
           </div>
         </div>
 
-        {/* Features */}
-        <div className="space-y-4">
-          {[
-            {
-              icon: Smartphone,
-              title: "Smart Detection",
-              description: "Find subscriptions linked to your payment methods"
-            },
-            {
-              icon: TrendingDown, 
-              title: "Dead Spend Analysis",
-              description: "Identify unused subscriptions draining your money"
-            },
-            {
-              icon: Shield,
-              title: "Easy Cancellation", 
-              description: "Cancel with one tap or get guided assistance"
-            },
-            {
-              icon: Users,
-              title: "Join 50K+ Users",
-              description: "Trusted by thousands for subscription management"
-            }
-          ].map((feature, index) => (
-            <WidgetCard key={index} className="flex items-center space-x-4">
-              <div className="bg-primary/10 p-3 rounded-lg">
-                <feature.icon className="h-6 w-6 text-primary" />
-              </div>
-              <div className="flex-1">
-                <h3 className="font-semibold">{feature.title}</h3>
-                <p className="text-sm text-muted-foreground">{feature.description}</p>
-              </div>
-            </WidgetCard>
-          ))}
+        {/* Hero Content */}
+        <div className="text-center text-white space-y-6 max-w-sm">
+          <h1 className="text-4xl font-bold tracking-tight">
+            Subscription<br />Swachh
+          </h1>
+          <p className="text-lg opacity-90 leading-relaxed">
+            Take control of your subscriptions.<br />
+            Save thousands every year.
+          </p>
         </div>
 
-        {/* CTA Buttons */}
-        <div className="space-y-3 pt-4">
+        {/* Savings Display */}
+        <div className="text-center space-y-3">
+          <div className="text-6xl font-bold text-green-400">
+            ₹25,000+
+          </div>
+          <p className="text-white/80 text-lg">Average yearly savings</p>
+        </div>
+
+        {/* CTA Button */}
+        <div className="w-full max-w-sm">
           <Button 
             onClick={() => router.push("/signup")}
-            variant="primary" 
-            size="xl" 
-            className="w-full"
+            className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-4 px-8 rounded-2xl text-lg shadow-lg"
           >
-            Start Your Clean-Up Today
-          </Button>
-          
-          <Button 
-            onClick={() => router.push("/login")}
-            variant="soft" 
-            size="lg" 
-            className="w-full"
-          >
-            Already have an account? Sign In
+            Get Started
           </Button>
         </div>
 
-        {/* Trust Indicators */}
-        <div className="text-center text-white/80 space-y-2">
-          <p className="text-sm">🔒 Bank-grade security • No hidden fees</p>
-          <p className="text-xs opacity-70">
-            Used by 50,000+ Indians to save money monthly
+        {/* Trust Indicator */}
+        <div className="text-center">
+          <p className="text-white/70 text-sm">
+            Trusted by 50,000+ users
           </p>
         </div>
       </div>

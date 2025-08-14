@@ -150,7 +150,7 @@ export default function Dashboard() {
         <WidgetCard className="cursor-pointer hover:scale-105 transition-transform" onClick={() => router.push("/analytics")}>
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <h3 className="heading-sm">Monthly Spend Trend</h3>
+              <h3 className="heading-sm">Usage Analytics</h3>
               <TrendingUp className="h-5 w-5 text-success" />
             </div>
             

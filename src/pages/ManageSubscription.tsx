@@ -49,12 +49,8 @@ export default function ManageSubscription() {
       setIsLoading(false);
       
       if (action === "guided_cancel") {
-        // Simulate deep link to Netflix app/website
-        window.open("https://netflix.com/cancelplan", "_blank");
-        // After user returns, they would see confirmation screen
-        setTimeout(() => {
-          router.push("/action-confirmation");
-        }, 2000);
+        // Navigate to instruction page
+        router.push(`/cancellation-instructions/${id}`);
       } else {
         // For pause/cancel, go directly to confirmation
         router.push("/action-confirmation");

@@ -8,16 +8,6 @@ import { useRouter } from "@/hooks/useRouter";
 import { WidgetCard } from "@/components/ui/widget-card";
 import { Check } from "lucide-react";
 
-const categories = [
-  { id: "ott", label: "OTT Platforms", icon: "🎬" },
-  { id: "fitness", label: "Fitness & Health", icon: "💪" },
-  { id: "cloud", label: "Cloud Storage", icon: "☁️" },
-  { id: "edtech", label: "Education", icon: "📚" },
-  { id: "gaming", label: "Gaming", icon: "🎮" },
-  { id: "music", label: "Music", icon: "🎵" },
-  { id: "productivity", label: "Productivity", icon: "⚡" },
-  { id: "news", label: "News & Media", icon: "📰" }
-];
 
 
 export default function ProfileSetup() {
@@ -25,19 +15,10 @@ export default function ProfileSetup() {
   const [formData, setFormData] = useState({
     name: "John Doe", // Pre-filled from signup
     age: "",
-    city: "",
-    categories: [] as string[]
+    city: ""
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const toggleCategory = (categoryId: string) => {
-    setFormData(prev => ({
-      ...prev,
-      categories: prev.categories.includes(categoryId)
-        ? prev.categories.filter(id => id !== categoryId)
-        : [...prev.categories, categoryId]
-    }));
-  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -117,38 +98,6 @@ export default function ProfileSetup() {
 
             </div>
 
-            {/* Categories */}
-            <div className="space-y-4">
-              <div>
-                <Label>Subscription Categories of Interest</Label>
-                <p className="text-sm text-muted-foreground">
-                  Select categories you're interested in (optional)
-                </p>
-              </div>
-
-              <div className="grid grid-cols-2 gap-3">
-                {categories.map((category) => (
-                  <button
-                    key={category.id}
-                    type="button"
-                    onClick={() => toggleCategory(category.id)}
-                    className={`
-                      relative p-4 rounded-lg border-2 transition-all text-left
-                      ${formData.categories.includes(category.id)
-                        ? "border-primary bg-primary/5"
-                        : "border-border hover:border-primary/50"
-                      }
-                    `}
-                  >
-                    {formData.categories.includes(category.id) && (
-                      <Check className="absolute top-2 right-2 h-4 w-4 text-primary" />
-                    )}
-                    <div className="text-lg mb-1">{category.icon}</div>
-                    <p className="text-sm font-medium">{category.label}</p>
-                  </button>
-                ))}
-              </div>
-            </div>
 
             <Button type="submit" className="w-full" variant="primary" size="lg">
               Save & Continue

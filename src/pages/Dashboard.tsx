@@ -137,7 +137,7 @@ export default function Dashboard() {
             <div className="bg-white/10 rounded-lg p-3 space-y-2">
               <div className="flex items-center justify-between text-sm">
                 <span className="opacity-90">Inactive Subscriptions:</span>
-                <span className="font-medium">{inactiveCount} subs</span>
+                <span className="font-medium">{inactiveCount}</span>
               </div>
               
               

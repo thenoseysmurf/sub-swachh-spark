@@ -4,9 +4,10 @@ interface WidgetCardProps {
   children: React.ReactNode;
   className?: string;
   variant?: "default" | "gradient" | "savings";
+  onClick?: () => void;
 }
 
-export function WidgetCard({ children, className, variant = "default" }: WidgetCardProps) {
+export function WidgetCard({ children, className, variant = "default", onClick }: WidgetCardProps) {
   return (
     <div
       className={cn(
@@ -18,6 +19,7 @@ export function WidgetCard({ children, className, variant = "default" }: WidgetC
         },
         className
       )}
+      onClick={onClick}
     >
       {children}
     </div>

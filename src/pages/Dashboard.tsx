@@ -90,7 +90,11 @@ export default function Dashboard() {
             </div>
           </WidgetCard>
 
-          <WidgetCard variant="savings" className="text-center">
+          <WidgetCard 
+            variant="savings" 
+            className="text-center cursor-pointer hover:scale-105 transition-transform"
+            onClick={() => router.push("/dead-spend-detector")}
+          >
             <div className="space-y-1">
               <p className="text-sm opacity-90">Dead Spend</p>
               <p className="text-2xl font-bold">₹{deadSpend.toLocaleString()}</p>

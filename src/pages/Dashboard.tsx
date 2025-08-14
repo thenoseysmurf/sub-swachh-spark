@@ -120,7 +120,10 @@ export default function Dashboard() {
         </div>
 
         {/* Spend Chart Placeholder */}
-        <WidgetCard className="text-center py-8">
+        <WidgetCard 
+          className="text-center py-8 cursor-pointer hover:scale-105 transition-transform"
+          onClick={() => router.push("/analytics")}
+        >
           <TrendingUp className="h-12 w-12 mx-auto text-success mb-4" />
           <h3 className="heading-sm mb-2">Monthly Spend Trend</h3>
           <p className="body-sm text-muted-foreground">

@@ -70,7 +70,7 @@ export default function Login() {
                   : "text-muted-foreground"
               }`}
             >
-              Password
+              4 digit PIN/FACE ID
             </button>
             <button
               type="button"

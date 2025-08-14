@@ -19,14 +19,6 @@ const categories = [
   { id: "news", label: "News & Media", icon: "📰" }
 ];
 
-const languages = [
-  { value: "en", label: "English" },
-  { value: "hi", label: "हिंदी" },
-  { value: "bn", label: "বাংলা" },
-  { value: "te", label: "తెలుగు" },
-  { value: "ta", label: "தமிழ்" },
-  { value: "mr", label: "मराठी" }
-];
 
 export default function ProfileSetup() {
   const router = useRouter();
@@ -34,8 +26,7 @@ export default function ProfileSetup() {
     name: "John Doe", // Pre-filled from signup
     age: "",
     city: "",
-    categories: [] as string[],
-    language: ""
+    categories: [] as string[]
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -54,7 +45,6 @@ export default function ProfileSetup() {
     const newErrors: Record<string, string> = {};
     if (!formData.age) newErrors.age = "Age is required";
     if (!formData.city) newErrors.city = "City is required";
-    if (!formData.language) newErrors.language = "Language preference is required";
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -125,25 +115,6 @@ export default function ProfileSetup() {
                 </div>
               </div>
 
-              <div className="space-y-2">
-                <Label>Language Preference</Label>
-                <Select 
-                  value={formData.language} 
-                  onValueChange={(value) => setFormData(prev => ({ ...prev, language: value }))}
-                >
-                  <SelectTrigger className={errors.language ? "border-destructive" : ""}>
-                    <SelectValue placeholder="Select your preferred language" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {languages.map((lang) => (
-                      <SelectItem key={lang.value} value={lang.value}>
-                        {lang.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                {errors.language && <p className="text-sm text-destructive">{errors.language}</p>}
-              </div>
             </div>
 
             {/* Categories */}

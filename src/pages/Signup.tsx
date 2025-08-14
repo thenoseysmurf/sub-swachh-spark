@@ -6,7 +6,6 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useRouter } from "@/hooks/useRouter";
 import { WidgetCard } from "@/components/ui/widget-card";
-
 export default function Signup() {
   const router = useRouter();
   const [formData, setFormData] = useState({
@@ -18,10 +17,9 @@ export default function Signup() {
     acceptPrivacy: false
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Basic validation
     const newErrors: Record<string, string> = {};
     if (!formData.name) newErrors.name = "Name is required";
@@ -29,7 +27,6 @@ export default function Signup() {
     if (!formData.password) newErrors.password = "Password is required";
     if (!formData.acceptTerms) newErrors.terms = "Please accept Terms & Conditions";
     if (!formData.acceptPrivacy) newErrors.privacy = "Please accept Privacy Policy";
-
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
@@ -37,16 +34,16 @@ export default function Signup() {
 
     // Simulate API call - check for duplicate
     if (formData.mobile === "9999999999") {
-      setErrors({ mobile: "This mobile number is already registered" });
+      setErrors({
+        mobile: "This mobile number is already registered"
+      });
       return;
     }
 
     // Success - go to mobile verification
     router.push("/verify-mobile");
   };
-
-  return (
-    <MobileLayout showBackButton={false}>
+  return <MobileLayout showBackButton={false}>
       <div className="px-4 py-8 space-y-6">
         {/* Header */}
         <div className="text-center space-y-2">
@@ -62,83 +59,50 @@ export default function Signup() {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="name">Full Name</Label>
-              <Input
-                id="name"
-                placeholder="Enter your full name"
-                value={formData.name}
-                onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                className={errors.name ? "border-destructive" : ""}
-              />
-              {errors.name && <p className="text-sm text-destructive">{errors.name}</p>}
-            </div>
+            
 
             <div className="space-y-2">
               <Label htmlFor="mobile">Mobile Number</Label>
-              <Input
-                id="mobile"
-                type="tel"
-                placeholder="Enter 10-digit mobile number"
-                value={formData.mobile}
-                onChange={(e) => setFormData(prev => ({ ...prev, mobile: e.target.value }))}
-                className={errors.mobile ? "border-destructive" : ""}
-                maxLength={10}
-              />
+              <Input id="mobile" type="tel" placeholder="Enter 10-digit mobile number" value={formData.mobile} onChange={e => setFormData(prev => ({
+              ...prev,
+              mobile: e.target.value
+            }))} className={errors.mobile ? "border-destructive" : ""} maxLength={10} />
               {errors.mobile && <p className="text-sm text-destructive">{errors.mobile}</p>}
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="email">Email (Optional)</Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="your@email.com"
-                value={formData.email}
-                onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-              />
+              <Label htmlFor="email">OTP</Label>
+              <Input id="email" type="email" placeholder="your@email.com" value={formData.email} onChange={e => setFormData(prev => ({
+              ...prev,
+              email: e.target.value
+            }))} />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
-              <Input
-                id="password"
-                type="password"
-                placeholder="Create a strong password"
-                value={formData.password}
-                onChange={(e) => setFormData(prev => ({ ...prev, password: e.target.value }))}
-                className={errors.password ? "border-destructive" : ""}
-              />
+              <Label htmlFor="password">Email ID</Label>
+              <Input id="password" type="password" placeholder="Create a strong password" value={formData.password} onChange={e => setFormData(prev => ({
+              ...prev,
+              password: e.target.value
+            }))} className={errors.password ? "border-destructive" : ""} />
               {errors.password && <p className="text-sm text-destructive">{errors.password}</p>}
             </div>
 
             {/* Checkboxes */}
             <div className="space-y-3">
               <div className="flex items-start space-x-2">
-                <Checkbox
-                  id="terms"
-                  checked={formData.acceptTerms}
-                  onCheckedChange={(checked) => 
-                    setFormData(prev => ({ ...prev, acceptTerms: !!checked }))
-                  }
-                />
-                <Label htmlFor="terms" className="text-sm leading-relaxed">
-                  I accept the{" "}
-                  <button type="button" className="text-primary underline">
-                    Terms & Conditions
-                  </button>
-                </Label>
+                <Checkbox id="terms" checked={formData.acceptTerms} onCheckedChange={checked => setFormData(prev => ({
+                ...prev,
+                acceptTerms: !!checked
+              }))} />
+                
               </div>
               {errors.terms && <p className="text-sm text-destructive">{errors.terms}</p>}
 
               <div className="flex items-start space-x-2">
-                <Checkbox
-                  id="privacy"
-                  checked={formData.acceptPrivacy}
-                  onCheckedChange={(checked) => 
-                    setFormData(prev => ({ ...prev, acceptPrivacy: !!checked }))
-                  }
-                />
+                <Checkbox id="privacy" checked={formData.acceptPrivacy} onCheckedChange={checked => setFormData(prev => ({
+                ...prev,
+                acceptPrivacy: !!checked
+              }))} />
                 <Label htmlFor="privacy" className="text-sm leading-relaxed">
                   I accept the{" "}
                   <button type="button" className="text-primary underline">
@@ -157,17 +121,12 @@ export default function Signup() {
           <div className="text-center">
             <p className="body-sm text-muted-foreground">
               Already have an account?{" "}
-              <button 
-                type="button"
-                onClick={() => router.push("/login")}
-                className="text-primary font-medium underline"
-              >
+              <button type="button" onClick={() => router.push("/login")} className="text-primary font-medium underline">
                 Sign In
               </button>
             </p>
           </div>
         </WidgetCard>
       </div>
-    </MobileLayout>
-  );
+    </MobileLayout>;
 }

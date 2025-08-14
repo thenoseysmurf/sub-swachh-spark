@@ -37,28 +37,28 @@ const mockSubscriptions = [{
   isDead: true,
   category: "Food"
 }];
-const filters = ["All", "Dead Spend", "Active", "Paused", "Due Soon"];
+const filters = ["Inactive", "Upcoming Renewals", "Active", "Paused"];
 export default function Dashboard() {
   const router = useRouter();
-  const [activeFilter, setActiveFilter] = useState("All");
+  const [activeFilter, setActiveFilter] = useState("Inactive");
   const totalSpend = mockSubscriptions.reduce((sum, sub) => sum + sub.amount * 12, 0);
   const deadSpend = mockSubscriptions.filter(sub => sub.isDead).reduce((sum, sub) => sum + sub.amount * 12, 0);
   const inactiveCount = mockSubscriptions.filter(sub => sub.isDead || sub.status === "paused").length;
   const filteredSubscriptions = mockSubscriptions.filter(sub => {
     switch (activeFilter) {
-      case "Dead Spend":
-        return sub.isDead;
-      case "Active":
-        return sub.status === "active" && !sub.isDead;
-      case "Paused":
-        return sub.status === "paused";
-      case "Due Soon":
+      case "Inactive":
+        return sub.isDead || sub.status === "paused";
+      case "Upcoming Renewals":
         {
           const renewal = new Date(sub.nextRenewal);
           const now = new Date();
           const diffDays = Math.ceil((renewal.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
           return diffDays <= 15;
         }
+      case "Active":
+        return sub.status === "active" && !sub.isDead;
+      case "Paused":
+        return sub.status === "paused";
       default:
         return true;
     }

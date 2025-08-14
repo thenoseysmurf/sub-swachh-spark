@@ -164,7 +164,7 @@ export default function ManageSubscription() {
           >
             <ExternalLink className="h-5 w-5 mr-3" />
             Guided Cancellation
-            <span className="ml-auto text-sm">Via Netflix app</span>
+            <span className="ml-auto text-sm">Step-by-step instructions</span>
           </Button>
 
           <Button 

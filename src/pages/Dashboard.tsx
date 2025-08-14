@@ -38,22 +38,43 @@ const mockSubscriptions = [{
   isDead: true,
   category: "Food"
 }];
-
-const monthlySpendData = [
-  { month: "Jan", amount: 2800 },
-  { month: "Feb", amount: 3200 },
-  { month: "Mar", amount: 2950 },
-  { month: "Apr", amount: 3100 },
-  { month: "May", amount: 2750 },
-  { month: "Jun", amount: 2900 },
-  { month: "Jul", amount: 3050 },
-  { month: "Aug", amount: 2800 },
-  { month: "Sep", amount: 2650 },
-  { month: "Oct", amount: 2900 },
-  { month: "Nov", amount: 3150 },
-  { month: "Dec", amount: 2800 }
-];
-
+const monthlySpendData = [{
+  month: "Jan",
+  amount: 2800
+}, {
+  month: "Feb",
+  amount: 3200
+}, {
+  month: "Mar",
+  amount: 2950
+}, {
+  month: "Apr",
+  amount: 3100
+}, {
+  month: "May",
+  amount: 2750
+}, {
+  month: "Jun",
+  amount: 2900
+}, {
+  month: "Jul",
+  amount: 3050
+}, {
+  month: "Aug",
+  amount: 2800
+}, {
+  month: "Sep",
+  amount: 2650
+}, {
+  month: "Oct",
+  amount: 2900
+}, {
+  month: "Nov",
+  amount: 3150
+}, {
+  month: "Dec",
+  amount: 2800
+}];
 const filters = ["Inactive", "Upcoming Renewals", "Active", "Paused"];
 export default function Dashboard() {
   const router = useRouter();
@@ -107,11 +128,7 @@ export default function Dashboard() {
             </div>
           </WidgetCard>
 
-          <WidgetCard 
-            variant="savings" 
-            className="cursor-pointer hover:scale-105 transition-transform space-y-3"
-            onClick={() => router.push("/dead-spend-detector")}
-          >
+          <WidgetCard variant="savings" className="cursor-pointer hover:scale-105 transition-transform space-y-3" onClick={() => router.push("/dead-spend-detector")}>
             <div className="text-center space-y-1">
               <p className="text-sm opacity-90">Dead Spend</p>
               <p className="text-2xl font-bold">₹{deadSpend.toLocaleString()}</p>
@@ -122,23 +139,15 @@ export default function Dashboard() {
                 <span className="opacity-90">Inactive Subscriptions:</span>
                 <span className="font-medium">{inactiveCount} subs</span>
               </div>
-              <div className="flex items-center justify-between text-sm">
-                <span className="opacity-90">Monthly Waste:</span>
-                <span className="font-medium">₹{mockSubscriptions.filter(sub => sub.isDead || sub.status === "paused").reduce((sum, sub) => sum + sub.amount, 0).toLocaleString()}</span>
-              </div>
-              <div className="text-xs text-center pt-1 opacity-80">
-                💡 Tap to optimize and save money
-              </div>
+              
+              
             </div>
           </WidgetCard>
         </div>
 
 
         {/* Spend Chart */}
-        <WidgetCard 
-          className="cursor-pointer hover:scale-105 transition-transform"
-          onClick={() => router.push("/analytics")}
-        >
+        <WidgetCard className="cursor-pointer hover:scale-105 transition-transform" onClick={() => router.push("/analytics")}>
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="heading-sm">Monthly Spend Trend</h3>
@@ -147,22 +156,22 @@ export default function Dashboard() {
             
             <div className="h-40">
               <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={monthlySpendData} margin={{ top: 5, right: 5, left: 5, bottom: 5 }}>
-                  <XAxis 
-                    dataKey="month" 
-                    axisLine={false}
-                    tickLine={false}
-                    tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }}
-                    interval={0}
-                  />
+                <LineChart data={monthlySpendData} margin={{
+                top: 5,
+                right: 5,
+                left: 5,
+                bottom: 5
+              }}>
+                  <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{
+                  fontSize: 10,
+                  fill: 'hsl(var(--muted-foreground))'
+                }} interval={0} />
                   <YAxis hide />
-                  <Line 
-                    type="monotone"
-                    dataKey="amount" 
-                    stroke="hsl(var(--primary))"
-                    strokeWidth={2}
-                    dot={{ fill: 'hsl(var(--primary))', strokeWidth: 2, r: 2 }}
-                  />
+                  <Line type="monotone" dataKey="amount" stroke="hsl(var(--primary))" strokeWidth={2} dot={{
+                  fill: 'hsl(var(--primary))',
+                  strokeWidth: 2,
+                  r: 2
+                }} />
                 </LineChart>
               </ResponsiveContainer>
             </div>

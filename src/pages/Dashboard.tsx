@@ -75,15 +75,17 @@ const monthlySpendData = [{
   month: "Dec",
   amount: 2800
 }];
-const filters = ["Inactive", "Upcoming Renewals", "Active", "Paused"];
+const filters = ["All", "Inactive", "Upcoming Renewals", "Active", "Paused"];
 export default function Dashboard() {
   const router = useRouter();
-  const [activeFilter, setActiveFilter] = useState("Inactive");
+  const [activeFilter, setActiveFilter] = useState("All");
   const totalSpend = mockSubscriptions.reduce((sum, sub) => sum + sub.amount * 12, 0);
   const deadSpend = mockSubscriptions.filter(sub => sub.isDead).reduce((sum, sub) => sum + sub.amount * 12, 0);
   const inactiveCount = mockSubscriptions.filter(sub => sub.isDead || sub.status === "paused").length;
   const filteredSubscriptions = mockSubscriptions.filter(sub => {
     switch (activeFilter) {
+      case "All":
+        return true;
       case "Inactive":
         return sub.isDead || sub.status === "paused";
       case "Upcoming Renewals":

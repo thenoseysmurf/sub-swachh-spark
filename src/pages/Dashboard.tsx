@@ -127,7 +127,7 @@ export default function Dashboard() {
         {/* Filters */}
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h3 className="heading-sm">Your Subscriptions</h3>
+            <h3 className="heading-sm">Subscriptions</h3>
             
           </div>
 

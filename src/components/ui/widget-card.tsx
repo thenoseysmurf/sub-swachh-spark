@@ -11,7 +11,7 @@ export function WidgetCard({ children, className, variant = "default", onClick }
   return (
     <div
       className={cn(
-        "rounded-xl p-4 shadow-card animate-fade-in",
+        "rounded-xl p-3 shadow-card animate-fade-in",
         {
           "bg-gradient-card border border-border/50": variant === "default",
           "bg-gradient-primary text-white": variant === "gradient", 

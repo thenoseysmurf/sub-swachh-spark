@@ -121,26 +121,24 @@ export default function Dashboard() {
 
         {/* Key Metrics */}
         <div className="grid grid-cols-2 gap-4">
-          <WidgetCard variant="gradient" className="text-center">
+          <WidgetCard variant="gradient" className="text-center py-2">
             <div className="space-y-1">
-              <p className="text-sm opacity-90">Annual Spend</p>
-              <p className="text-2xl font-bold">₹{totalSpend.toLocaleString()}</p>
+              <p className="text-xs opacity-90">Annual Spend</p>
+              <p className="text-xl font-bold">₹{totalSpend.toLocaleString()}</p>
             </div>
           </WidgetCard>
 
-          <WidgetCard variant="savings" className="cursor-pointer hover:scale-105 transition-transform space-y-3" onClick={() => router.push("/dead-spend-detector")}>
+          <WidgetCard variant="savings" className="cursor-pointer hover:scale-105 transition-transform space-y-2 py-2" onClick={() => router.push("/dead-spend-detector")}>
             <div className="text-center space-y-1">
-              <p className="text-sm opacity-90">Dead Spend</p>
-              <p className="text-2xl font-bold">₹{deadSpend.toLocaleString()}</p>
+              <p className="text-xs opacity-90">Dead Spend</p>
+              <p className="text-xl font-bold">₹{deadSpend.toLocaleString()}</p>
             </div>
             
-            <div className="bg-white/10 rounded-lg p-3 space-y-2">
-              <div className="flex items-center justify-between text-sm">
+            <div className="bg-white/10 rounded-lg p-2">
+              <div className="flex items-center justify-between text-xs">
                 <span className="opacity-90">Inactive Subscriptions:</span>
                 <span className="font-medium">{inactiveCount}</span>
               </div>
-              
-              
             </div>
           </WidgetCard>
         </div>

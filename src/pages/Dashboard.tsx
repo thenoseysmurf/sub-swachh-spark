@@ -120,18 +120,11 @@ export default function Dashboard() {
         </div>
 
         {/* Secondary Metrics */}
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4">
           <WidgetCard className="text-center">
             <div className="space-y-1">
               <p className="text-sm text-muted-foreground">Inactive</p>
               <p className="text-xl font-semibold text-destructive">{inactiveCount} subs</p>
-            </div>
-          </WidgetCard>
-
-          <WidgetCard className="text-center">
-            <div className="space-y-1">
-              <p className="text-sm text-muted-foreground">Monthly Avg</p>
-              <p className="text-xl font-semibold">₹{Math.round(totalSpend / 12).toLocaleString()}</p>
             </div>
           </WidgetCard>
         </div>

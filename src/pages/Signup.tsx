@@ -8,7 +8,6 @@ import { useRouter } from "@/hooks/useRouter";
 import { WidgetCard } from "@/components/ui/widget-card";
 export default function Signup() {
   const router = useRouter();
-  const [step, setStep] = useState<'mobile' | 'otp' | 'email' | 'complete'>('mobile');
   const [formData, setFormData] = useState({
     mobile: "",
     otp: "",
@@ -16,6 +15,9 @@ export default function Signup() {
     syncUpiCards: false
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [otpSent, setOtpSent] = useState(false);
+  const [otpVerified, setOtpVerified] = useState(false);
+
   const handleSendOTP = (e: React.FormEvent) => {
     e.preventDefault();
     const newErrors: Record<string, string> = {};
@@ -27,7 +29,7 @@ export default function Signup() {
       return;
     }
     setErrors({});
-    setStep('otp');
+    setOtpSent(true);
   };
 
   const handleVerifyOTP = (e: React.FormEvent) => {
@@ -41,7 +43,7 @@ export default function Signup() {
       return;
     }
     setErrors({});
-    setStep('email');
+    setOtpVerified(true);
   };
 
   const handleOnboard = (e: React.FormEvent) => {
@@ -57,7 +59,9 @@ export default function Signup() {
     setErrors({});
     router.push("/dashboard");
   };
-  return <MobileLayout showBackButton={false}>
+
+  return (
+    <MobileLayout showBackButton={false}>
       <div className="px-4 py-8 space-y-6">
         {/* Header */}
         <div className="text-center space-y-2">
@@ -72,33 +76,40 @@ export default function Signup() {
             <p className="body-sm text-muted-foreground mt-1">Join thousands saving money monthly</p>
           </div>
 
-          {step === 'mobile' && (
-            <form onSubmit={handleSendOTP} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="mobile">Mobile Number</Label>
-                <Input 
-                  id="mobile" 
-                  type="tel" 
-                  placeholder="Enter 10-digit mobile number" 
-                  value={formData.mobile} 
-                  onChange={e => setFormData(prev => ({
-                    ...prev,
-                    mobile: e.target.value
-                  }))} 
-                  className={errors.mobile ? "border-destructive" : ""} 
-                  maxLength={10} 
-                />
-                {errors.mobile && <p className="text-sm text-destructive">{errors.mobile}</p>}
-              </div>
+          {/* Mobile Number Section */}
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="mobile">Mobile Number</Label>
+              <Input 
+                id="mobile" 
+                type="tel" 
+                placeholder="Enter 10-digit mobile number" 
+                value={formData.mobile} 
+                onChange={e => setFormData(prev => ({
+                  ...prev,
+                  mobile: e.target.value
+                }))} 
+                className={errors.mobile ? "border-destructive" : ""} 
+                maxLength={10}
+                disabled={otpSent}
+              />
+              {errors.mobile && <p className="text-sm text-destructive">{errors.mobile}</p>}
+            </div>
 
-              <Button type="submit" className="w-full" variant="primary" size="lg">
-                Send OTP
-              </Button>
-            </form>
-          )}
+            <Button 
+              onClick={handleSendOTP} 
+              className="w-full" 
+              variant="primary" 
+              size="lg"
+              disabled={otpSent || !formData.mobile}
+            >
+              {otpSent ? "OTP Sent ✓" : "Send OTP"}
+            </Button>
+          </div>
 
-          {step === 'otp' && (
-            <form onSubmit={handleVerifyOTP} className="space-y-4">
+          {/* OTP Section */}
+          {otpSent && (
+            <div className="space-y-4 border-t pt-4">
               <div className="space-y-2">
                 <Label htmlFor="otp">Enter OTP</Label>
                 <Input 
@@ -111,19 +122,27 @@ export default function Signup() {
                     otp: e.target.value
                   }))} 
                   className={errors.otp ? "border-destructive" : ""} 
-                  maxLength={6} 
+                  maxLength={6}
+                  disabled={otpVerified}
                 />
                 {errors.otp && <p className="text-sm text-destructive">{errors.otp}</p>}
               </div>
 
-              <Button type="submit" className="w-full" variant="primary" size="lg">
-                Submit
+              <Button 
+                onClick={handleVerifyOTP} 
+                className="w-full" 
+                variant="primary" 
+                size="lg"
+                disabled={otpVerified || !formData.otp}
+              >
+                {otpVerified ? "Verification Done ✓" : "Submit"}
               </Button>
-            </form>
+            </div>
           )}
 
-          {step === 'email' && (
-            <form onSubmit={handleOnboard} className="space-y-4">
+          {/* Email Section */}
+          {otpVerified && (
+            <div className="space-y-4 border-t pt-4">
               <div className="space-y-2">
                 <Label htmlFor="email">Email ID</Label>
                 <Input 
@@ -156,10 +175,16 @@ export default function Signup() {
                 </div>
               </div>
 
-              <Button type="submit" className="w-full" variant="primary" size="lg">
+              <Button 
+                onClick={handleOnboard} 
+                className="w-full" 
+                variant="primary" 
+                size="lg"
+                disabled={!formData.email}
+              >
                 Onboard me
               </Button>
-            </form>
+            </div>
           )}
 
           <div className="text-center">
@@ -172,5 +197,6 @@ export default function Signup() {
           </div>
         </WidgetCard>
       </div>
-    </MobileLayout>;
+    </MobileLayout>
+  );
 }

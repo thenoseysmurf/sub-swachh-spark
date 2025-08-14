@@ -140,14 +140,15 @@ export default function Dashboard() {
               <TrendingUp className="h-5 w-5 text-success" />
             </div>
             
-            <div className="h-32">
+            <div className="h-40">
               <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={monthlySpendData}>
+                <LineChart data={monthlySpendData} margin={{ top: 5, right: 5, left: 5, bottom: 5 }}>
                   <XAxis 
                     dataKey="month" 
                     axisLine={false}
                     tickLine={false}
-                    tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }}
+                    tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }}
+                    interval={0}
                   />
                   <YAxis hide />
                   <Line 
@@ -155,7 +156,7 @@ export default function Dashboard() {
                     dataKey="amount" 
                     stroke="hsl(var(--primary))"
                     strokeWidth={2}
-                    dot={{ fill: 'hsl(var(--primary))', strokeWidth: 2, r: 3 }}
+                    dot={{ fill: 'hsl(var(--primary))', strokeWidth: 2, r: 2 }}
                   />
                 </LineChart>
               </ResponsiveContainer>

@@ -123,8 +123,8 @@ export default function Dashboard() {
 
         {/* Key Metrics */}
         <div className="grid grid-cols-2 gap-4">
-          <WidgetCard variant="gradient" className="text-center py-2">
-            <div className="space-y-1">
+          <WidgetCard variant="gradient" className="flex items-center justify-center py-2">
+            <div className="text-center space-y-1">
               <p className="text-xs opacity-90">Annual Spend</p>
               <p className="text-xl font-bold">₹{totalSpend.toLocaleString()}</p>
             </div>

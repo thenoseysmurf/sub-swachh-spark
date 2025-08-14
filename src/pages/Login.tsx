@@ -5,15 +5,29 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useRouter } from "@/hooks/useRouter";
 import { WidgetCard } from "@/components/ui/widget-card";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 
 export default function Login() {
   const router = useRouter();
   const [formData, setFormData] = useState({
     identifier: "",
-    password: ""
+    password: "",
+    pin: ""
   });
   const [loginType, setLoginType] = useState<"password" | "otp">("password");
   const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const handleKeypadPress = (value: string) => {
+    if (value === "delete") {
+      setFormData(prev => ({ ...prev, pin: prev.pin.slice(0, -1) }));
+    } else if (value === "submit") {
+      if (formData.pin.length === 4) {
+        handleSubmit(new Event("submit") as any);
+      }
+    } else if (formData.pin.length < 4) {
+      setFormData(prev => ({ ...prev, pin: prev.pin + value }));
+    }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -99,21 +113,73 @@ export default function Login() {
             </div>
 
             {loginType === "password" && (
-              <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
-                <Input
-                  id="password"
-                  type="password"
-                  placeholder="Enter your password"
-                  value={formData.password}
-                  onChange={(e) => setFormData(prev => ({ ...prev, password: e.target.value }))}
-                  className={errors.password ? "border-destructive" : ""}
-                />
-                {errors.password && <p className="text-sm text-destructive">{errors.password}</p>}
+              <div className="space-y-6">
+                <div className="text-center space-y-4">
+                  <p className="body-lg text-foreground">Hi, {formData.identifier || "User"}</p>
+                  <p className="body-sm text-muted-foreground">Enter your PIN</p>
+                  
+                  {/* PIN Input */}
+                  <div className="flex justify-center">
+                    <InputOTP 
+                      maxLength={4} 
+                      value={formData.pin}
+                      onChange={(value) => setFormData(prev => ({ ...prev, pin: value }))}
+                    >
+                      <InputOTPGroup>
+                        <InputOTPSlot index={0} className="w-12 h-12 border-2 rounded-lg bg-background/50" />
+                        <InputOTPSlot index={1} className="w-12 h-12 border-2 rounded-lg bg-background/50 ml-2" />
+                        <InputOTPSlot index={2} className="w-12 h-12 border-2 rounded-lg bg-background/50 ml-2" />
+                        <InputOTPSlot index={3} className="w-12 h-12 border-2 rounded-lg bg-background/50 ml-2" />
+                      </InputOTPGroup>
+                    </InputOTP>
+                  </div>
+                </div>
+
+                {/* Numeric Keypad */}
+                <div className="grid grid-cols-3 gap-4 max-w-xs mx-auto">
+                  {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
+                    <button
+                      key={num}
+                      type="button"
+                      onClick={() => handleKeypadPress(num.toString())}
+                      className="h-14 w-14 rounded-full bg-background/10 hover:bg-background/20 text-xl font-medium text-foreground transition-colors mx-auto"
+                    >
+                      {num}
+                    </button>
+                  ))}
+                  
+                  {/* Bottom row */}
+                  <button
+                    type="button"
+                    onClick={() => handleKeypadPress("delete")}
+                    className="h-14 w-14 rounded-full bg-background/10 hover:bg-background/20 text-foreground transition-colors mx-auto flex items-center justify-center"
+                  >
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M3 12l6.414 6.414a2 2 0 001.414.586H19a2 2 0 002-2V7a2 2 0 00-2-2h-8.172a2 2 0 00-1.414.586L3 12z" />
+                    </svg>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleKeypadPress("0")}
+                    className="h-14 w-14 rounded-full bg-background/10 hover:bg-background/20 text-xl font-medium text-foreground transition-colors mx-auto"
+                  >
+                    0
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleKeypadPress("submit")}
+                    className="h-14 w-14 rounded-full bg-primary hover:bg-primary/90 text-primary-foreground transition-colors mx-auto flex items-center justify-center"
+                    disabled={formData.pin.length !== 4}
+                  >
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </button>
+                </div>
                 
-                <div className="text-right">
+                <div className="text-center">
                   <button type="button" className="text-sm text-primary underline">
-                    Forgot Password?
+                    Forgot PIN?
                   </button>
                 </div>
               </div>

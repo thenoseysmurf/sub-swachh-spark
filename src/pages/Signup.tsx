@@ -8,40 +8,54 @@ import { useRouter } from "@/hooks/useRouter";
 import { WidgetCard } from "@/components/ui/widget-card";
 export default function Signup() {
   const router = useRouter();
+  const [step, setStep] = useState<'mobile' | 'otp' | 'email' | 'complete'>('mobile');
   const [formData, setFormData] = useState({
-    name: "",
     mobile: "",
+    otp: "",
     email: "",
-    password: "",
-    acceptTerms: false,
-    acceptPrivacy: false
+    syncUpiCards: false
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSendOTP = (e: React.FormEvent) => {
     e.preventDefault();
-
-    // Basic validation
     const newErrors: Record<string, string> = {};
-    if (!formData.name) newErrors.name = "Name is required";
-    if (!formData.mobile) newErrors.mobile = "Mobile number is required";
-    if (!formData.password) newErrors.password = "Password is required";
-    if (!formData.acceptTerms) newErrors.terms = "Please accept Terms & Conditions";
-    if (!formData.acceptPrivacy) newErrors.privacy = "Please accept Privacy Policy";
+    if (!formData.mobile || formData.mobile.length !== 10) {
+      newErrors.mobile = "Please enter a valid 10-digit mobile number";
+    }
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
+    setErrors({});
+    setStep('otp');
+  };
 
-    // Simulate API call - check for duplicate
-    if (formData.mobile === "9999999999") {
-      setErrors({
-        mobile: "This mobile number is already registered"
-      });
+  const handleVerifyOTP = (e: React.FormEvent) => {
+    e.preventDefault();
+    const newErrors: Record<string, string> = {};
+    if (!formData.otp || formData.otp.length !== 6) {
+      newErrors.otp = "Please enter a valid 6-digit OTP";
+    }
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
       return;
     }
+    setErrors({});
+    setStep('email');
+  };
 
-    // Success - go to mobile verification
-    router.push("/verify-mobile");
+  const handleOnboard = (e: React.FormEvent) => {
+    e.preventDefault();
+    const newErrors: Record<string, string> = {};
+    if (!formData.email) {
+      newErrors.email = "Email is required";
+    }
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+    setErrors({});
+    router.push("/dashboard");
   };
   return <MobileLayout showBackButton={false}>
       <div className="px-4 py-8 space-y-6">
@@ -58,65 +72,95 @@ export default function Signup() {
             <p className="body-sm text-muted-foreground mt-1">Join thousands saving money monthly</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
-            
-
-            <div className="space-y-2">
-              <Label htmlFor="mobile">Mobile Number</Label>
-              <Input id="mobile" type="tel" placeholder="Enter 10-digit mobile number" value={formData.mobile} onChange={e => setFormData(prev => ({
-              ...prev,
-              mobile: e.target.value
-            }))} className={errors.mobile ? "border-destructive" : ""} maxLength={10} />
-              {errors.mobile && <p className="text-sm text-destructive">{errors.mobile}</p>}
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="email">OTP</Label>
-              <Input id="email" type="email" placeholder="your@email.com" value={formData.email} onChange={e => setFormData(prev => ({
-              ...prev,
-              email: e.target.value
-            }))} />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="password">Email ID</Label>
-              <Input id="password" type="password" placeholder="Create a strong password" value={formData.password} onChange={e => setFormData(prev => ({
-              ...prev,
-              password: e.target.value
-            }))} className={errors.password ? "border-destructive" : ""} />
-              {errors.password && <p className="text-sm text-destructive">{errors.password}</p>}
-            </div>
-
-            {/* Checkboxes */}
-            <div className="space-y-3">
-              <div className="flex items-start space-x-2">
-                <Checkbox id="terms" checked={formData.acceptTerms} onCheckedChange={checked => setFormData(prev => ({
-                ...prev,
-                acceptTerms: !!checked
-              }))} />
-                
+          {step === 'mobile' && (
+            <form onSubmit={handleSendOTP} className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="mobile">Mobile Number</Label>
+                <Input 
+                  id="mobile" 
+                  type="tel" 
+                  placeholder="Enter 10-digit mobile number" 
+                  value={formData.mobile} 
+                  onChange={e => setFormData(prev => ({
+                    ...prev,
+                    mobile: e.target.value
+                  }))} 
+                  className={errors.mobile ? "border-destructive" : ""} 
+                  maxLength={10} 
+                />
+                {errors.mobile && <p className="text-sm text-destructive">{errors.mobile}</p>}
               </div>
-              {errors.terms && <p className="text-sm text-destructive">{errors.terms}</p>}
 
-              <div className="flex items-start space-x-2">
-                <Checkbox id="privacy" checked={formData.acceptPrivacy} onCheckedChange={checked => setFormData(prev => ({
-                ...prev,
-                acceptPrivacy: !!checked
-              }))} />
-                <Label htmlFor="privacy" className="text-sm leading-relaxed">
-                  I accept the{" "}
-                  <button type="button" className="text-primary underline">
-                    Privacy Policy
-                  </button>
-                </Label>
+              <Button type="submit" className="w-full" variant="primary" size="lg">
+                Send OTP
+              </Button>
+            </form>
+          )}
+
+          {step === 'otp' && (
+            <form onSubmit={handleVerifyOTP} className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="otp">Enter OTP</Label>
+                <Input 
+                  id="otp" 
+                  type="text" 
+                  placeholder="Enter 6-digit OTP" 
+                  value={formData.otp} 
+                  onChange={e => setFormData(prev => ({
+                    ...prev,
+                    otp: e.target.value
+                  }))} 
+                  className={errors.otp ? "border-destructive" : ""} 
+                  maxLength={6} 
+                />
+                {errors.otp && <p className="text-sm text-destructive">{errors.otp}</p>}
               </div>
-              {errors.privacy && <p className="text-sm text-destructive">{errors.privacy}</p>}
-            </div>
 
-            <Button type="submit" className="w-full" variant="primary" size="lg">
-              Create Account
-            </Button>
-          </form>
+              <Button type="submit" className="w-full" variant="primary" size="lg">
+                Submit
+              </Button>
+            </form>
+          )}
+
+          {step === 'email' && (
+            <form onSubmit={handleOnboard} className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="email">Email ID</Label>
+                <Input 
+                  id="email" 
+                  type="email" 
+                  placeholder="your@email.com" 
+                  value={formData.email} 
+                  onChange={e => setFormData(prev => ({
+                    ...prev,
+                    email: e.target.value
+                  }))} 
+                  className={errors.email ? "border-destructive" : ""} 
+                />
+                {errors.email && <p className="text-sm text-destructive">{errors.email}</p>}
+              </div>
+
+              <div className="space-y-3">
+                <div className="flex items-start space-x-2">
+                  <Checkbox 
+                    id="syncUpiCards" 
+                    checked={formData.syncUpiCards} 
+                    onCheckedChange={checked => setFormData(prev => ({
+                      ...prev,
+                      syncUpiCards: !!checked
+                    }))} 
+                  />
+                  <Label htmlFor="syncUpiCards" className="text-sm leading-relaxed">
+                    Sync my UPI ID & Cards to this account
+                  </Label>
+                </div>
+              </div>
+
+              <Button type="submit" className="w-full" variant="primary" size="lg">
+                Onboard me
+              </Button>
+            </form>
+          )}
 
           <div className="text-center">
             <p className="body-sm text-muted-foreground">

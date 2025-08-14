@@ -121,10 +121,24 @@ export default function Dashboard() {
 
         {/* Secondary Metrics */}
         <div className="grid grid-cols-1 gap-4">
-          <WidgetCard className="text-center">
-            <div className="space-y-1">
-              <p className="text-sm text-muted-foreground">Inactive</p>
+          <WidgetCard className="space-y-3">
+            <div className="text-center">
+              <p className="text-sm text-muted-foreground">Inactive Subscriptions</p>
               <p className="text-xl font-semibold text-destructive">{inactiveCount} subs</p>
+            </div>
+            
+            <div className="bg-muted/30 rounded-lg p-3 space-y-2">
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-muted-foreground">Potential Monthly Savings:</span>
+                <span className="font-medium text-success">₹{mockSubscriptions.filter(sub => sub.isDead || sub.status === "paused").reduce((sum, sub) => sum + sub.amount, 0).toLocaleString()}</span>
+              </div>
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-muted-foreground">Last Activity:</span>
+                <span className="text-destructive">45+ days ago</span>
+              </div>
+              <div className="text-xs text-muted-foreground text-center pt-1">
+                💡 Cancel or optimize these subscriptions to save money
+              </div>
             </div>
           </WidgetCard>
         </div>

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { WidgetCard } from "@/components/ui/widget-card";
 import { useRouter } from "@/hooks/useRouter";
 import { TrendingUp, TrendingDown, Calendar, Filter, Settings, BarChart3, AlertCircle, Play, Pause } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer } from "recharts";
 const mockSubscriptions = [{
   id: 1,
   name: "Netflix",
@@ -37,6 +38,22 @@ const mockSubscriptions = [{
   isDead: true,
   category: "Food"
 }];
+
+const monthlySpendData = [
+  { month: "Jan", amount: 2800 },
+  { month: "Feb", amount: 3200 },
+  { month: "Mar", amount: 2950 },
+  { month: "Apr", amount: 3100 },
+  { month: "May", amount: 2750 },
+  { month: "Jun", amount: 2900 },
+  { month: "Jul", amount: 3050 },
+  { month: "Aug", amount: 2800 },
+  { month: "Sep", amount: 2650 },
+  { month: "Oct", amount: 2900 },
+  { month: "Nov", amount: 3150 },
+  { month: "Dec", amount: 2800 }
+];
+
 const filters = ["Inactive", "Upcoming Renewals", "Active", "Paused"];
 export default function Dashboard() {
   const router = useRouter();
@@ -119,16 +136,40 @@ export default function Dashboard() {
           </WidgetCard>
         </div>
 
-        {/* Spend Chart Placeholder */}
+        {/* Spend Chart */}
         <WidgetCard 
-          className="text-center py-8 cursor-pointer hover:scale-105 transition-transform"
+          className="cursor-pointer hover:scale-105 transition-transform"
           onClick={() => router.push("/analytics")}
         >
-          <TrendingUp className="h-12 w-12 mx-auto text-success mb-4" />
-          <h3 className="heading-sm mb-2">Monthly Spend Trend</h3>
-          <p className="body-sm text-muted-foreground">
-            Last 6 months showing 15% reduction
-          </p>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <h3 className="heading-sm">Monthly Spend Trend</h3>
+              <TrendingUp className="h-5 w-5 text-success" />
+            </div>
+            
+            <div className="h-32">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={monthlySpendData}>
+                  <XAxis 
+                    dataKey="month" 
+                    axisLine={false}
+                    tickLine={false}
+                    tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }}
+                  />
+                  <YAxis hide />
+                  <Bar 
+                    dataKey="amount" 
+                    fill="hsl(var(--primary))"
+                    radius={[2, 2, 0, 0]}
+                  />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+            
+            <p className="body-sm text-muted-foreground text-center">
+              Average: ₹{Math.round(monthlySpendData.reduce((sum, month) => sum + month.amount, 0) / 12).toLocaleString()}/month
+            </p>
+          </div>
         </WidgetCard>
 
         {/* Filters */}

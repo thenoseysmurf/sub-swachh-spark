@@ -80,38 +80,39 @@ export default function Signup() {
           <div className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="mobile">Mobile Number</Label>
-              <Input 
-                id="mobile" 
-                type="tel" 
-                placeholder="Enter 10-digit mobile number" 
-                value={formData.mobile} 
-                onChange={e => setFormData(prev => ({
-                  ...prev,
-                  mobile: e.target.value
-                }))} 
-                className={errors.mobile ? "border-destructive" : ""} 
-                maxLength={10}
-                disabled={otpSent}
-              />
+              <div className="flex gap-2">
+                <Input 
+                  id="mobile" 
+                  type="tel" 
+                  placeholder="Enter 10-digit mobile number" 
+                  value={formData.mobile} 
+                  onChange={e => setFormData(prev => ({
+                    ...prev,
+                    mobile: e.target.value
+                  }))} 
+                  className={errors.mobile ? "border-destructive" : ""} 
+                  maxLength={10}
+                  disabled={otpSent}
+                />
+                <Button 
+                  onClick={handleSendOTP} 
+                  variant="primary" 
+                  size="sm"
+                  disabled={otpSent || !formData.mobile}
+                  className="whitespace-nowrap"
+                >
+                  {otpSent ? "OTP Sent ✓" : "Send OTP"}
+                </Button>
+              </div>
               {errors.mobile && <p className="text-sm text-destructive">{errors.mobile}</p>}
             </div>
-
-            <Button 
-              onClick={handleSendOTP} 
-              className="w-full" 
-              variant="primary" 
-              size="lg"
-              disabled={otpSent || !formData.mobile}
-            >
-              {otpSent ? "OTP Sent ✓" : "Send OTP"}
-            </Button>
           </div>
 
           {/* OTP Section */}
-          {otpSent && (
-            <div className="space-y-4 border-t pt-4">
-              <div className="space-y-2">
-                <Label htmlFor="otp">Enter OTP</Label>
+          <div className="space-y-4 border-t pt-4">
+            <div className="space-y-2">
+              <Label htmlFor="otp">Enter OTP</Label>
+              <div className="flex gap-2">
                 <Input 
                   id="otp" 
                   type="text" 
@@ -123,69 +124,68 @@ export default function Signup() {
                   }))} 
                   className={errors.otp ? "border-destructive" : ""} 
                   maxLength={6}
-                  disabled={otpVerified}
+                  disabled={otpVerified || !otpSent}
                 />
-                {errors.otp && <p className="text-sm text-destructive">{errors.otp}</p>}
+                <Button 
+                  onClick={handleVerifyOTP} 
+                  variant="primary" 
+                  size="sm"
+                  disabled={otpVerified || !formData.otp || !otpSent}
+                  className="whitespace-nowrap"
+                >
+                  {otpVerified ? "Verified ✓" : "Verify"}
+                </Button>
               </div>
-
-              <Button 
-                onClick={handleVerifyOTP} 
-                className="w-full" 
-                variant="primary" 
-                size="lg"
-                disabled={otpVerified || !formData.otp}
-              >
-                {otpVerified ? "Verification Done ✓" : "Submit"}
-              </Button>
+              {errors.otp && <p className="text-sm text-destructive">{errors.otp}</p>}
             </div>
-          )}
+          </div>
 
           {/* Email Section */}
-          {otpVerified && (
-            <div className="space-y-4 border-t pt-4">
-              <div className="space-y-2">
-                <Label htmlFor="email">Email ID</Label>
-                <Input 
-                  id="email" 
-                  type="email" 
-                  placeholder="your@email.com" 
-                  value={formData.email} 
-                  onChange={e => setFormData(prev => ({
-                    ...prev,
-                    email: e.target.value
-                  }))} 
-                  className={errors.email ? "border-destructive" : ""} 
-                />
-                {errors.email && <p className="text-sm text-destructive">{errors.email}</p>}
-              </div>
-
-              <div className="space-y-3">
-                <div className="flex items-start space-x-2">
-                  <Checkbox 
-                    id="syncUpiCards" 
-                    checked={formData.syncUpiCards} 
-                    onCheckedChange={checked => setFormData(prev => ({
-                      ...prev,
-                      syncUpiCards: !!checked
-                    }))} 
-                  />
-                  <Label htmlFor="syncUpiCards" className="text-sm leading-relaxed">
-                    Sync my UPI ID & Cards to this account
-                  </Label>
-                </div>
-              </div>
-
-              <Button 
-                onClick={handleOnboard} 
-                className="w-full" 
-                variant="primary" 
-                size="lg"
-                disabled={!formData.email}
-              >
-                Onboard me
-              </Button>
+          <div className="space-y-4 border-t pt-4">
+            <div className="space-y-2">
+              <Label htmlFor="email">Email ID</Label>
+              <Input 
+                id="email" 
+                type="email" 
+                placeholder="your@email.com" 
+                value={formData.email} 
+                onChange={e => setFormData(prev => ({
+                  ...prev,
+                  email: e.target.value
+                }))} 
+                className={errors.email ? "border-destructive" : ""} 
+                disabled={!otpVerified}
+              />
+              {errors.email && <p className="text-sm text-destructive">{errors.email}</p>}
             </div>
-          )}
+
+            <div className="space-y-3">
+              <div className="flex items-start space-x-2">
+                <Checkbox 
+                  id="syncUpiCards" 
+                  checked={formData.syncUpiCards} 
+                  onCheckedChange={checked => setFormData(prev => ({
+                    ...prev,
+                    syncUpiCards: !!checked
+                  }))} 
+                  disabled={!otpVerified}
+                />
+                <Label htmlFor="syncUpiCards" className="text-sm leading-relaxed">
+                  Sync my UPI ID & Cards to this account
+                </Label>
+              </div>
+            </div>
+
+            <Button 
+              onClick={handleOnboard} 
+              className="w-full" 
+              variant="primary" 
+              size="lg"
+              disabled={!formData.email || !otpVerified}
+            >
+              Onboard me
+            </Button>
+          </div>
 
           <div className="text-center">
             <p className="body-sm text-muted-foreground">

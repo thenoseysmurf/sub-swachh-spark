@@ -109,7 +109,7 @@ export default function Dashboard() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="heading-xl text-primary">Hi, John! 👋</h1>
-            <p className="body-sm text-muted-foreground">Your subscriptions at a glance — time to save!</p>
+            
           </div>
           <div className="flex space-x-2">
             <Button variant="ghost" size="icon" onClick={() => router.push("/analytics")}>

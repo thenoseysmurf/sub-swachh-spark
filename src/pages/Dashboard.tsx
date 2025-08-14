@@ -113,7 +113,7 @@ export default function Dashboard() {
           </div>
           <div className="flex space-x-2">
             <Button variant="ghost" size="icon" onClick={() => router.push("/analytics")}>
-              <BarChart3 className="h-5 w-5" />
+              
             </Button>
             <Button variant="ghost" size="icon" onClick={() => router.push("/configure-alerts")}>
               <Settings className="h-5 w-5" />
@@ -226,6 +226,13 @@ export default function Dashboard() {
             </WidgetCard>)}
         </div>
 
+        {/* Bottom Actions */}
+        <div className="pb-safe">
+          <Button variant="outline" className="w-full" onClick={() => router.push("/analytics")}>
+            <BarChart3 className="h-4 w-4 mr-2" />
+            View Detailed Analytics
+          </Button>
+        </div>
       </div>
     </MobileLayout>;
 }

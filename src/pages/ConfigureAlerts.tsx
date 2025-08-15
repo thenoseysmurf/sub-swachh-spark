@@ -72,38 +72,38 @@ export default function ConfigureAlerts() {
       title="Smart Alerts" 
       onBack={() => router.back()}
     >
-      <div className="px-4 py-6 space-y-6">
-        <div className="text-center space-y-2">
-          <p className="body-lg text-muted-foreground">
+      <div className="px-4 py-3 space-y-4">
+        <div className="text-center">
+          <p className="text-sm text-muted-foreground">
             We'll nudge you before renewals — you stay in control.
           </p>
         </div>
 
-        <WidgetCard className="space-y-6">
+        <WidgetCard className="space-y-4">
           <div className="text-center">
-            <h2 className="heading-lg">Configure Alerts</h2>
-            <p className="body-sm text-muted-foreground mt-1">
+            <h2 className="text-lg font-semibold">Configure Alerts</h2>
+            <p className="text-xs text-muted-foreground">
               Stay informed about upcoming renewals
             </p>
           </div>
 
           {/* Alert Timing */}
-          <div className="space-y-4">
+          <div className="space-y-2">
             <div>
-              <Label className="text-base font-semibold">Pre-renewal Alerts</Label>
-              <p className="text-sm text-muted-foreground">
-                When should we remind you before renewals?
+              <Label className="text-sm font-semibold">Pre-renewal Alerts</Label>
+              <p className="text-xs text-muted-foreground">
+                When should we remind you?
               </p>
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-4 gap-2">
               {alertDays.map((day) => (
                 <button
                   key={day.value}
                   type="button"
                   onClick={() => toggleAlertDay(day.value)}
                   className={`
-                    relative p-4 rounded-lg border-2 transition-all text-center
+                    relative p-2 rounded-lg border-2 transition-all text-center
                     ${settings.alertDays.includes(day.value)
                       ? "border-primary bg-primary/5"
                       : "border-border hover:border-primary/50"
@@ -111,24 +111,24 @@ export default function ConfigureAlerts() {
                   `}
                 >
                   {settings.alertDays.includes(day.value) && (
-                    <Check className="absolute top-2 right-2 h-4 w-4 text-primary" />
+                    <Check className="absolute top-1 right-1 h-3 w-3 text-primary" />
                   )}
-                  <p className="text-sm font-medium">{day.label}</p>
+                  <p className="text-xs font-medium">{day.label}</p>
                 </button>
               ))}
             </div>
           </div>
 
           {/* Alert Channels */}
-          <div className="space-y-4">
+          <div className="space-y-2">
             <div>
-              <Label className="text-base font-semibold">Alert Channels</Label>
-              <p className="text-sm text-muted-foreground">
+              <Label className="text-sm font-semibold">Alert Channels</Label>
+              <p className="text-xs text-muted-foreground">
                 How should we notify you?
               </p>
             </div>
 
-            <div className="space-y-3">
+            <div className="space-y-2">
               {channels.map((channel) => {
                 const Icon = channel.icon;
                 return (
@@ -137,17 +137,17 @@ export default function ConfigureAlerts() {
                     type="button"
                     onClick={() => toggleChannel(channel.id)}
                     className={`
-                      w-full flex items-center space-x-3 p-4 rounded-lg border-2 transition-all
+                      w-full flex items-center space-x-2 p-3 rounded-lg border-2 transition-all
                       ${settings.channels.includes(channel.id)
                         ? "border-primary bg-primary/5"
                         : "border-border hover:border-primary/50"
                       }
                     `}
                   >
-                    <Icon className="h-5 w-5 text-primary" />
-                    <span className="flex-1 text-left font-medium">{channel.label}</span>
+                    <Icon className="h-4 w-4 text-primary" />
+                    <span className="flex-1 text-left text-sm font-medium">{channel.label}</span>
                     {settings.channels.includes(channel.id) && (
-                      <Check className="h-4 w-4 text-primary" />
+                      <Check className="h-3 w-3 text-primary" />
                     )}
                   </button>
                 );
@@ -156,11 +156,11 @@ export default function ConfigureAlerts() {
           </div>
 
           {/* Quiet Hours */}
-          <div className="space-y-4">
+          <div className="space-y-2">
             <div className="flex items-center justify-between">
               <div>
-                <Label className="text-base font-semibold">Quiet Hours</Label>
-                <p className="text-sm text-muted-foreground">
+                <Label className="text-sm font-semibold">Quiet Hours</Label>
+                <p className="text-xs text-muted-foreground">
                   Pause notifications during these hours
                 </p>
               </div>
@@ -176,10 +176,10 @@ export default function ConfigureAlerts() {
             </div>
 
             {settings.quietHours.enabled && (
-              <div className="flex items-center space-x-4 p-4 bg-muted rounded-lg">
-                <Clock className="h-5 w-5 text-muted-foreground" />
+              <div className="flex items-center space-x-3 p-2 bg-muted rounded-lg">
+                <Clock className="h-4 w-4 text-muted-foreground" />
                 <div className="flex-1">
-                  <p className="text-sm font-medium">
+                  <p className="text-xs font-medium">
                     {settings.quietHours.start} - {settings.quietHours.end}
                   </p>
                   <p className="text-xs text-muted-foreground">
@@ -190,7 +190,7 @@ export default function ConfigureAlerts() {
             )}
           </div>
 
-          <Button onClick={handleSave} className="w-full" variant="primary" size="lg">
+          <Button onClick={handleSave} className="w-full" variant="primary">
             Save Settings
           </Button>
         </WidgetCard>

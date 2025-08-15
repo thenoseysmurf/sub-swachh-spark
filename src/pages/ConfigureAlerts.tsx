@@ -71,7 +71,7 @@ export default function ConfigureAlerts() {
     <MobileLayout 
       title="Smart Alerts" 
       onBack={() => router.back()}
-      showBottomNav={true}
+      showBottomNav={false}
     >
       <div className="px-4 py-3 space-y-4">
         <div className="text-center">

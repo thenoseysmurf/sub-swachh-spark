@@ -33,6 +33,7 @@ export default function VerifyMobile() {
     <MobileLayout 
       title="Linked Accounts" 
       onBack={() => router.back()}
+      showBottomNav={false}
     >
       <div className="px-4 py-3 space-y-3">
         {/* Progress indicator */}

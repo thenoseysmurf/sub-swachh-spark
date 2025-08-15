@@ -40,6 +40,7 @@ export default function ProfileSetup() {
     <MobileLayout 
       title="Profile Setup" 
       onBack={() => router.back()}
+      showBottomNav={false}
     >
       <div className="px-4 py-6 space-y-6">
         <div className="text-center space-y-2">

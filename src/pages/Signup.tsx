@@ -68,7 +68,7 @@ export default function Signup() {
   };
 
   return (
-    <MobileLayout showBackButton={false}>
+    <MobileLayout showBackButton={false} showBottomNav={false}>
       <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-accent/30 px-4 py-8">
         {/* Header */}
         <div className="text-center space-y-4 mb-12">

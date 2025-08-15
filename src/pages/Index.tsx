@@ -34,14 +34,7 @@ Without using Brain!</p>
         </div>
 
         {/* Savings Display with Glass Effect */}
-        <div className="text-center space-y-3 animate-slide-up stagger-2">
-          <div className="glass-card p-6 backdrop-blur-xl">
-            <div className="display-md gradient-success font-bold">
-              ₹25,000+
-            </div>
-            
-          </div>
-        </div>
+        
 
         {/* Enhanced CTA Button */}
         <div className="w-full max-w-sm animate-slide-up stagger-3">

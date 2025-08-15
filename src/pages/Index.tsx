@@ -47,7 +47,7 @@ const Index = () => {
         {/* Enhanced CTA Button */}
         <div className="w-full max-w-sm animate-slide-up stagger-3">
           <Button onClick={() => router.push("/signup")} variant="premium" size="xl" className="w-full">
-            Get Started Free
+            Get Started
           </Button>
         </div>
 

@@ -222,7 +222,7 @@ export default function AppSubscription() {
         </WidgetCard>
 
         {/* CTA Button */}
-        <Button className="w-full h-10 text-sm font-semibold bg-foreground text-background hover:bg-foreground/90" onClick={() => router.push(`/subscription/${app.name.toLowerCase().replace(/\s+/g, '-')}`)}>
+        <Button className="w-full h-10 text-sm font-semibold bg-foreground text-background hover:bg-foreground/90" onClick={() => router.push(`/manage-subscription/1`)}>
           Manage Subscription
         </Button>
       </div>

@@ -37,9 +37,11 @@ const Index = () => {
         {/* Savings Display with Glass Effect */}
         <div className="text-center space-y-3 animate-slide-up stagger-2">
           <div className="glass-card p-6 backdrop-blur-xl">
-            <div className="display-md gradient-success font-bold">
-              ₹25,000+
-            </div>
+            <img 
+              src="/src/assets/piggy-bank-coins.png" 
+              alt="Piggy bank with gold coins" 
+              className="w-24 h-24 mx-auto animate-float"
+            />
             
           </div>
         </div>

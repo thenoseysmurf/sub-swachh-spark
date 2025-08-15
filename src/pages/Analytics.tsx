@@ -105,7 +105,7 @@ export default function Analytics() {
           
           <WidgetCard variant="savings" className="text-center py-6 hover-scale">
             <div className="space-y-2">
-              <p className="text-sm opacity-90">Potential Savings</p>
+              <p className="text-sm opacity-90">You can save</p>
               <p className="text-2xl font-bold">₹{(totalSavings * 12).toLocaleString()}</p>
               <p className="text-xs opacity-75">Per year</p>
             </div>

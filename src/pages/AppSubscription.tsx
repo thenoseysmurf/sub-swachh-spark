@@ -4,8 +4,11 @@ import { WidgetCard } from "@/components/ui/widget-card";
 import { useRouter } from "@/hooks/useRouter";
 import { useParams } from "react-router-dom";
 import { Film, Heart, GraduationCap, Tag, Play, Music, Dumbbell, BookOpen, Coffee, ShoppingBag, Tv, TrendingUp, Calendar, DollarSign, Activity } from "lucide-react";
-
-const appData: { [key: string]: { [key: string]: any } } = {
+const appData: {
+  [key: string]: {
+    [key: string]: any;
+  };
+} = {
   "entertainment": {
     "netflix": {
       name: "Netflix",
@@ -20,7 +23,7 @@ const appData: { [key: string]: { [key: string]: any } } = {
       usageData: [40, 65, 30, 80, 45, 70, 35]
     },
     "prime-video": {
-      name: "Prime Video", 
+      name: "Prime Video",
       icon: Play,
       amount: 1499,
       purchaseDate: "Apr 1, 2025",
@@ -111,29 +114,24 @@ const appData: { [key: string]: { [key: string]: any } } = {
     }
   }
 };
-
 export default function AppSubscription() {
   const router = useRouter();
-  const { category, appName } = useParams();
-  
+  const {
+    category,
+    appName
+  } = useParams();
   const app = appData[category || ""]?.[appName || ""];
-  
   if (!app) {
-    return (
-      <MobileLayout title="App Not Found" onBack={() => router.back()}>
+    return <MobileLayout title="App Not Found" onBack={() => router.back()}>
         <div className="px-4 pt-8 text-center">
           <p className="text-muted-foreground">App not found</p>
         </div>
-      </MobileLayout>
-    );
+      </MobileLayout>;
   }
-
   const Icon = app.icon;
   const isInactive = app.status === 'inactive';
   const avgUsage = app.usageData.reduce((sum: number, val: number) => sum + val, 0) / app.usageData.length;
-
-  return (
-    <MobileLayout title={app.name} onBack={() => router.back()}>
+  return <MobileLayout title={app.name} onBack={() => router.back()}>
       <div className="px-6 pt-4 pb-8 space-y-6">
         {/* App Header */}
         <div className="text-center space-y-4">
@@ -151,7 +149,7 @@ export default function AppSubscription() {
           <div className="grid grid-cols-2 gap-6">
             <div className="text-center">
               <div className="flex items-center justify-center space-x-2 mb-2">
-                <DollarSign className="h-5 w-5 text-primary" />
+                
                 <span className="text-sm font-medium">Monthly Spend</span>
               </div>
               <p className="text-2xl font-bold">₹{app.amount}</p>
@@ -185,23 +183,15 @@ export default function AppSubscription() {
                 <span>{Math.round(avgUsage)}% avg</span>
               </div>
               <div className="h-2 bg-muted rounded-full overflow-hidden">
-                <div 
-                  className={`h-full rounded-full transition-all duration-300 ${
-                    isInactive ? 'bg-destructive' : avgUsage > 60 ? 'bg-green-500' : avgUsage > 30 ? 'bg-yellow-500' : 'bg-destructive'
-                  }`}
-                  style={{ width: `${avgUsage}%` }}
-                />
+                <div className={`h-full rounded-full transition-all duration-300 ${isInactive ? 'bg-destructive' : avgUsage > 60 ? 'bg-green-500' : avgUsage > 30 ? 'bg-yellow-500' : 'bg-destructive'}`} style={{
+                width: `${avgUsage}%`
+              }} />
               </div>
             </div>
             
             <div className="bg-muted/50 rounded-lg p-4">
               <p className="text-sm text-center">
-                {isInactive 
-                  ? "Canceling this will save you ₹1,428 per month and ₹17,988 per year" 
-                  : avgUsage > 60 
-                    ? "Great value! You're using this subscription effectively"
-                    : "Low usage detected. Consider if you really need this subscription"
-                }
+                {isInactive ? "Canceling this will save you ₹1,428 per month and ₹17,988 per year" : avgUsage > 60 ? "Great value! You're using this subscription effectively" : "Low usage detected. Consider if you really need this subscription"}
               </p>
             </div>
           </div>
@@ -234,13 +224,9 @@ export default function AppSubscription() {
         </WidgetCard>
 
         {/* CTA Button */}
-        <Button 
-          className="w-full h-12 text-lg font-semibold bg-foreground text-background hover:bg-foreground/90"
-          onClick={() => router.push(`/subscription/${app.name.toLowerCase().replace(/\s+/g, '-')}`)}
-        >
+        <Button className="w-full h-12 text-lg font-semibold bg-foreground text-background hover:bg-foreground/90" onClick={() => router.push(`/subscription/${app.name.toLowerCase().replace(/\s+/g, '-')}`)}>
           Manage Subscription
         </Button>
       </div>
-    </MobileLayout>
-  );
+    </MobileLayout>;
 }

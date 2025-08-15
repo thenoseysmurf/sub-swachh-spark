@@ -15,6 +15,7 @@ import ManageSubscription from "./pages/ManageSubscription";
 import ActionConfirmation from "./pages/ActionConfirmation";
 import Analytics from "./pages/Analytics";
 import CategoryDetail from "./pages/CategoryDetail";
+import AppSubscription from "./pages/AppSubscription";
 import DeadSpendDetector from "./pages/DeadSpendDetector";
 import CancellationInstructions from "./pages/CancellationInstructions";
 
@@ -38,6 +39,7 @@ const App = () => (
           <Route path="/action-confirmation" element={<ActionConfirmation />} />
           <Route path="/analytics" element={<Analytics />} />
           <Route path="/category/:categoryId" element={<CategoryDetail />} />
+          <Route path="/app/:category/:appName" element={<AppSubscription />} />
           <Route path="/dead-spend-detector" element={<DeadSpendDetector />} />
           <Route path="/cancellation-instructions/:id" element={<CancellationInstructions />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

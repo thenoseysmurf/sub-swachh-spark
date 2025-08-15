@@ -158,9 +158,10 @@ export default function CategoryDetail() {
                 <WidgetCard 
                   key={index} 
                   className={cn(
-                    "p-4 transition-all duration-200",
+                    "p-4 transition-all duration-200 cursor-pointer hover:scale-[1.02]",
                     isInactive && "border-destructive/20 bg-destructive/5"
                   )}
+                  onClick={() => router.push(`/app/${category.name.toLowerCase()}/${app.name.toLowerCase().replace(/\s+/g, '-')}`)}
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-4">

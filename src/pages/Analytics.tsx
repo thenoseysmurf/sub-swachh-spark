@@ -168,9 +168,7 @@ export default function Analytics() {
 
         {/* Quick Actions */}
         <div className="pt-4">
-          <Button variant="secondary" className="w-full py-3" onClick={() => router.push("/dead-spend-detector")}>
-            Find Unused Subscriptions
-          </Button>
+          
         </div>
       </div>
     </MobileLayout>;

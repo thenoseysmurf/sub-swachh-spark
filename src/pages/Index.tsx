@@ -29,8 +29,8 @@ const Index = () => {
           <h1 className="display-lg gradient-text bg-gradient-to-r from-white via-primary-glow to-success-glow bg-clip-text text-transparent text-4xl">
             PocketWise
           </h1>
-          <p className="body-xl leading-relaxed max-w-sm mx-auto text-slate-50 text-base font-light text-center">Save your Pocket Drain!
- Without using Brain!</p>
+          <p className="body-xl leading-relaxed max-w-sm mx-auto text-slate-50 text-base font-light text-center">Save your Pocket Drain! 
+Without using Brain!</p>
         </div>
 
         {/* Savings Display with Glass Effect */}

@@ -33,7 +33,7 @@ export default function ActionConfirmation() {
           <CheckCircle2 className="h-16 w-16 mx-auto" />
           <div>
             <h2 className="heading-xl mb-2">
-              {actionData.type === "cancelled" ? "Subscription Cancelled! 🎉" : "Subscription Paused! ⏸️"}
+              {actionData.type === "cancelled" ? "Subscription Cancelled! 🎉" : "Subscription Paused!"}
             </h2>
             <p className="body-lg">
               {actionData.type === "cancelled" 

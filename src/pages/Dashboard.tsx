@@ -157,7 +157,7 @@ export default function Dashboard() {
               <TrendingUp className="h-5 w-5 text-success" />
             </div>
             
-            <div className="h-28 flex items-center justify-center">
+            <div className="h-28 flex items-center justify-center relative">
               <div className="w-full">
                 <ResponsiveContainer width="100%" height="100%">
                   <ComposedChart data={monthlySpendData} margin={{
@@ -184,6 +184,18 @@ export default function Dashboard() {
                   }} />
                   </ComposedChart>
                 </ResponsiveContainer>
+              </div>
+              
+              {/* Month-on-Month Mini Chart */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div className="w-32 h-16 bg-background/80 backdrop-blur-sm rounded-lg border border-border/50 p-2">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart data={monthlySpendData.slice(-6)} margin={{ top: 2, right: 2, left: 2, bottom: 2 }}>
+                      <Line type="monotone" dataKey="momChange" stroke="hsl(var(--success))" strokeWidth={1.5} dot={false} />
+                    </LineChart>
+                  </ResponsiveContainer>
+                  <div className="text-xs text-center text-muted-foreground mt-1">MoM %</div>
+                </div>
               </div>
             </div>
             

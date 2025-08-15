@@ -84,7 +84,7 @@ export default function DeadSpendDetector() {
   }) : mockDeadSpendData;
   const totalDeadSpend = mockDeadSpendData.reduce((sum, sub) => sum + sub.amount * 12, 0);
   const monthlyWaste = mockDeadSpendData.reduce((sum, sub) => sum + sub.amount, 0);
-  return <MobileLayout title="Spend Optimizer" showBackButton showBottomNav={true}>
+  return <MobileLayout title="Spend Optimizer" showBackButton onBack={() => router.push("/dashboard")} showBottomNav={true}>
       <div className="px-4 pt-3 pb-6 space-y-6">
         {/* Apple-style Header Stats */}
         <div className="space-y-4">

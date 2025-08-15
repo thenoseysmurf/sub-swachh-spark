@@ -7,10 +7,15 @@ import { CheckCircle2, TrendingUp } from "lucide-react";
 export default function ActionConfirmation() {
   const router = useRouter();
 
+  // Get action type and service name from URL parameters
+  const urlParams = new URLSearchParams(window.location.search);
+  const actionType = urlParams.get('action') || 'cancelled';
+  const serviceName = urlParams.get('service') || 'Netflix';
+
   // Mock data - in real app, this would come from the previous action
   const actionData = {
-    type: "cancelled", // or "paused"
-    serviceName: "Netflix",
+    type: actionType === 'pause' ? 'paused' : 'cancelled',
+    serviceName: serviceName,
     monthlyAmount: 199,
     annualSavings: 2388,
     canUndo: true
@@ -24,7 +29,7 @@ export default function ActionConfirmation() {
     >
       <div className="px-4 py-8 space-y-6">
         {/* Success Message */}
-        <WidgetCard variant="savings" className="text-center space-y-4">
+        <WidgetCard variant={actionData.type === "paused" ? "savings" : "savings"} className="text-center space-y-4">
           <CheckCircle2 className="h-16 w-16 mx-auto" />
           <div>
             <h2 className="heading-xl mb-2">

@@ -51,8 +51,8 @@ export default function ManageSubscription() {
         // Navigate to instruction page
         router.push(`/cancellation-instructions/${id}`);
       } else {
-        // For pause/cancel, go directly to confirmation
-        router.push("/action-confirmation");
+        // For pause/cancel, go directly to confirmation with action type
+        router.push(`/action-confirmation?action=${action}&service=${mockSubscription.name}`);
       }
     }, 1500);
   };

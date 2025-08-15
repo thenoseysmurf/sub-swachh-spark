@@ -1,17 +1,18 @@
 import { Button } from "@/components/ui/button";
 import { useRouter } from "@/hooks/useRouter";
 import { Zap } from "lucide-react";
-
 const Index = () => {
   const router = useRouter();
-
-  return (
-    <div className="min-h-screen bg-gradient-hero relative overflow-hidden">
+  return <div className="min-h-screen bg-gradient-hero relative overflow-hidden">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-4 -left-4 w-72 h-72 bg-primary/20 rounded-full animate-float blur-3xl"></div>
-        <div className="absolute top-1/2 -right-8 w-64 h-64 bg-success/20 rounded-full animate-float blur-3xl" style={{animationDelay: '1s'}}></div>
-        <div className="absolute -bottom-8 left-1/3 w-80 h-80 bg-primary-glow/20 rounded-full animate-float blur-3xl" style={{animationDelay: '2s'}}></div>
+        <div className="absolute top-1/2 -right-8 w-64 h-64 bg-success/20 rounded-full animate-float blur-3xl" style={{
+        animationDelay: '1s'
+      }}></div>
+        <div className="absolute -bottom-8 left-1/3 w-80 h-80 bg-primary-glow/20 rounded-full animate-float blur-3xl" style={{
+        animationDelay: '2s'
+      }}></div>
       </div>
 
       <div className="relative px-6 py-16 flex flex-col items-center justify-center min-h-screen space-y-8">
@@ -28,7 +29,7 @@ const Index = () => {
           <h1 className="display-lg gradient-text bg-gradient-to-r from-white via-primary-glow to-success-glow bg-clip-text text-transparent">
             Subscription<br />Swachh
           </h1>
-          <p className="body-xl text-white/90 leading-relaxed max-w-sm mx-auto">
+          <p className="body-xl leading-relaxed max-w-sm mx-auto text-slate-50 text-base font-light text-center">
             Save your Pocket Drain! Without using Brain!
           </p>
         </div>
@@ -45,12 +46,7 @@ const Index = () => {
 
         {/* Enhanced CTA Button */}
         <div className="w-full max-w-sm animate-slide-up stagger-3">
-          <Button 
-            onClick={() => router.push("/signup")}
-            variant="premium"
-            size="xl"
-            className="w-full"
-          >
+          <Button onClick={() => router.push("/signup")} variant="premium" size="xl" className="w-full">
             Get Started Free
           </Button>
         </div>
@@ -58,17 +54,17 @@ const Index = () => {
         {/* Trust Indicator with Social Proof */}
         <div className="text-center space-y-2 animate-slide-up stagger-4">
           <div className="flex items-center justify-center space-x-1">
-            {Array.from({ length: 5 }, (_, i) => (
-              <div key={i} className="w-4 h-4 bg-success rounded-full animate-pulse-glow" style={{animationDelay: `${i * 0.2}s`}}></div>
-            ))}
+            {Array.from({
+            length: 5
+          }, (_, i) => <div key={i} className="w-4 h-4 bg-success rounded-full animate-pulse-glow" style={{
+            animationDelay: `${i * 0.2}s`
+          }}></div>)}
           </div>
           <p className="text-white/70 caption-lg">
             Trusted by 50,000+ smart savers
           </p>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default Index;

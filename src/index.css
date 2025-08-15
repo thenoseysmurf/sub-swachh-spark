@@ -63,27 +63,6 @@
     --popover: 0 0% 100%;
     --popover-foreground: 225 25% 12%;
     
-    /* Advanced Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(220 85% 60%), hsl(260 80% 65%));
-    --gradient-secondary: linear-gradient(120deg, hsl(160 75% 50%), hsl(180 70% 55%));
-    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(220 20% 98%));
-    --gradient-savings: linear-gradient(120deg, hsl(150 75% 50%), hsl(120 70% 55%));
-    --gradient-hero: linear-gradient(135deg, hsl(220 85% 60%), hsl(280 65% 65%), hsl(160 75% 50%));
-    --gradient-glass: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
-    
-    /* Sophisticated Shadows */
-    --shadow-soft: 0 2px 12px rgba(0,0,0,0.08);
-    --shadow-card: 0 4px 24px rgba(0,0,0,0.12);
-    --shadow-button: 0 2px 8px hsl(220 85% 60% / 0.25);
-    --shadow-hover: 0 8px 32px rgba(0,0,0,0.15);
-    --shadow-glow: 0 0 40px hsl(220 85% 60% / 0.15);
-    --shadow-inner: inset 0 2px 4px rgba(0,0,0,0.06);
-    
-    /* Glass & Blur Effects */
-    --glass-bg: rgba(255,255,255,0.1);
-    --glass-border: rgba(255,255,255,0.2);
-    --backdrop-blur: blur(20px);
-    
     /* Enhanced Radius System */
     --radius: 0.75rem;
     --radius-sm: 0.5rem;
@@ -91,13 +70,6 @@
     --radius-xl: 1.5rem;
     --radius-2xl: 2rem;
     --radius-full: 9999px;
-    
-    /* Animation Timings */
-    --duration-fast: 150ms;
-    --duration-normal: 250ms;
-    --duration-slow: 350ms;
-    --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
     
     /* Sidebar Variables */
     --sidebar-background: 0 0% 98%;
@@ -152,17 +124,6 @@
     --popover: 225 25% 8%;
     --popover-foreground: 220 25% 95%;
     
-    /* Dark Mode Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(220 85% 65%), hsl(260 80% 70%));
-    --gradient-secondary: linear-gradient(120deg, hsl(160 65% 55%), hsl(180 60% 60%));
-    --gradient-card: linear-gradient(145deg, hsl(225 25% 8%), hsl(225 25% 12%));
-    --gradient-savings: linear-gradient(120deg, hsl(150 65% 55%), hsl(120 60% 60%));
-    --gradient-hero: linear-gradient(135deg, hsl(220 85% 65%), hsl(280 65% 70%), hsl(160 65% 55%));
-    --gradient-glass: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
-    
-    --glass-bg: rgba(255,255,255,0.05);
-    --glass-border: rgba(255,255,255,0.1);
-    
     /* Dark Sidebar */
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
@@ -183,8 +144,6 @@
   body {
     @apply bg-background text-foreground antialiased;
     font-family: 'Inter', system-ui, sans-serif;
-    font-feature-settings: 'cv11', 'ss01';
-    font-variation-settings: 'opsz' 32;
   }
   
   /* Enhanced Typography System */
@@ -237,27 +196,31 @@
 @layer components {
   /* Glass Effect Components */
   .glass {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    backdrop-filter: var(--backdrop-blur);
-    -webkit-backdrop-filter: var(--backdrop-blur);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
   }
   
   .glass-card {
-    @apply glass rounded-xl shadow-card;
+    @apply glass rounded-xl shadow-lg;
   }
   
   /* Interactive Elements */
   .interactive {
-    @apply transition-all duration-normal ease-smooth;
+    @apply transition-all duration-300 ease-out;
   }
   
   .hover-lift {
-    @apply interactive hover:scale-105 hover:shadow-hover;
+    @apply interactive hover:scale-105 hover:shadow-xl;
   }
   
   .hover-glow {
-    @apply interactive hover:shadow-glow;
+    @apply interactive;
+  }
+  
+  .hover-glow:hover {
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.3);
   }
   
   /* Button Effects */
@@ -300,23 +263,23 @@
 @layer utilities {
   /* Animation Utilities */
   .animate-fade-in {
-    animation: fadeIn var(--duration-normal) var(--ease-smooth);
+    animation: fadeIn 0.3s ease-out;
   }
   
   .animate-slide-up {
-    animation: slideUp var(--duration-normal) var(--ease-smooth);
+    animation: slideUp 0.3s ease-out;
   }
   
   .animate-slide-down {
-    animation: slideDown var(--duration-normal) var(--ease-smooth);
+    animation: slideDown 0.3s ease-out;
   }
   
   .animate-scale-in {
-    animation: scaleIn var(--duration-normal) var(--ease-spring);
+    animation: scaleIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
   
   .animate-bounce-in {
-    animation: bounceIn var(--duration-slow) var(--ease-spring);
+    animation: bounceIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
   
   .animate-pulse-glow {
@@ -333,11 +296,17 @@
   
   /* Gradient Text */
   .text-gradient {
-    @apply bg-gradient-primary bg-clip-text text-transparent;
+    background: linear-gradient(135deg, hsl(220 85% 60%), hsl(260 80% 65%));
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
   }
   
   .text-gradient-secondary {
-    @apply bg-gradient-secondary bg-clip-text text-transparent;
+    background: linear-gradient(120deg, hsl(160 75% 50%), hsl(180 70% 55%));
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
   }
   
   /* Safe Area */
@@ -373,7 +342,7 @@
   }
 }
 
-/* Advanced Keyframes */
+/* Keyframes */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -456,10 +425,10 @@
 
 @keyframes shimmer {
   0% {
-    background-position: -468px 0;
+    background-position: -200% 0;
   }
   100% {
-    background-position: 468px 0;
+    background-position: 200% 0;
   }
 }
 
@@ -475,21 +444,5 @@
   
   .heading-md {
     @apply text-xl;
-  }
-}
-
-/* Dark Mode Specific Animations */
-@media (prefers-color-scheme: dark) {
-  .animate-pulse-glow {
-    animation: pulseGlowDark 2s ease-in-out infinite;
-  }
-}
-
-@keyframes pulseGlowDark {
-  0%, 100% {
-    box-shadow: 0 0 20px hsl(var(--primary) / 0.2);
-  }
-  50% {
-    box-shadow: 0 0 40px hsl(var(--primary) / 0.4);
   }
 }

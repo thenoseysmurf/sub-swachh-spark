@@ -67,27 +67,27 @@ export default function ManageSubscription() {
       title="Manage Subscription" 
       onBack={() => router.back()}
     >
-      <div className="px-4 py-6 space-y-6">
+      <div className="px-4 py-3 space-y-4">{/* Reduced padding and spacing */}
         {/* Subscription Header */}
-        <WidgetCard className="text-center space-y-4">
-          <div className="w-16 h-16 bg-red-600 rounded-xl mx-auto flex items-center justify-center text-white text-2xl font-bold">
+        <WidgetCard className="text-center space-y-3">{/* Reduced spacing */}
+          <div className="w-12 h-12 bg-red-600 rounded-lg mx-auto flex items-center justify-center text-white text-lg font-bold">{/* Smaller logo */}
             N
           </div>
           <div>
             <h2 className="heading-lg">{mockSubscription.name}</h2>
             <p className="text-muted-foreground">{mockSubscription.plan}</p>
           </div>
-          <div className="bg-primary/10 rounded-lg p-3">
+          <div className="bg-primary/10 rounded-lg p-2">{/* Reduced padding */}
             <p className="text-2xl font-bold text-primary">₹{mockSubscription.amount}</p>
             <p className="text-sm text-muted-foreground">per month</p>
           </div>
         </WidgetCard>
 
         {/* Subscription Details */}
-        <WidgetCard className="space-y-4">
+        <WidgetCard className="space-y-3">{/* Reduced spacing */}
           <h3 className="heading-sm">Subscription Details</h3>
           
-          <div className="space-y-3">
+          <div className="space-y-2">{/* Reduced spacing */}
             <div className="flex items-center space-x-3">
               <Calendar className="h-5 w-5 text-muted-foreground" />
               <div className="flex-1">
@@ -122,7 +122,7 @@ export default function ManageSubscription() {
         </WidgetCard>
 
         {/* Action Message */}
-        <div className="text-center space-y-2">
+        <div className="text-center space-y-1">{/* Reduced spacing */}
           <h3 className="heading-sm">Take Control of Your Subscription</h3>
           <p className="text-muted-foreground">
             Choose what works best for you — pause, cancel, or get guided help.
@@ -130,10 +130,10 @@ export default function ManageSubscription() {
         </div>
 
         {/* Action Buttons */}
-        <div className="space-y-3">
+        <div className="space-y-2">{/* Reduced spacing between buttons */}
           <Button 
             variant="outline" 
-            className="w-full justify-between h-14" 
+            className="w-full justify-between h-12"
             onClick={() => handleAction("pause")}
             disabled={isLoading}
           >
@@ -148,7 +148,7 @@ export default function ManageSubscription() {
 
           <Button 
             variant="primary" 
-            className="w-full justify-between h-14" 
+            className="w-full justify-between h-12" 
             onClick={() => handleAction("guided_cancel")}
             disabled={isLoading}
           >
@@ -163,7 +163,7 @@ export default function ManageSubscription() {
 
           <Button 
             variant="outline" 
-            className="w-full justify-between h-14 text-destructive border-destructive/30 hover:bg-destructive/10" 
+            className="w-full justify-between h-12 text-destructive border-destructive/30 hover:bg-destructive/10" 
             onClick={() => handleAction("cancel")}
             disabled={isLoading}
           >
@@ -178,7 +178,7 @@ export default function ManageSubscription() {
 
           <Button 
             variant="ghost" 
-            className="w-full justify-center h-12 text-muted-foreground hover:text-foreground" 
+            className="w-full justify-center h-10 text-muted-foreground hover:text-foreground" 
             onClick={reportIssue}
             disabled={isLoading}
           >

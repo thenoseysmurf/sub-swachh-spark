@@ -67,27 +67,27 @@ export default function ManageSubscription() {
       title="Manage Subscription" 
       onBack={() => router.back()}
     >
-      <div className="px-4 py-3 space-y-4">{/* Reduced padding and spacing */}
+      <div className="px-4 py-2 space-y-3">
         {/* Subscription Header */}
-        <WidgetCard className="text-center space-y-3">{/* Reduced spacing */}
-          <div className="w-12 h-12 bg-red-600 rounded-lg mx-auto flex items-center justify-center text-white text-lg font-bold">{/* Smaller logo */}
+        <WidgetCard className="text-center space-y-2">
+          <div className="w-10 h-10 bg-red-600 rounded-lg mx-auto flex items-center justify-center text-white font-bold">
             N
           </div>
           <div>
-            <h2 className="heading-lg">{mockSubscription.name}</h2>
-            <p className="text-muted-foreground">{mockSubscription.plan}</p>
+            <h2 className="text-lg font-bold">{mockSubscription.name}</h2>
+            <p className="text-sm text-muted-foreground">{mockSubscription.plan}</p>
           </div>
-          <div className="bg-primary/10 rounded-lg p-2">{/* Reduced padding */}
-            <p className="text-2xl font-bold text-primary">₹{mockSubscription.amount}</p>
-            <p className="text-sm text-muted-foreground">per month</p>
+          <div className="bg-primary/10 rounded-lg p-2">
+            <p className="text-xl font-bold text-primary">₹{mockSubscription.amount}</p>
+            <p className="text-xs text-muted-foreground">per month</p>
           </div>
         </WidgetCard>
 
         {/* Subscription Details */}
-        <WidgetCard className="space-y-3">{/* Reduced spacing */}
-          <h3 className="heading-sm">Subscription Details</h3>
+        <WidgetCard className="space-y-2">
+          <h3 className="text-sm font-semibold">Subscription Details</h3>
           
-          <div className="space-y-2">{/* Reduced spacing */}
+          <div className="space-y-1.5">
             <div className="flex items-center space-x-3">
               <Calendar className="h-5 w-5 text-muted-foreground" />
               <div className="flex-1">
@@ -122,15 +122,15 @@ export default function ManageSubscription() {
         </WidgetCard>
 
         {/* Action Message */}
-        <div className="text-center space-y-1">{/* Reduced spacing */}
-          <h3 className="heading-sm">Take Control of Your Subscription</h3>
-          <p className="text-muted-foreground">
+        <div className="text-center">
+          <h3 className="text-sm font-semibold mb-1">Take Control of Your Subscription</h3>
+          <p className="text-xs text-muted-foreground">
             Choose what works best for you — pause, cancel, or get guided help.
           </p>
         </div>
 
         {/* Action Buttons */}
-        <div className="space-y-2">{/* Reduced spacing between buttons */}
+        <div className="space-y-1.5">
           <Button 
             variant="outline" 
             className="w-full justify-between h-12"

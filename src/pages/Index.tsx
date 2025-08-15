@@ -29,19 +29,16 @@ const Index = () => {
           <h1 className="display-lg gradient-text bg-gradient-to-r from-white via-primary-glow to-success-glow bg-clip-text text-transparent text-4xl">
             PocketWise
           </h1>
-          <p className="body-xl leading-relaxed max-w-sm mx-auto text-slate-50 text-base font-light text-center">
-            Save your Pocket Drain! Without using Brain!
-          </p>
+          <p className="body-xl leading-relaxed max-w-sm mx-auto text-slate-50 text-base font-light text-center">Save your Pocket Drain!
+ Without using Brain!</p>
         </div>
 
         {/* Savings Display with Glass Effect */}
         <div className="text-center space-y-3 animate-slide-up stagger-2">
           <div className="glass-card p-6 backdrop-blur-xl">
-            <img 
-              src="/src/assets/piggy-bank-coins.png" 
-              alt="Piggy bank with gold coins" 
-              className="w-24 h-24 mx-auto animate-float"
-            />
+            <div className="display-md gradient-success font-bold">
+              ₹25,000+
+            </div>
             
           </div>
         </div>

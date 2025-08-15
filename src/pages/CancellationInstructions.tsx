@@ -62,10 +62,7 @@ export default function CancellationInstructions() {
         </WidgetCard>
 
         {/* Action Button - Compact */}
-        <Button variant="outline" className="w-full justify-center" onClick={() => router.push("/action-confirmation")}>
-          <MessageCircle className="h-4 w-4 mr-2" />
-          I've Cancelled My Subscription
-        </Button>
+        
       </div>
     </MobileLayout>;
 }

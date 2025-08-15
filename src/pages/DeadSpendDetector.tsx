@@ -68,7 +68,7 @@ export default function DeadSpendDetector() {
           <div className="space-y-2">
             <h2 className="text-3xl font-bold text-destructive">₹{totalDeadSpend.toLocaleString()}</h2>
             <p className="text-sm text-muted-foreground">
-              Potential yearly savings from optimizing {mockDeadSpendData.length} subscriptions
+              Money you are losing every month
             </p>
           </div>
         </div>

@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { WidgetCard } from "@/components/ui/widget-card";
 import { useRouter } from "@/hooks/useRouter";
 import { TrendingUp, TrendingDown, Calendar, Filter, Settings, BarChart3, AlertCircle, Play, Pause } from "lucide-react";
-import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, LineChart, Line } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, LineChart, Line, ComposedChart } from "recharts";
 const mockSubscriptions = [{
   id: 1,
   name: "Netflix",
@@ -40,40 +40,52 @@ const mockSubscriptions = [{
 }];
 const monthlySpendData = [{
   month: "Jan",
-  amount: 2800
+  amount: 2800,
+  momChange: 0
 }, {
   month: "Feb",
-  amount: 3200
+  amount: 3200,
+  momChange: 14.3
 }, {
   month: "Mar",
-  amount: 2950
+  amount: 2950,
+  momChange: -7.8
 }, {
   month: "Apr",
-  amount: 3100
+  amount: 3100,
+  momChange: 5.1
 }, {
   month: "May",
-  amount: 2750
+  amount: 2750,
+  momChange: -11.3
 }, {
   month: "Jun",
-  amount: 2900
+  amount: 2900,
+  momChange: 5.5
 }, {
   month: "Jul",
-  amount: 3050
+  amount: 3050,
+  momChange: 5.2
 }, {
   month: "Aug",
-  amount: 2800
+  amount: 2800,
+  momChange: -8.2
 }, {
   month: "Sep",
-  amount: 2650
+  amount: 2650,
+  momChange: -5.4
 }, {
   month: "Oct",
-  amount: 2900
+  amount: 2900,
+  momChange: 9.4
 }, {
   month: "Nov",
-  amount: 3150
+  amount: 3150,
+  momChange: 8.6
 }, {
   month: "Dec",
-  amount: 2800
+  amount: 2800,
+  momChange: -11.1
 }];
 const filters = ["All", "Inactive", "Paused"];
 export default function Dashboard() {
@@ -148,7 +160,7 @@ export default function Dashboard() {
             <div className="h-28 flex items-center justify-center">
               <div className="w-full">
                 <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={monthlySpendData} margin={{
+                  <ComposedChart data={monthlySpendData} margin={{
                   top: 2,
                   right: 2,
                   left: 2,
@@ -158,13 +170,19 @@ export default function Dashboard() {
                     fontSize: 10,
                     fill: 'hsl(var(--muted-foreground))'
                   }} interval={0} />
-                    <YAxis hide />
-                    <Line type="monotone" dataKey="amount" stroke="hsl(var(--primary))" strokeWidth={2} dot={{
+                    <YAxis yAxisId="left" hide />
+                    <YAxis yAxisId="right" hide />
+                    <Line yAxisId="left" type="monotone" dataKey="amount" stroke="hsl(var(--primary))" strokeWidth={2} dot={{
                     fill: 'hsl(var(--primary))',
                     strokeWidth: 2,
                     r: 2
                   }} />
-                  </LineChart>
+                    <Line yAxisId="right" type="monotone" dataKey="momChange" stroke="hsl(var(--success))" strokeWidth={1.5} strokeDasharray="3 3" dot={{
+                    fill: 'hsl(var(--success))',
+                    strokeWidth: 1,
+                    r: 1.5
+                  }} />
+                  </ComposedChart>
                 </ResponsiveContainer>
               </div>
             </div>

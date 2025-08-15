@@ -27,7 +27,7 @@ const Index = () => {
         {/* Hero Content with Enhanced Typography */}
         <div className="text-center text-white space-y-6 max-w-md animate-slide-up stagger-1">
           <h1 className="display-lg gradient-text bg-gradient-to-r from-white via-primary-glow to-success-glow bg-clip-text text-transparent text-4xl">
-            Subscription<br />Swachh
+            PocketWise
           </h1>
           <p className="body-xl leading-relaxed max-w-sm mx-auto text-slate-50 text-base font-light text-center">
             Save your Pocket Drain! Without using Brain!

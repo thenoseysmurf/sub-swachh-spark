@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useRouter } from "@/hooks/useRouter";
 import { WidgetCard } from "@/components/ui/widget-card";
+import { Check, Shield, Smartphone, Mail } from "lucide-react";
 export default function Signup() {
   const router = useRouter();
   const [formData, setFormData] = useState({
@@ -60,26 +61,54 @@ export default function Signup() {
     router.push("/dashboard");
   };
 
+  const getStepProgress = () => {
+    if (otpVerified) return 100;
+    if (otpSent) return 66;
+    return 33;
+  };
+
   return (
     <MobileLayout showBackButton={false}>
-      <div className="px-4 py-8 space-y-6">
+      <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-accent/30 px-4 py-8">
         {/* Header */}
-        <div className="text-center space-y-2">
-          <h1 className="heading-xl text-primary">Subscription Swachh</h1>
-          <p className="body-lg text-muted-foreground">Start your subscription clean-up today!</p>
+        <div className="text-center space-y-4 mb-12">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-primary shadow-card mb-4">
+            <Shield className="w-8 h-8 text-white" />
+          </div>
+          <h1 className="heading-xl text-foreground">Welcome to Subscription Swachh</h1>
+          <p className="body-lg text-muted-foreground max-w-sm mx-auto">Create your account and start saving thousands on subscriptions</p>
         </div>
 
-        {/* Form */}
-        <WidgetCard className="space-y-6">
-          <div className="text-center">
-            <h2 className="heading-lg">Create Account</h2>
-            <p className="body-sm text-muted-foreground mt-1">Join thousands saving money monthly</p>
+        {/* Progress Indicator */}
+        <div className="w-full max-w-sm mx-auto mb-8">
+          <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
+            <span>Getting Started</span>
+            <span className="text-primary font-medium">{getStepProgress()}% Complete</span>
           </div>
+          <div className="w-full bg-muted rounded-full h-2">
+            <div 
+              className="bg-gradient-primary h-2 rounded-full transition-all duration-500 ease-out" 
+              style={{ width: `${getStepProgress()}%` }}
+            />
+          </div>
+        </div>
 
-          {/* Mobile Number Section */}
-          <div className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="mobile">Mobile Number</Label>
+        {/* Form Container */}
+        <div className="max-w-sm mx-auto space-y-6">
+          {/* Step 1: Mobile Number */}
+          <WidgetCard className={`transition-all duration-300 ${!otpSent ? 'ring-2 ring-primary/20' : 'opacity-75'}`}>
+            <div className="flex items-center gap-3 mb-4">
+              <div className={`flex items-center justify-center w-8 h-8 rounded-full ${otpSent ? 'bg-success text-white' : 'bg-primary/10 text-primary'}`}>
+                {otpSent ? <Check className="w-4 h-4" /> : <Smartphone className="w-4 h-4" />}
+              </div>
+              <div>
+                <h3 className="font-medium text-foreground">Mobile Verification</h3>
+                <p className="text-sm text-muted-foreground">We'll send you a verification code</p>
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <Label htmlFor="mobile" className="sr-only">Mobile Number</Label>
               <div className="flex gap-2">
                 <Input 
                   id="mobile" 
@@ -90,112 +119,149 @@ export default function Signup() {
                     ...prev,
                     mobile: e.target.value
                   }))} 
-                  className={errors.mobile ? "border-destructive" : ""} 
+                  className={`${errors.mobile ? "border-destructive" : ""} flex-1`} 
                   maxLength={10}
                   disabled={otpSent}
                 />
                 <Button 
                   onClick={handleSendOTP} 
-                  variant="primary" 
+                  variant={otpSent ? "outline" : "primary"}
                   size="sm"
                   disabled={otpSent || !formData.mobile}
-                  className="whitespace-nowrap"
+                  className="whitespace-nowrap px-4"
                 >
-                  {otpSent ? "OTP Sent ✓" : "Send OTP"}
+                  {otpSent ? "Sent ✓" : "Send OTP"}
                 </Button>
               </div>
-              {errors.mobile && <p className="text-sm text-destructive">{errors.mobile}</p>}
+              {errors.mobile && <p className="text-sm text-destructive flex items-center gap-1">{errors.mobile}</p>}
             </div>
-          </div>
+          </WidgetCard>
 
-          {/* OTP Section */}
-          <div className="space-y-4 border-t pt-4">
-            <div className="space-y-2">
-              <Label htmlFor="otp">Enter OTP</Label>
-              <div className="flex gap-2">
-                <Input 
-                  id="otp" 
-                  type="text" 
-                  placeholder="Enter 6-digit OTP" 
-                  value={formData.otp} 
-                  onChange={e => setFormData(prev => ({
-                    ...prev,
-                    otp: e.target.value
-                  }))} 
-                  className={errors.otp ? "border-destructive" : ""} 
-                  maxLength={6}
-                  disabled={otpVerified || !otpSent}
-                />
+          {/* Step 2: OTP Verification */}
+          {otpSent && (
+            <WidgetCard className={`transition-all duration-300 animate-slide-up ${!otpVerified ? 'ring-2 ring-primary/20' : 'opacity-75'}`}>
+              <div className="flex items-center gap-3 mb-4">
+                <div className={`flex items-center justify-center w-8 h-8 rounded-full ${otpVerified ? 'bg-success text-white' : 'bg-primary/10 text-primary'}`}>
+                  {otpVerified ? <Check className="w-4 h-4" /> : <Shield className="w-4 h-4" />}
+                </div>
+                <div>
+                  <h3 className="font-medium text-foreground">Enter Verification Code</h3>
+                  <p className="text-sm text-muted-foreground">Check your messages for the 6-digit code</p>
+                </div>
+              </div>
+
+              <div className="space-y-3">
+                <Label htmlFor="otp" className="sr-only">OTP Code</Label>
+                <div className="flex gap-2">
+                  <Input 
+                    id="otp" 
+                    type="text" 
+                    placeholder="Enter 6-digit code" 
+                    value={formData.otp} 
+                    onChange={e => setFormData(prev => ({
+                      ...prev,
+                      otp: e.target.value
+                    }))} 
+                    className={`${errors.otp ? "border-destructive" : ""} flex-1 text-center tracking-widest`} 
+                    maxLength={6}
+                    disabled={otpVerified || !otpSent}
+                  />
+                  <Button 
+                    onClick={handleVerifyOTP} 
+                    variant={otpVerified ? "outline" : "primary"}
+                    size="sm"
+                    disabled={otpVerified || !formData.otp || !otpSent}
+                    className="whitespace-nowrap px-4"
+                  >
+                    {otpVerified ? "Done ✓" : "Verify"}
+                  </Button>
+                </div>
+                {errors.otp && <p className="text-sm text-destructive flex items-center gap-1">{errors.otp}</p>}
+              </div>
+            </WidgetCard>
+          )}
+
+          {/* Step 3: Email & Final Setup */}
+          {otpVerified && (
+            <WidgetCard className="transition-all duration-300 animate-slide-up ring-2 ring-primary/20">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 text-primary">
+                  <Mail className="w-4 h-4" />
+                </div>
+                <div>
+                  <h3 className="font-medium text-foreground">Complete Your Profile</h3>
+                  <p className="text-sm text-muted-foreground">Almost there! Just a few more details</p>
+                </div>
+              </div>
+
+              <div className="space-y-6">
+                <div className="space-y-2">
+                  <Label htmlFor="email" className="text-sm font-medium text-foreground">Email Address</Label>
+                  <Input 
+                    id="email" 
+                    type="email" 
+                    placeholder="your@email.com" 
+                    value={formData.email} 
+                    onChange={e => setFormData(prev => ({
+                      ...prev,
+                      email: e.target.value
+                    }))} 
+                    className={errors.email ? "border-destructive" : ""} 
+                    disabled={!otpVerified}
+                  />
+                  {errors.email && <p className="text-sm text-destructive">{errors.email}</p>}
+                </div>
+
+                <div className="bg-muted/50 rounded-lg p-4 space-y-3">
+                  <div className="flex items-start gap-3">
+                    <Checkbox 
+                      id="syncUpiCards" 
+                      checked={formData.syncUpiCards} 
+                      onCheckedChange={checked => setFormData(prev => ({
+                        ...prev,
+                        syncUpiCards: !!checked
+                      }))} 
+                      disabled={!otpVerified}
+                      className="mt-0.5"
+                    />
+                    <div className="space-y-1">
+                      <Label htmlFor="syncUpiCards" className="text-sm font-medium leading-none">
+                        Sync Payment Methods
+                      </Label>
+                      <p className="text-xs text-muted-foreground leading-relaxed">
+                        Automatically detect your UPI IDs and cards for faster subscription discovery
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
                 <Button 
-                  onClick={handleVerifyOTP} 
+                  onClick={handleOnboard} 
+                  className="w-full" 
                   variant="primary" 
-                  size="sm"
-                  disabled={otpVerified || !formData.otp || !otpSent}
-                  className="whitespace-nowrap"
+                  size="lg"
+                  disabled={!formData.email || !otpVerified}
                 >
-                  {otpVerified ? "Verified ✓" : "Verify"}
+                  Create My Account
                 </Button>
               </div>
-              {errors.otp && <p className="text-sm text-destructive">{errors.otp}</p>}
-            </div>
-          </div>
+            </WidgetCard>
+          )}
 
-          {/* Email Section */}
-          <div className="space-y-4 border-t pt-4">
-            <div className="space-y-2">
-              <Label htmlFor="email">Email ID</Label>
-              <Input 
-                id="email" 
-                type="email" 
-                placeholder="your@email.com" 
-                value={formData.email} 
-                onChange={e => setFormData(prev => ({
-                  ...prev,
-                  email: e.target.value
-                }))} 
-                className={errors.email ? "border-destructive" : ""} 
-                disabled={!otpVerified}
-              />
-              {errors.email && <p className="text-sm text-destructive">{errors.email}</p>}
-            </div>
-
-            <div className="space-y-3">
-              <div className="flex items-start space-x-2">
-                <Checkbox 
-                  id="syncUpiCards" 
-                  checked={formData.syncUpiCards} 
-                  onCheckedChange={checked => setFormData(prev => ({
-                    ...prev,
-                    syncUpiCards: !!checked
-                  }))} 
-                  disabled={!otpVerified}
-                />
-                <Label htmlFor="syncUpiCards" className="text-sm leading-relaxed">
-                  Sync my UPI ID & Cards to this account
-                </Label>
-              </div>
-            </div>
-
-            <Button 
-              onClick={handleOnboard} 
-              className="w-full" 
-              variant="primary" 
-              size="lg"
-              disabled={!formData.email || !otpVerified}
-            >
-              Onboard me
-            </Button>
-          </div>
-
-          <div className="text-center">
+          {/* Sign In Link */}
+          <div className="text-center pt-4">
             <p className="body-sm text-muted-foreground">
               Already have an account?{" "}
-              <button type="button" onClick={() => router.push("/login")} className="text-primary font-medium underline">
+              <button 
+                type="button" 
+                onClick={() => router.push("/login")} 
+                className="text-primary font-medium hover:underline transition-colors"
+              >
                 Sign In
               </button>
             </p>
           </div>
-        </WidgetCard>
+        </div>
       </div>
     </MobileLayout>
   );

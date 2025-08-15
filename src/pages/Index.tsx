@@ -6,7 +6,7 @@ const Index = () => {
   const router = useRouter();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-600 via-purple-600 to-green-500">
+    <div className="min-h-screen bg-gradient-primary">
       <div className="px-6 py-16 flex flex-col items-center justify-center min-h-screen space-y-12">
         {/* App Icon */}
         <div className="relative">

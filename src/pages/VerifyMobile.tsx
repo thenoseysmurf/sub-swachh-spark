@@ -143,11 +143,7 @@ export default function VerifyMobile() {
                 </p>
               </div>
 
-              <Button 
-                onClick={handleContinue} 
-                className="w-full" 
-                variant="primary"
-              >
+              <Button onClick={handleContinue} className="w-full" variant="primary">
                 Continue to Profile Setup
               </Button>
             </WidgetCard>

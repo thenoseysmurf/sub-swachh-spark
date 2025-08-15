@@ -5,7 +5,6 @@ import { WidgetCard } from "@/components/ui/widget-card";
 import { useRouter } from "@/hooks/useRouter";
 import { TrendingUp, TrendingDown, Calendar, Filter, Settings, BarChart3, AlertCircle, Play, Pause } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, LineChart, Line } from "recharts";
-
 const mockSubscriptions = [{
   id: 1,
   name: "Netflix",
@@ -39,7 +38,6 @@ const mockSubscriptions = [{
   isDead: true,
   category: "Food"
 }];
-
 const monthlySpendData = [{
   month: "Jan",
   amount: 2800
@@ -77,16 +75,13 @@ const monthlySpendData = [{
   month: "Dec",
   amount: 2800
 }];
-
 const filters = ["All", "Inactive", "Upcoming Renewals", "Active", "Paused"];
-
 export default function Dashboard() {
   const router = useRouter();
   const [activeFilter, setActiveFilter] = useState("All");
   const totalSpend = mockSubscriptions.reduce((sum, sub) => sum + sub.amount * 12, 0);
   const deadSpend = mockSubscriptions.filter(sub => sub.isDead).reduce((sum, sub) => sum + sub.amount * 12, 0);
   const inactiveCount = mockSubscriptions.filter(sub => sub.isDead || sub.status === "paused").length;
-  
   const filteredSubscriptions = mockSubscriptions.filter(sub => {
     switch (activeFilter) {
       case "All":
@@ -108,18 +103,17 @@ export default function Dashboard() {
         return true;
     }
   });
-
-  return (
-    <MobileLayout showBackButton={false}>
+  return <MobileLayout showBackButton={false}>
       <div className="px-4 py-6 space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
             <h1 className="heading-xl text-primary">Hi, John! 👋</h1>
+            
           </div>
           <div className="flex space-x-2">
             <Button variant="ghost" size="icon" onClick={() => router.push("/analytics")}>
-              <BarChart3 className="h-5 w-5" />
+              
             </Button>
             <Button variant="ghost" size="icon" onClick={() => router.push("/configure-alerts")}>
               <Settings className="h-5 w-5" />
@@ -150,6 +144,7 @@ export default function Dashboard() {
             </div>
           </WidgetCard>
         </div>
+
 
         {/* Spend Chart */}
         <WidgetCard className="cursor-pointer hover:scale-105 transition-transform" onClick={() => router.push("/analytics")}>
@@ -189,24 +184,22 @@ export default function Dashboard() {
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <h3 className="heading-sm">Subscriptions</h3>
+            
           </div>
 
           <div className="flex space-x-2 overflow-x-auto pb-2">
-            {filters.map(filter => 
-              <button key={filter} onClick={() => setActiveFilter(filter)} className={`
+            {filters.map(filter => <button key={filter} onClick={() => setActiveFilter(filter)} className={`
                   px-3 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-colors
                   ${activeFilter === filter ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground hover:bg-muted/80"}
                 `}>
                 {filter}
-              </button>
-            )}
+              </button>)}
           </div>
         </div>
 
         {/* Subscriptions List */}
         <div className="space-y-3">
-          {filteredSubscriptions.map(subscription => 
-            <WidgetCard key={subscription.id} className="p-4">
+          {filteredSubscriptions.map(subscription => <WidgetCard key={subscription.id} className="p-4">
               <div className="flex items-center justify-between">
                 <div className="flex-1">
                   <div className="flex items-center space-x-2">
@@ -230,10 +223,9 @@ export default function Dashboard() {
                   Manage
                 </Button>
               </div>
-            </WidgetCard>
-          )}
+            </WidgetCard>)}
         </div>
+
       </div>
-    </MobileLayout>
-  );
+    </MobileLayout>;
 }

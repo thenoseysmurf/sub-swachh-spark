@@ -1,9 +1,23 @@
 import { MobileLayout } from "@/components/ui/mobile-layout";
-import { Button } from "@/components/ui/button";
 import { WidgetCard } from "@/components/ui/widget-card";
 import { useRouter } from "@/hooks/useRouter";
 import { useParams } from "react-router-dom";
-import { Film, Heart, GraduationCap, Tag, Play, Music, Dumbbell, BookOpen, Coffee, ShoppingBag } from "lucide-react";
+import { Film, Heart, GraduationCap, Tag, Play, Music, Dumbbell, BookOpen, Coffee, ShoppingBag, Tv, Users, AlertTriangle } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+const getAppIcon = (appName: string) => {
+  const iconMap: { [key: string]: any } = {
+    "Netflix": Tv,
+    "Prime Video": Play,
+    "Nike Training": Dumbbell,
+    "MyFitnessPal": Heart,
+    "Skillshare": BookOpen,
+    "Coursera": GraduationCap,
+    "Zomato Pro": Coffee,
+    "Amazon Prime": ShoppingBag
+  };
+  return iconMap[appName] || Tag;
+};
 
 const categoriesData = {
   1: {
@@ -12,40 +26,40 @@ const categoriesData = {
     apps: [
       {
         name: "Netflix",
-        icon: "N",
+        iconComponent: Tv,
         amount: 199,
-        purchaseDate: "10th Aug",
-        lastActiveDate: "14th Aug 2025",
+        purchaseDate: "Aug 10",
+        lastActiveDate: "Aug 14, 2025",
         status: "active"
       },
       {
         name: "Prime Video", 
-        icon: "P",
+        iconComponent: Play,
         amount: 1499,
-        purchaseDate: "1st Apr 2025",
-        lastActiveDate: "1st July 2025",
+        purchaseDate: "Apr 1, 2025",
+        lastActiveDate: "Jul 1, 2025",
         status: "inactive"
       }
     ]
   },
   2: {
-    name: "Fitness",
+    name: "Fitness", 
     icon: Heart,
     apps: [
       {
         name: "Nike Training",
-        icon: "N",
+        iconComponent: Dumbbell,
         amount: 299,
-        purchaseDate: "15th Mar",
-        lastActiveDate: "20th Aug 2025",
+        purchaseDate: "Mar 15",
+        lastActiveDate: "Aug 20, 2025",
         status: "active"
       },
       {
         name: "MyFitnessPal",
-        icon: "M",
+        iconComponent: Heart,
         amount: 199,
-        purchaseDate: "1st Jan 2025",
-        lastActiveDate: "10th Aug 2025",
+        purchaseDate: "Jan 1, 2025",
+        lastActiveDate: "Aug 10, 2025",
         status: "active"
       }
     ]
@@ -56,18 +70,18 @@ const categoriesData = {
     apps: [
       {
         name: "Skillshare",
-        icon: "S",
+        iconComponent: BookOpen,
         amount: 299,
-        purchaseDate: "5th Feb",
-        lastActiveDate: "12th Aug 2025",
+        purchaseDate: "Feb 5",
+        lastActiveDate: "Aug 12, 2025",
         status: "active"
       },
       {
         name: "Coursera",
-        icon: "C",
+        iconComponent: GraduationCap,
         amount: 399,
-        purchaseDate: "20th Jan 2025",
-        lastActiveDate: "15th July 2025",
+        purchaseDate: "Jan 20, 2025",
+        lastActiveDate: "Jul 15, 2025",
         status: "inactive"
       }
     ]
@@ -78,18 +92,18 @@ const categoriesData = {
     apps: [
       {
         name: "Zomato Pro",
-        icon: "Z",
+        iconComponent: Coffee,
         amount: 299,
-        purchaseDate: "1st Mar",
-        lastActiveDate: "18th Aug 2025",
+        purchaseDate: "Mar 1",
+        lastActiveDate: "Aug 18, 2025",
         status: "active"
       },
       {
         name: "Amazon Prime",
-        icon: "A",
+        iconComponent: ShoppingBag,
         amount: 199,
-        purchaseDate: "10th Feb 2025",
-        lastActiveDate: "16th Aug 2025",
+        purchaseDate: "Feb 10, 2025",
+        lastActiveDate: "Aug 16, 2025",
         status: "active"
       }
     ]
@@ -114,61 +128,96 @@ export default function CategoryDetail() {
 
   const Icon = category.icon;
 
-  return (
-    <MobileLayout title="Analytics" onBack={() => router.back()}>
-      <div className="px-4 pt-2 pb-8 space-y-6">
-        {/* Category Header */}
-        <WidgetCard className="p-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-foreground rounded-lg flex items-center justify-center">
-                <Icon className="h-5 w-5 text-background" />
-              </div>
-              <h2 className="text-lg font-semibold">{category.name}</h2>
-            </div>
-            
-            <div className="flex space-x-2">
-              <Button variant="outline" size="sm">Spends</Button>
-              <Button variant="outline" size="sm">Savings</Button>
-            </div>
-          </div>
-        </WidgetCard>
+  const activeApps = category.apps.filter(app => app.status === 'active').length;
+  const totalApps = category.apps.length;
 
-        {/* Apps Table */}
-        <WidgetCard className="p-0">
-          <div className="overflow-hidden">
-            {/* Table Header */}
-            <div className="grid grid-cols-4 gap-4 p-4 border-b border-border bg-muted/20">
-              <div className="text-sm font-medium text-muted-foreground">App</div>
-              <div className="text-sm font-medium text-muted-foreground">Subscription Amount</div>
-              <div className="text-sm font-medium text-muted-foreground">Purchase Date</div>
-              <div className="text-sm font-medium text-muted-foreground">Last Active Date</div>
-            </div>
-            
-            {/* Table Rows */}
-            {category.apps.map((app, index) => (
-              <div key={index} className="grid grid-cols-4 gap-4 p-4 border-b border-border last:border-b-0">
-                <div className="flex items-center space-x-2">
-                  <div className="w-6 h-6 bg-foreground rounded flex items-center justify-center">
-                    <span className="text-xs font-bold text-background">{app.icon}</span>
+  return (
+    <MobileLayout title={category.name} onBack={() => router.back()}>
+      <div className="px-6 pt-4 pb-8 space-y-8">
+        {/* Category Header */}
+        <div className="text-center space-y-2">
+          <div className="w-16 h-16 bg-gradient-primary rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <Icon className="h-8 w-8 text-white" />
+          </div>
+          <h1 className="text-2xl font-bold">{category.name}</h1>
+          <p className="text-muted-foreground">
+            {activeApps} of {totalApps} subscriptions are actively used
+          </p>
+        </div>
+
+        {/* Apps List */}
+        <div className="space-y-4">
+          <h2 className="text-lg font-semibold text-foreground">Your Subscriptions</h2>
+          
+          <div className="space-y-3">
+            {category.apps.map((app, index) => {
+              const AppIcon = app.iconComponent;
+              const isInactive = app.status === 'inactive';
+              
+              return (
+                <WidgetCard 
+                  key={index} 
+                  className={cn(
+                    "p-4 transition-all duration-200",
+                    isInactive && "border-destructive/20 bg-destructive/5"
+                  )}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-4">
+                      <div className={cn(
+                        "w-12 h-12 rounded-xl flex items-center justify-center",
+                        isInactive ? "bg-destructive/10" : "bg-primary/10"
+                      )}>
+                        <AppIcon className={cn(
+                          "h-6 w-6",
+                          isInactive ? "text-destructive" : "text-primary"
+                        )} />
+                      </div>
+                      
+                      <div className="flex-1">
+                        <div className="flex items-center space-x-2">
+                          <h3 className="font-semibold text-base">{app.name}</h3>
+                          {isInactive && (
+                            <div className="flex items-center space-x-1">
+                              <AlertTriangle className="h-4 w-4 text-destructive" />
+                              <span className="text-xs font-medium text-destructive">Dead Spend</span>
+                            </div>
+                          )}
+                        </div>
+                        <div className="flex items-center space-x-4 mt-1">
+                          <p className="text-sm text-muted-foreground">
+                            Purchased: {app.purchaseDate}
+                          </p>
+                          <p className="text-sm text-muted-foreground">
+                            Last used: {app.lastActiveDate}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="text-right">
+                      <p className="text-xl font-bold">₹{app.amount}</p>
+                      <p className="text-sm text-muted-foreground">per month</p>
+                    </div>
                   </div>
-                  <span className="text-sm font-medium truncate">{app.name}</span>
-                </div>
-                
-                <div className="flex items-center">
-                  <span className="text-sm font-medium">₹ {app.amount}</span>
-                </div>
-                
-                <div className="flex items-center">
-                  <span className="text-sm text-muted-foreground">{app.purchaseDate}</span>
-                </div>
-                
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">{app.lastActiveDate}</span>
-                  <div className={`w-2 h-2 rounded-full ${app.status === 'active' ? 'bg-green-500' : 'bg-red-500'}`} />
-                </div>
-              </div>
-            ))}
+                </WidgetCard>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Summary */}
+        <WidgetCard className="p-6 bg-gradient-subtle">
+          <div className="text-center space-y-2">
+            <p className="text-sm text-muted-foreground">Total monthly spend in {category.name}</p>
+            <p className="text-3xl font-bold">
+              ₹{category.apps.reduce((sum, app) => sum + app.amount, 0)}
+            </p>
+            {category.apps.some(app => app.status === 'inactive') && (
+              <p className="text-sm text-destructive">
+                Consider canceling unused subscriptions to save money
+              </p>
+            )}
           </div>
         </WidgetCard>
       </div>

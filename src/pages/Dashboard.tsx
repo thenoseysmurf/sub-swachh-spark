@@ -75,7 +75,7 @@ const monthlySpendData = [{
   month: "Dec",
   amount: 2800
 }];
-const filters = ["All", "Inactive", "Upcoming Renewals", "Active", "Paused"];
+const filters = ["All", "Inactive", "Paused"];
 export default function Dashboard() {
   const router = useRouter();
   const [activeFilter, setActiveFilter] = useState("All");
@@ -88,15 +88,6 @@ export default function Dashboard() {
         return true;
       case "Inactive":
         return sub.isDead || sub.status === "paused";
-      case "Upcoming Renewals":
-        {
-          const renewal = new Date(sub.nextRenewal);
-          const now = new Date();
-          const diffDays = Math.ceil((renewal.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
-          return diffDays <= 15;
-        }
-      case "Active":
-        return sub.status === "active" && !sub.isDead;
       case "Paused":
         return sub.status === "paused";
       default:

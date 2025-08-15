@@ -94,12 +94,20 @@ export default function Analytics() {
         </div>
 
         {/* Top Metrics */}
-        <div className="flex justify-center">
-          <WidgetCard variant="gradient" className="text-center py-6 hover-scale w-full max-w-xs">
+        <div className="grid grid-cols-2 gap-4">
+          <WidgetCard variant="gradient" className="text-center py-6 hover-scale">
             <div className="space-y-2">
               <p className="text-sm opacity-90">Monthly Spend</p>
               <p className="text-2xl font-bold">₹{totalSpends.toLocaleString()}</p>
               <p className="text-xs opacity-75">This month</p>
+            </div>
+          </WidgetCard>
+          
+          <WidgetCard variant="savings" className="text-center py-6 hover-scale">
+            <div className="space-y-2">
+              <p className="text-sm opacity-90">You can save</p>
+              <p className="text-2xl font-bold">₹{(totalSavings * 12).toLocaleString()}</p>
+              <p className="text-xs opacity-75">Per year</p>
             </div>
           </WidgetCard>
         </div>

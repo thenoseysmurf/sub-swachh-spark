@@ -34,7 +34,7 @@ export default function VerifyMobile() {
       title="Linked Accounts" 
       onBack={() => router.back()}
     >
-      <div className="px-4 py-6 space-y-6">
+      <div className="px-4 py-3 space-y-3">
         {/* Progress indicator */}
         <div className="flex justify-center space-x-2">
           {["scanning", "results"].map((s, i) => (
@@ -49,107 +49,103 @@ export default function VerifyMobile() {
           ))}
         </div>
 
-        <div className="text-center space-y-2">
-          <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 mb-4">
-            <Link className="w-6 h-6 text-primary" />
+        <div className="text-center space-y-1">
+          <div className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-primary/10 mb-2">
+            <Link className="w-5 h-5 text-primary" />
           </div>
-          <h1 className="heading-lg text-foreground">Find Your Payment Methods</h1>
-          <p className="body-lg text-muted-foreground max-w-sm mx-auto">
-            We're scanning for UPI IDs and cards linked to your account to discover active subscriptions
+          <h1 className="heading-md text-foreground">Find Your Payment Methods</h1>
+          <p className="body-sm text-muted-foreground max-w-sm mx-auto">
+            Scanning for UPI IDs and cards to discover active subscriptions
           </p>
         </div>
 
         {step === "scanning" && (
-          <WidgetCard className="text-center py-12 space-y-6">
+          <WidgetCard className="text-center py-8 space-y-4">
             <div className="relative">
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-16 h-16 border-4 border-primary/20 rounded-full"></div>
+                <div className="w-12 h-12 border-4 border-primary/20 rounded-full"></div>
               </div>
-              <Loader2 className="h-8 w-8 animate-spin mx-auto text-primary relative z-10" />
+              <Loader2 className="h-6 w-6 animate-spin mx-auto text-primary relative z-10" />
             </div>
             <div>
-              <h2 className="heading-lg mb-2">Scanning Linked Accounts</h2>
+              <h2 className="heading-md mb-1">Scanning Linked Accounts</h2>
               <p className="body-sm text-muted-foreground">
                 Securely connecting to discover your payment methods...
               </p>
             </div>
-            <div className="flex items-center justify-center gap-6 pt-4">
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Shield className="w-4 h-4" />
-                Bank Grade Security
-              </div>
+            <div className="flex items-center justify-center gap-2">
+              <Shield className="w-4 h-4" />
+              <span className="text-xs text-muted-foreground">Bank Grade Security</span>
             </div>
           </WidgetCard>
         )}
 
         {step === "results" && (
-          <div className="space-y-4">
-            <WidgetCard variant="savings" className="p-4">
+          <div className="space-y-3">
+            <WidgetCard variant="savings" className="p-3">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <CheckCircle2 className="h-6 w-6 text-success" />
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="h-5 w-5 text-success" />
                   <span className="text-sm font-medium">Accounts Discovered</span>
                 </div>
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-3">
                   <div className="text-center">
-                    <div className="text-xl font-bold">{upiAccounts.length}</div>
+                    <div className="text-lg font-bold">{upiAccounts.length}</div>
                     <div className="text-xs opacity-80">UPI IDs</div>
                   </div>
-                  <div className="w-px h-8 bg-success/30"></div>
+                  <div className="w-px h-6 bg-success/30"></div>
                   <div className="text-center">
-                    <div className="text-xl font-bold">{paymentCards.length}</div>
+                    <div className="text-lg font-bold">{paymentCards.length}</div>
                     <div className="text-xs opacity-80">Cards</div>
                   </div>
                 </div>
               </div>
             </WidgetCard>
 
-            <WidgetCard className="space-y-4">
-              <h3 className="heading-sm">Linked Payment Methods</h3>
+            <WidgetCard className="space-y-3">
+              <h3 className="text-sm font-medium">Linked Payment Methods</h3>
               
-              <div className="space-y-3">
+              <div className="space-y-2">
                 {upiAccounts.map((upi) => (
-                  <div key={upi.id} className="flex items-center space-x-3 p-4 bg-gradient-to-r from-success/5 to-success/10 rounded-lg border border-success/20">
-                    <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-success/10">
-                      <Smartphone className="h-5 w-5 text-success" />
+                  <div key={upi.id} className="flex items-center space-x-3 p-3 bg-gradient-to-r from-success/5 to-success/10 rounded-lg border border-success/20">
+                    <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-success/10">
+                      <Smartphone className="h-4 w-4 text-success" />
                     </div>
-                    <div className="flex-1">
-                      <p className="font-medium text-foreground">{upi.name}</p>
-                      <p className="text-sm text-muted-foreground">{upi.provider}</p>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium text-foreground truncate">{upi.name}</p>
+                      <p className="text-xs text-muted-foreground">{upi.provider}</p>
                     </div>
-                    <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-destructive">
-                      <X className="h-4 w-4" />
+                    <Button variant="ghost" size="icon" className="h-6 w-6 text-muted-foreground hover:text-destructive">
+                      <X className="h-3 w-3" />
                     </Button>
                   </div>
                 ))}
 
                 {paymentCards.map((card) => (
-                  <div key={card.id} className="flex items-center space-x-3 p-4 bg-gradient-to-r from-primary/5 to-primary/10 rounded-lg border border-primary/20">
-                    <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10">
-                      <CreditCard className="h-5 w-5 text-primary" />
+                  <div key={card.id} className="flex items-center space-x-3 p-3 bg-gradient-to-r from-primary/5 to-primary/10 rounded-lg border border-primary/20">
+                    <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary/10">
+                      <CreditCard className="h-4 w-4 text-primary" />
                     </div>
-                    <div className="flex-1">
-                      <p className="font-medium text-foreground">{card.name}</p>
-                      <p className="text-sm text-muted-foreground">**** {card.last4}</p>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium text-foreground truncate">{card.name}</p>
+                      <p className="text-xs text-muted-foreground">**** {card.last4}</p>
                     </div>
-                    <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-destructive">
-                      <X className="h-4 w-4" />
+                    <Button variant="ghost" size="icon" className="h-6 w-6 text-muted-foreground hover:text-destructive">
+                      <X className="h-3 w-3" />
                     </Button>
                   </div>
                 ))}
               </div>
 
-              <div className="bg-muted/50 rounded-lg p-4 mt-6">
-                <p className="text-sm text-muted-foreground text-center">
-                  Linked accounts are used to Auto-detect active subscriptions
+              <div className="bg-muted/50 rounded-lg p-3">
+                <p className="text-xs text-muted-foreground text-center">
+                  Linked accounts are used to auto-detect active subscriptions
                 </p>
               </div>
 
-              <div className="pt-4">
-                <Button onClick={handleContinue} className="w-full" variant="primary" size="lg">
-                  Continue to Profile Setup
-                </Button>
-              </div>
+              <Button onClick={handleContinue} className="w-full" variant="primary">
+                Continue to Profile Setup
+              </Button>
             </WidgetCard>
           </div>
         )}

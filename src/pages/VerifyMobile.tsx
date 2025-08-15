@@ -84,12 +84,23 @@ export default function VerifyMobile() {
 
         {step === "results" && (
           <div className="space-y-4">
-            <WidgetCard variant="savings" className="text-center space-y-4">
-              <CheckCircle2 className="h-8 w-8 mx-auto" />
-              <div>
-                <p className="body-lg">
-                  Found {upiAccounts.length} UPI IDs and {paymentCards.length} card linked to your account
-                </p>
+            <WidgetCard variant="savings" className="p-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <CheckCircle2 className="h-6 w-6 text-success" />
+                  <span className="text-sm font-medium">Accounts Discovered</span>
+                </div>
+                <div className="flex items-center gap-4">
+                  <div className="text-center">
+                    <div className="text-xl font-bold">{upiAccounts.length}</div>
+                    <div className="text-xs opacity-80">UPI IDs</div>
+                  </div>
+                  <div className="w-px h-8 bg-success/30"></div>
+                  <div className="text-center">
+                    <div className="text-xl font-bold">{paymentCards.length}</div>
+                    <div className="text-xs opacity-80">Cards</div>
+                  </div>
+                </div>
               </div>
             </WidgetCard>
 

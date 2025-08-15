@@ -53,13 +53,7 @@ const Index = () => {
 
         {/* Trust Indicator with Social Proof */}
         <div className="text-center space-y-2 animate-slide-up stagger-4">
-          <div className="flex items-center justify-center space-x-1">
-            {Array.from({
-            length: 5
-          }, (_, i) => <div key={i} className="w-4 h-4 bg-success rounded-full animate-pulse-glow" style={{
-            animationDelay: `${i * 0.2}s`
-          }}></div>)}
-          </div>
+          
           <p className="text-white/70 caption-lg">
             Trusted by 50,000+ smart savers
           </p>

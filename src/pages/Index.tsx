@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { useRouter } from "@/hooks/useRouter";
 import { Zap } from "lucide-react";
-import piggyBankImage from "@/assets/piggy-bank-coins.png";
 
 const Index = () => {
   const router = useRouter();
@@ -35,13 +34,14 @@ const Index = () => {
           </p>
         </div>
 
-        {/* Piggy Bank with Coins */}
-        <div className="text-center animate-slide-up stagger-2">
-          <img 
-            src={piggyBankImage} 
-            alt="Piggy bank with gold coins" 
-            className="w-64 h-48 mx-auto object-contain"
-          />
+        {/* Savings Display with Glass Effect */}
+        <div className="text-center space-y-3 animate-slide-up stagger-2">
+          <div className="glass-card p-6 backdrop-blur-xl">
+            <div className="display-md gradient-success font-bold">
+              ₹25,000+
+            </div>
+            <p className="text-white/80 body-md">Average yearly savings</p>
+          </div>
         </div>
 
         {/* Enhanced CTA Button */}

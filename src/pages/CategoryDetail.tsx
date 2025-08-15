@@ -132,7 +132,7 @@ export default function CategoryDetail() {
   const totalApps = category.apps.length;
 
   return (
-    <MobileLayout title={category.name} onBack={() => router.back()}>
+    <MobileLayout title={category.name} onBack={() => router.back()} showBottomNav={true}>
       <div className="px-6 pt-4 pb-8 space-y-8">
         {/* Category Header */}
         <div className="text-center space-y-2">

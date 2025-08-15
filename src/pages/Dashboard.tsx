@@ -95,7 +95,7 @@ export default function Dashboard() {
         return true;
     }
   });
-  return <MobileLayout showBackButton={false}>
+  return <MobileLayout showBackButton={false} showBottomNav={true}>
       <div className="px-4 py-6 space-y-6 animate-fade-in">
         {/* Enhanced Header with Glass Effect */}
         <div className="glass-nav p-4 rounded-xl -mx-4 mb-6 animate-slide-down">

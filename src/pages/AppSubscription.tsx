@@ -131,7 +131,7 @@ export default function AppSubscription() {
   const Icon = app.icon;
   const isInactive = app.status === 'inactive';
   const avgUsage = app.usageData.reduce((sum: number, val: number) => sum + val, 0) / app.usageData.length;
-  return <MobileLayout title={app.name} onBack={() => router.back()}>
+  return <MobileLayout title={app.name} onBack={() => router.back()} showBottomNav={true}>
       <div className="px-4 pt-2 pb-4 space-y-3 h-[calc(100vh-4rem)] flex flex-col">
         {/* App Header */}
         <div className="text-center space-y-2">

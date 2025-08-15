@@ -66,6 +66,7 @@ export default function ManageSubscription() {
     <MobileLayout 
       title="Manage Subscription" 
       onBack={() => router.back()}
+      showBottomNav={true}
     >
       <div className="px-4 py-2 space-y-3">
         {/* Subscription Header */}

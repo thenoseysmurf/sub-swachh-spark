@@ -84,7 +84,7 @@ export default function Analytics() {
   const router = useRouter();
   const totalSpends = categories.reduce((sum, cat) => sum + cat.spends, 0);
   const totalSavings = categories.reduce((sum, cat) => sum + cat.savings, 0);
-  return <MobileLayout title="Spending Insights" onBack={() => router.back()}>
+  return <MobileLayout title="Spending Insights" onBack={() => router.back()} showBottomNav={true}>
       <div className="px-4 pt-2 pb-8 space-y-8">
         {/* Header Message */}
         <div className="text-center px-2">

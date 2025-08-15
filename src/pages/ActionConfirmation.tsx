@@ -26,6 +26,7 @@ export default function ActionConfirmation() {
     <MobileLayout 
       title="Action Complete" 
       onBack={() => router.back()}
+      showBottomNav={true}
     >
       <div className="px-4 py-8 space-y-6">
         {/* Success Message */}

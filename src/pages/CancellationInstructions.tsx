@@ -8,7 +8,7 @@ export default function CancellationInstructions() {
   const openNetflixApp = () => {
     window.open("https://netflix.com/cancelplan", "_blank");
   };
-  return <MobileLayout title="Cancellation Guide" onBack={() => router.back()}>
+  return <MobileLayout title="Cancellation Guide" onBack={() => router.back()} showBottomNav={true}>
       <div className="px-4 py-3 space-y-3 max-h-[calc(100vh-8rem)] overflow-y-auto">
         {/* Header */}
         <WidgetCard className="text-center space-y-2">

@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "./button";
+import { BottomNavbar } from "./bottom-navbar";
 
 interface MobileLayoutProps {
   children: React.ReactNode;
@@ -8,6 +9,7 @@ interface MobileLayoutProps {
   onBack?: () => void;
   className?: string;
   showBackButton?: boolean;
+  showBottomNav?: boolean;
 }
 
 export function MobileLayout({ 
@@ -15,7 +17,8 @@ export function MobileLayout({
   title, 
   onBack, 
   className,
-  showBackButton = true 
+  showBackButton = true,
+  showBottomNav = true
 }: MobileLayoutProps) {
   return (
     <div className="min-h-screen bg-background">
@@ -37,9 +40,12 @@ export function MobileLayout({
       )}
       
       {/* Content */}
-      <main className={cn("pb-safe", className)}>
+      <main className={cn("pb-safe", showBottomNav && "pb-20", className)}>
         {children}
       </main>
+      
+      {/* Bottom Navigation */}
+      {showBottomNav && <BottomNavbar />}
     </div>
   );
 }

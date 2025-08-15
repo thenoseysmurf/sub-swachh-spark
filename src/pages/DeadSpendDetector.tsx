@@ -72,7 +72,7 @@ export default function DeadSpendDetector() {
           <div className="space-y-1">
             <h2 className="text-2xl font-bold text-destructive">₹{monthlyWaste.toLocaleString()}</h2>
             <p className="text-xs text-muted-foreground">
-              Money you are losing every month
+              Money you are losing every year
             </p>
           </div>
         </div>

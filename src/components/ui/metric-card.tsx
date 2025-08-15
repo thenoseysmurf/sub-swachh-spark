@@ -25,17 +25,17 @@ export function MetricCard({
   return (
     <div
       className={cn(
-        "bg-card border border-border rounded-lg p-4 transition-all duration-200",
-        "hover:shadow-md hover:border-border-accent",
+        "bg-card/80 backdrop-blur-sm border border-border-accent/30 rounded-lg p-4 transition-all duration-300",
+        "hover:shadow-lg hover:border-border-accent/50 glow-primary",
         "min-h-[120px] flex flex-col justify-between",
         {
-          "bg-gradient-card shadow-sm": variant === "default",
-          "bg-gradient-savings shadow-success border-success/20": variant === "success",
-          "bg-gradient-to-br from-warning/10 to-warning-light/10 border-warning/20": variant === "warning",
-          "bg-gradient-primary text-primary-foreground border-primary/20": variant === "premium"
+          "bg-gradient-card shadow-md": variant === "default",
+          "bg-gradient-savings text-success-foreground shadow-success border-success/20 glow-success": variant === "success",
+          "bg-gradient-warning text-warning-foreground border-warning/30 shadow-md glow-premium": variant === "warning",
+          "bg-gradient-hero text-primary-foreground border-primary/20 shadow-premium glow-premium animate-gradient": variant === "premium"
         },
         {
-          "cursor-pointer hover:scale-[1.01] active:scale-[0.99]": onClick
+          "cursor-pointer hover:scale-[1.02] active:scale-[0.98] hover:glow-pulse": onClick
         },
         className
       )}

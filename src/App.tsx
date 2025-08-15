@@ -26,34 +26,36 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <ThemeProvider
       attribute="class"
-      defaultTheme="system"
+      defaultTheme="dark"
       enableSystem
       disableTransitionOnChange
     >
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/verify-mobile" element={<VerifyMobile />} />
-          <Route path="/profile-setup" element={<ProfileSetup />} />
-          <Route path="/configure-alerts" element={<ConfigureAlerts />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/subscription/:id" element={<ManageSubscription />} />
-          <Route path="/action-confirmation" element={<ActionConfirmation />} />
-          <Route path="/analytics" element={<Analytics />} />
-          <Route path="/category/:categoryId" element={<CategoryDetail />} />
-          <Route path="/app/:category/:appName" element={<AppSubscription />} />
-          <Route path="/dead-spend-detector" element={<DeadSpendDetector />} />
-          <Route path="/cancellation-instructions/:id" element={<CancellationInstructions />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-      </TooltipProvider>
+      <div className="min-h-screen bg-gradient-background">
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/verify-mobile" element={<VerifyMobile />} />
+            <Route path="/profile-setup" element={<ProfileSetup />} />
+            <Route path="/configure-alerts" element={<ConfigureAlerts />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/subscription/:id" element={<ManageSubscription />} />
+            <Route path="/action-confirmation" element={<ActionConfirmation />} />
+            <Route path="/analytics" element={<Analytics />} />
+            <Route path="/category/:categoryId" element={<CategoryDetail />} />
+            <Route path="/app/:category/:appName" element={<AppSubscription />} />
+            <Route path="/dead-spend-detector" element={<DeadSpendDetector />} />
+            <Route path="/cancellation-instructions/:id" element={<CancellationInstructions />} />
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+        </TooltipProvider>
+      </div>
     </ThemeProvider>
   </QueryClientProvider>
 );

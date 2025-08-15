@@ -30,14 +30,14 @@ export function WidgetCard({
           "p-6": size === "lg",
         },
         {
-          // Style variants with improved contrast
-          "bg-card border-border shadow-sm hover:shadow-md hover:border-border-accent": variant === "default",
-          "bg-gradient-primary text-primary-foreground shadow-md hover:shadow-lg border-primary/20": variant === "gradient",
-          "bg-gradient-savings text-success-foreground shadow-success hover:shadow-lg border-success/20": variant === "savings",
-          "glass-card backdrop-blur-xl": variant === "glass",
-          "bg-card border-border shadow-lg hover:shadow-xl": variant === "elevated",
-          "bg-gradient-hero text-primary-foreground shadow-glow hover:shadow-xl border-primary/20": variant === "premium",
-          "bg-gradient-to-br from-warning/10 to-warning-light/10 text-warning-foreground border-warning/20 shadow-sm": variant === "warning"
+          // Enhanced style variants with premium vibrancy
+          "bg-card/80 backdrop-blur-sm border-border-accent/30 shadow-md hover:shadow-lg hover:border-border-accent/50 glow-primary": variant === "default",
+          "bg-gradient-primary text-primary-foreground shadow-glow hover:shadow-premium border-primary/30 glow-primary": variant === "gradient",
+          "bg-gradient-savings text-success-foreground shadow-success hover:shadow-lg border-success/30 glow-success": variant === "savings",
+          "glass-card backdrop-blur-xl glow-premium": variant === "glass",
+          "bg-card/90 backdrop-blur-sm border-border-accent/40 shadow-lg hover:shadow-xl glow-primary": variant === "elevated",
+          "bg-gradient-hero text-primary-foreground shadow-premium hover:shadow-xl border-primary/30 glow-premium animate-gradient": variant === "premium",
+          "bg-gradient-warning text-warning-foreground border-warning/30 shadow-md hover:shadow-lg glow-premium": variant === "warning"
         },
         {
           "cursor-pointer hover:scale-[1.01] active:scale-[0.99]": interactive || onClick,

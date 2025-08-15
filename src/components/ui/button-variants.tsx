@@ -5,21 +5,21 @@ export const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary-dark shadow-md hover:shadow-lg hover:-translate-y-0.5",
-        primary: "bg-gradient-primary text-white hover:shadow-xl glow-primary font-semibold",
-        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary-dark/20 shadow-sm hover:shadow-md",
-        success: "bg-gradient-savings text-success-foreground hover:shadow-xl glow-success font-semibold",
-        warning: "bg-warning text-warning-foreground hover:bg-warning/90 shadow-md hover:shadow-lg",
-        destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90 shadow-md hover:shadow-lg",
-        outline: "border-2 border-border bg-background hover:bg-accent hover:text-accent-foreground hover:border-border-accent",
-        "outline-primary": "border-2 border-primary text-primary bg-background hover:bg-primary hover:text-primary-foreground",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
-        "ghost-primary": "text-primary hover:bg-primary/10 hover:text-primary-dark",
-        link: "text-primary underline-offset-4 hover:underline p-0 h-auto",
-        soft: "bg-primary/10 text-primary hover:bg-primary/20 border border-primary/20",
-        glass: "glass-surface text-foreground hover:bg-accent/50 backdrop-blur-md",
-        premium: "bg-gradient-hero text-white shadow-glow hover:shadow-2xl animate-gradient font-bold",
-        floating: "bg-card shadow-xl hover:shadow-2xl border border-border hover:-translate-y-1"
+        default: "bg-primary text-primary-foreground hover:bg-primary-dark shadow-md hover:shadow-lg hover:-translate-y-0.5 glow-primary",
+        primary: "bg-gradient-primary text-white hover:shadow-xl glow-primary font-semibold hover:scale-105",
+        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary-dark/30 shadow-sm hover:shadow-md border border-border-accent/20",
+        success: "bg-gradient-savings text-success-foreground hover:shadow-xl glow-success font-semibold hover:scale-105",
+        warning: "bg-gradient-warning text-warning-foreground hover:bg-warning/90 shadow-md hover:shadow-lg glow-premium",
+        destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90 shadow-md hover:shadow-lg hover:scale-105",
+        outline: "border-2 border-border-accent/40 bg-background/50 backdrop-blur-sm hover:bg-accent/20 hover:text-accent-foreground hover:border-border-accent",
+        "outline-primary": "border-2 border-primary/60 text-primary bg-background/50 backdrop-blur-sm hover:bg-primary hover:text-primary-foreground glow-primary",
+        ghost: "hover:bg-accent/20 hover:text-accent-foreground backdrop-blur-sm",
+        "ghost-primary": "text-primary hover:bg-primary/15 hover:text-primary-dark backdrop-blur-sm",
+        link: "text-primary underline-offset-4 hover:underline p-0 h-auto gradient-text",
+        soft: "bg-primary/15 text-primary hover:bg-primary/25 border border-primary/30 backdrop-blur-sm",
+        glass: "glass-surface text-foreground hover:bg-accent/30 backdrop-blur-md glow-primary",
+        premium: "bg-gradient-hero text-white shadow-glow hover:shadow-premium animate-gradient font-bold hover:scale-105 glow-premium",
+        floating: "bg-card/80 backdrop-blur-xl shadow-xl hover:shadow-2xl border border-border-accent/20 hover:-translate-y-1 glow-primary"
       },
       size: {
         xs: "h-8 px-3 py-1 text-xs",

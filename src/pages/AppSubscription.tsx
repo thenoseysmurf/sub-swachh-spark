@@ -188,9 +188,16 @@ export default function AppSubscription() {
             </div>
             
             <div className="bg-muted/50 rounded-lg p-3">
-              <p className="text-xs text-center">
+              <p className="text-xs text-center mb-3">
                 {isInactive ? "Canceling this will save you ₹1,428 per month and ₹17,988 per year" : avgUsage > 60 ? "Great value! You're using this subscription effectively" : "Low usage detected. Consider if you really need this subscription"}
               </p>
+              <Button 
+                size="sm" 
+                className="w-full h-8 text-xs font-medium" 
+                onClick={() => router.push(`/subscription/1`)}
+              >
+                Manage Subscription
+              </Button>
             </div>
           </div>
         </WidgetCard>

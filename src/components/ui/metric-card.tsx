@@ -60,7 +60,7 @@ export function MetricCard({
         <div className="flex items-center justify-between mt-2">
           {subtitle && (
             <p className={cn(
-              "body-sm",
+              "body-sm text-center",
               variant === "premium" ? "text-primary-foreground/70" : "text-muted-foreground"
             )}>
               {subtitle}

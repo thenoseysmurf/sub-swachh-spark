@@ -2,44 +2,52 @@ import { MobileLayout } from "@/components/ui/mobile-layout";
 import { Button } from "@/components/ui/button";
 import { WidgetCard } from "@/components/ui/widget-card";
 import { useRouter } from "@/hooks/useRouter";
-import { AlertCircle, Clock, TrendingDown } from "lucide-react";
+import { Clock, TrendingDown, Music, Coffee, Tv, Dumbbell, Settings } from "lucide-react";
 
 const mockDeadSpendData = [
   {
     id: 2,
     name: "Spotify Premium",
     amount: 119,
-    category: "Music",
+    category: "Music Streaming",
     lastUsed: "45 days ago",
     confidence: "High",
-    reason: "No activity in last 6 weeks"
+    reason: "No listening activity detected",
+    icon: Music,
+    color: "text-green-500"
   },
   {
     id: 4,
     name: "Zomato Pro",
     amount: 299,
-    category: "Food",
+    category: "Food Delivery",
     lastUsed: "62 days ago", 
     confidence: "Very High",
-    reason: "Account paused, no orders placed"
+    reason: "No orders placed recently",
+    icon: Coffee,
+    color: "text-red-500"
   },
   {
     id: 5,
     name: "Disney+ Hotstar",
     amount: 899,
-    category: "OTT",
+    category: "Entertainment",
     lastUsed: "89 days ago",
     confidence: "High", 
-    reason: "No streaming activity detected"
+    reason: "Zero streaming hours recorded",
+    icon: Tv,
+    color: "text-blue-500"
   },
   {
     id: 6,
     name: "Gym Membership",
     amount: 2500,
-    category: "Health",
+    category: "Fitness",
     lastUsed: "120+ days ago",
     confidence: "Very High",
-    reason: "No check-ins since last quarter"
+    reason: "No facility check-ins detected",
+    icon: Dumbbell,
+    color: "text-orange-500"
   }
 ];
 
@@ -50,87 +58,89 @@ export default function DeadSpendDetector() {
   const monthlyWaste = mockDeadSpendData.reduce((sum, sub) => sum + sub.amount, 0);
 
   return (
-    <MobileLayout title="Dead Spend Detector" showBackButton>
-      <div className="px-4 py-6 space-y-6">
+    <MobileLayout title="Spend Optimizer" showBackButton>
+      <div className="px-4 pt-4 pb-8 space-y-8">
         {/* Header Stats */}
-        <div className="text-center space-y-2">
-          <TrendingDown className="h-12 w-12 mx-auto text-destructive" />
-          <h2 className="heading-lg text-destructive">₹{totalDeadSpend.toLocaleString()}</h2>
-          <p className="body-sm text-muted-foreground">
-            Annual waste from {mockDeadSpendData.length} unused subscriptions
-          </p>
-          <p className="text-sm text-destructive font-medium">
-            ₹{monthlyWaste.toLocaleString()}/month going to waste
-          </p>
-        </div>
-
-
-        {/* Dead Spend List */}
-        <div className="space-y-4">
-          <h3 className="heading-sm flex items-center gap-2">
-            <AlertCircle className="h-5 w-5 text-destructive" />
-            Unused Subscriptions
-          </h3>
-          
-          <div className="space-y-3">
-            {mockDeadSpendData.map((subscription) => (
-              <WidgetCard key={subscription.id} className="p-4">
-                <div className="space-y-3">
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2">
-                        <h4 className="font-semibold">{subscription.name}</h4>
-                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                          subscription.confidence === "Very High" 
-                            ? "bg-destructive/10 text-destructive" 
-                            : "bg-yellow-500/10 text-yellow-600"
-                        }`}>
-                          {subscription.confidence}
-                        </span>
-                      </div>
-                      <p className="text-sm text-muted-foreground">{subscription.category}</p>
-                      <div className="flex items-center gap-4 mt-2">
-                        <p className="text-lg font-bold text-destructive">₹{subscription.amount}/month</p>
-                        <div className="flex items-center gap-1 text-sm text-muted-foreground">
-                          <Clock className="h-4 w-4" />
-                          {subscription.lastUsed}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="bg-muted/50 rounded-lg p-3">
-                    <p className="text-sm text-muted-foreground">{subscription.reason}</p>
-                  </div>
-                  
-                  <div className="flex gap-2">
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      className="flex-1 text-destructive border-destructive hover:bg-destructive hover:text-destructive-foreground"
-                      onClick={() => router.push(`/subscription/${subscription.id}`)}
-                    >
-                      Cancel Subscription
-                    </Button>
-                    <Button 
-                      variant="outline" 
-                      size="sm"
-                      onClick={() => router.push(`/subscription/${subscription.id}`)}
-                    >
-                      Manage
-                    </Button>
-                  </div>
-                </div>
-              </WidgetCard>
-            ))}
+        <div className="text-center space-y-4">
+          <div className="w-16 h-16 mx-auto bg-gradient-to-br from-orange-400 to-red-500 rounded-2xl flex items-center justify-center">
+            <TrendingDown className="h-8 w-8 text-white" />
+          </div>
+          <div className="space-y-2">
+            <h2 className="text-3xl font-bold text-destructive">₹{totalDeadSpend.toLocaleString()}</h2>
+            <p className="text-sm text-muted-foreground">
+              Potential yearly savings from optimizing {mockDeadSpendData.length} subscriptions
+            </p>
           </div>
         </div>
 
-        {/* Bottom Action */}
-        <div className="pb-safe space-y-3">
-          <Button variant="outline" className="w-full text-destructive border-destructive hover:bg-destructive hover:text-destructive-foreground" size="lg">
-            Cancel All Unused (Save ₹{monthlyWaste.toLocaleString()}/month)
-          </Button>
+        {/* Underutilized Subscriptions */}
+        <div className="space-y-6">
+          <div className="text-center space-y-1">
+            <h3 className="text-lg font-semibold">Underutilized Subscriptions</h3>
+            <p className="text-sm text-muted-foreground">Review and optimize these subscriptions</p>
+          </div>
+          
+          <div className="space-y-4">
+            {mockDeadSpendData.map((subscription) => {
+              const Icon = subscription.icon;
+              return (
+                <WidgetCard key={subscription.id} className="p-5 hover-scale">
+                  <div className="space-y-4">
+                    <div className="flex items-start gap-4">
+                      <div className={`w-12 h-12 rounded-xl bg-muted/50 flex items-center justify-center ${subscription.color}`}>
+                        <Icon className="h-6 w-6" />
+                      </div>
+                      
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 mb-1">
+                          <h4 className="font-semibold text-base">{subscription.name}</h4>
+                          <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                            subscription.confidence === "Very High" 
+                              ? "bg-red-100 text-red-700 dark:bg-red-900/20 dark:text-red-400" 
+                              : "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/20 dark:text-yellow-400"
+                          }`}>
+                            {subscription.confidence} Risk
+                          </span>
+                        </div>
+                        
+                        <p className="text-sm text-muted-foreground mb-2">{subscription.category}</p>
+                        
+                        <div className="flex items-center justify-between">
+                          <p className="text-xl font-bold">₹{subscription.amount}<span className="text-sm font-normal text-muted-foreground">/month</span></p>
+                          <div className="flex items-center gap-1 text-sm text-muted-foreground">
+                            <Clock className="h-4 w-4" />
+                            {subscription.lastUsed}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-muted/30 rounded-lg p-3">
+                      <p className="text-sm text-muted-foreground">{subscription.reason}</p>
+                    </div>
+                    
+                    <Button 
+                      className="w-full"
+                      variant="outline"
+                      onClick={() => router.push(`/subscription/${subscription.id}`)}
+                    >
+                      <Settings className="h-4 w-4 mr-2" />
+                      Manage Subscription
+                    </Button>
+                  </div>
+                </WidgetCard>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Summary Action */}
+        <div className="pt-4 space-y-3">
+          <div className="text-center bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950/20 dark:to-emerald-950/20 rounded-xl p-4">
+            <p className="text-sm text-muted-foreground mb-2">Monthly optimization potential</p>
+            <p className="text-2xl font-bold text-green-600 dark:text-green-400">₹{monthlyWaste.toLocaleString()}</p>
+          </div>
+          
           <Button 
             variant="outline" 
             className="w-full" 

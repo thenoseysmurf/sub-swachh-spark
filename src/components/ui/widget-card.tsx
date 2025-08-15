@@ -7,6 +7,7 @@ interface WidgetCardProps {
   interactive?: boolean;
   onClick?: () => void;
   style?: React.CSSProperties;
+  size?: "sm" | "md" | "lg";
 }
 
 export function WidgetCard({ 
@@ -15,24 +16,31 @@ export function WidgetCard({
   variant = "default", 
   interactive = false,
   onClick,
-  style
+  style,
+  size = "md"
 }: WidgetCardProps) {
   return (
     <div
       className={cn(
-        "rounded-xl p-4 transition-all duration-300 ease-out animate-fade-in",
+        "rounded-lg border transition-all duration-200 ease-out",
         {
-          "bg-gradient-card border border-border shadow-md hover:shadow-lg": variant === "default",
-          "bg-gradient-primary text-white shadow-lg hover:shadow-xl glow-primary": variant === "gradient",
-          "bg-gradient-savings text-success-foreground shadow-success hover:shadow-xl glow-success": variant === "savings",
-          "glass-card": variant === "glass",
-          "bg-card-elevated border border-border-subtle shadow-xl hover:shadow-2xl": variant === "elevated",
-          "bg-gradient-hero text-white shadow-glow hover:shadow-2xl animate-pulse-glow": variant === "premium",
-          "bg-gradient-to-br from-warning to-warning-light text-warning-foreground shadow-lg": variant === "warning"
+          // Size variants
+          "p-3": size === "sm",
+          "p-4": size === "md", 
+          "p-6": size === "lg",
         },
         {
-          "interactive-card cursor-pointer": interactive || onClick,
-          "hover:scale-[1.02] active:scale-[0.98]": interactive || onClick
+          // Style variants with improved contrast
+          "bg-card border-border shadow-sm hover:shadow-md hover:border-border-accent": variant === "default",
+          "bg-gradient-primary text-primary-foreground shadow-md hover:shadow-lg border-primary/20": variant === "gradient",
+          "bg-gradient-savings text-success-foreground shadow-success hover:shadow-lg border-success/20": variant === "savings",
+          "glass-card backdrop-blur-xl": variant === "glass",
+          "bg-card border-border shadow-lg hover:shadow-xl": variant === "elevated",
+          "bg-gradient-hero text-primary-foreground shadow-glow hover:shadow-xl border-primary/20": variant === "premium",
+          "bg-gradient-to-br from-warning/10 to-warning-light/10 text-warning-foreground border-warning/20 shadow-sm": variant === "warning"
+        },
+        {
+          "cursor-pointer hover:scale-[1.01] active:scale-[0.99]": interactive || onClick,
         },
         className
       )}

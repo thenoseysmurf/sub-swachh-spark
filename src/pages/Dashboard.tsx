@@ -2,6 +2,7 @@ import { useState } from "react";
 import { MobileLayout } from "@/components/ui/mobile-layout";
 import { Button } from "@/components/ui/button";
 import { WidgetCard } from "@/components/ui/widget-card";
+import { MetricCard } from "@/components/ui/metric-card";
 import { PremiumLoading } from "@/components/ui/premium-loading";
 import { useRouter } from "@/hooks/useRouter";
 import { TrendingUp, TrendingDown, Calendar, Filter, Settings, BarChart3, AlertCircle, Play, Pause, Star, Crown, Sparkles } from "lucide-react";
@@ -115,50 +116,31 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Enhanced Key Metrics */}
-        <div className="grid grid-cols-2 gap-4 animate-slide-up stagger-1">
-          <WidgetCard variant="premium" interactive className="relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-hero opacity-10 animate-gradient"></div>
-            <div className="relative text-center space-y-2 py-2">
-              <div className="flex items-center justify-center space-x-1">
-                <Crown className="h-4 w-4" />
-                <p className="caption-xs opacity-90">Annual Spend</p>
-              </div>
-              <p className="heading-lg font-bold">₹{totalSpend.toLocaleString()}</p>
-              <div className="flex items-center justify-center space-x-1">
-                <TrendingUp className="h-3 w-3 text-success" />
-                <span className="caption-xs text-success">+5.2% vs last year</span>
-              </div>
-            </div>
-          </WidgetCard>
+        {/* Apple-style Key Metrics */}
+        <div className="grid grid-cols-2 gap-3 animate-slide-up stagger-1">
+          <MetricCard
+            title="Annual Spend"
+            value={`₹${totalSpend.toLocaleString()}`}
+            trend={{ value: "+5.2%", direction: "up" }}
+            variant="premium"
+            className="cursor-pointer"
+            onClick={() => router.push("/analytics")}
+          />
 
-          <WidgetCard 
-            variant="savings" 
-            interactive 
+          <MetricCard
+            title="Dead Spend"
+            value={`₹${deadSpend.toLocaleString()}`}
+            subtitle={`${inactiveCount} inactive subs`}
+            variant="warning"
+            className="cursor-pointer"
             onClick={() => router.push("/dead-spend-detector")}
-            className="relative overflow-hidden"
-          >
-            <div className="text-center space-y-2 py-2">
-              <div className="flex items-center justify-center space-x-1">
-                <AlertCircle className="h-4 w-4" />
-                <p className="caption-xs opacity-90">Dead Spend</p>
-              </div>
-              <p className="heading-lg font-bold">₹{deadSpend.toLocaleString()}</p>
-            </div>
-            
-            <div className="bg-white/20 backdrop-blur-sm rounded-lg p-2 mt-2">
-              <div className="flex items-center justify-between caption-xs">
-                <span className="opacity-90">Inactive Subscriptions:</span>
-                <span className="font-bold">{inactiveCount}</span>
-              </div>
-            </div>
-          </WidgetCard>
+          />
         </div>
 
 
-        {/* Enhanced Analytics Chart */}
+        {/* Apple-style Analytics Chart */}
         <WidgetCard 
-          variant="glass" 
+          variant="default" 
           interactive 
           onClick={() => router.push("/analytics")}
           className="animate-slide-up stagger-2"
@@ -166,7 +148,7 @@ export default function Dashboard() {
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
-                <Sparkles className="h-5 w-5 text-primary" />
+                <BarChart3 className="h-5 w-5 text-primary" />
                 <h3 className="heading-sm">Usage Analytics</h3>
               </div>
               <div className="flex items-center space-x-1 text-success">
@@ -242,33 +224,29 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Enhanced Subscriptions List */}
+        {/* Apple-style Subscriptions List */}
         <div className="space-y-3 animate-slide-up stagger-4">
           {filteredSubscriptions.map((subscription, index) => (
             <WidgetCard 
               key={subscription.id} 
-              variant={subscription.isDead ? "warning" : "elevated"}
+              variant={subscription.isDead ? "warning" : "default"}
               interactive
-              className={`relative overflow-hidden animate-slide-up`}
+              className="animate-slide-up"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              {subscription.isDead && (
-                <div className="absolute top-0 right-0 w-0 h-0 border-l-[20px] border-l-transparent border-t-[20px] border-t-destructive"></div>
-              )}
-              
-              <div className="flex items-center justify-between p-4">
-                <div className="flex-1">
-                  <div className="flex items-center space-x-2 mb-2">
-                    <h4 className="heading-xs">{subscription.name}</h4>
-                    {subscription.isDead && <AlertCircle className="h-4 w-4 text-destructive animate-pulse" />}
-                    {subscription.status === "paused" && <Pause className="h-4 w-4 text-warning animate-pulse" />}
+              <div className="flex items-center justify-between">
+                <div className="flex-1 space-y-2">
+                  <div className="flex items-center space-x-2">
+                    <h4 className="heading-xs text-foreground">{subscription.name}</h4>
+                    {subscription.isDead && <AlertCircle className="h-4 w-4 text-destructive" />}
+                    {subscription.status === "paused" && <Pause className="h-4 w-4 text-warning" />}
                     {!subscription.isDead && subscription.status === "active" && (
                       <Play className="h-4 w-4 text-success" />
                     )}
                   </div>
                   
-                  <div className="flex items-center space-x-4 mb-2">
-                    <p className="heading-sm gradient-text">₹{subscription.amount}</p>
+                  <div className="flex items-center space-x-4">
+                    <p className="heading-sm text-foreground font-semibold">₹{subscription.amount}</p>
                     <div className="flex items-center space-x-1">
                       <Calendar className="h-3 w-3 text-muted-foreground" />
                       <p className="caption text-muted-foreground">
@@ -280,11 +258,11 @@ export default function Dashboard() {
                     </div>
                   </div>
                   
-                  <div className="flex items-center justify-between">
-                    <span className="caption bg-accent text-accent-foreground px-2 py-1 rounded-full">
+                  <div className="flex items-center space-x-2">
+                    <span className="caption bg-secondary text-secondary-foreground px-2 py-1 rounded-md">
                       {subscription.category}
                     </span>
-                    <span className={`caption px-2 py-1 rounded-full ${
+                    <span className={`caption px-2 py-1 rounded-md ${
                       subscription.status === 'active' 
                         ? 'bg-success/10 text-success' 
                         : 'bg-warning/10 text-warning'
@@ -295,7 +273,7 @@ export default function Dashboard() {
                 </div>
                 
                 <Button 
-                  variant="outline-primary" 
+                  variant="outline" 
                   size="sm" 
                   onClick={() => router.push(`/subscription/${subscription.id}`)}
                   className="ml-4"

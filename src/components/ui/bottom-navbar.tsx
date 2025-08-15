@@ -35,11 +35,11 @@ export function BottomNavbar({ className }: BottomNavbarProps) {
   return (
     <nav className={cn(
       "fixed bottom-0 left-0 right-0 z-50",
-      "bg-glass/80 backdrop-blur-xl border-t border-glass-border",
-      "safe-area-pb",
+      "bg-card/95 backdrop-blur-md border-t border-border",
+      "safe-area-pb h-16",
       className
     )}>
-      <div className="flex items-center justify-around px-4 py-2">
+      <div className="flex items-center justify-around px-2 h-full">
         {navItems.map((item) => {
           const Icon = item.icon;
           return (
@@ -47,39 +47,28 @@ export function BottomNavbar({ className }: BottomNavbarProps) {
               key={item.path}
               onClick={() => router.push(item.path)}
               className={cn(
-                "flex flex-col items-center justify-center min-w-0 flex-1 py-2 px-1",
-                "transition-all duration-300 ease-out",
+                "flex flex-col items-center justify-center min-w-0 flex-1 py-2 px-2",
+                "transition-all duration-200 ease-out rounded-lg",
                 "hover:scale-105 active:scale-95",
-                "group"
+                item.isActive 
+                  ? "text-primary bg-primary/8" 
+                  : "text-muted-foreground hover:text-foreground hover:bg-accent/30"
               )}
             >
-              <div className={cn(
-                "flex items-center justify-center w-6 h-6 mb-1",
-                "transition-all duration-300",
-                item.isActive 
-                  ? "text-primary drop-shadow-glow" 
-                  : "text-muted-foreground group-hover:text-foreground"
-              )}>
-                <Icon 
-                  className={cn(
-                    "transition-all duration-300",
-                    item.isActive ? "scale-110" : "group-hover:scale-105"
-                  )} 
-                  size={20} 
-                />
-              </div>
+              <Icon 
+                className={cn(
+                  "transition-all duration-200 mb-1",
+                  item.isActive ? "scale-110" : "hover:scale-105"
+                )} 
+                size={20} 
+              />
               <span className={cn(
-                "text-xs font-medium transition-all duration-300",
+                "caption font-medium transition-all duration-200",
                 "truncate max-w-full",
-                item.isActive 
-                  ? "text-primary font-semibold" 
-                  : "text-muted-foreground group-hover:text-foreground"
+                item.isActive && "font-semibold"
               )}>
                 {item.label}
               </span>
-              {item.isActive && (
-                <div className="absolute -top-0.5 left-1/2 transform -translate-x-1/2 w-8 h-0.5 bg-primary rounded-full animate-scale-in" />
-              )}
             </button>
           );
         })}

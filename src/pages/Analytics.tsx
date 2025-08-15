@@ -1,6 +1,7 @@
 import { MobileLayout } from "@/components/ui/mobile-layout";
 import { Button } from "@/components/ui/button";
 import { WidgetCard } from "@/components/ui/widget-card";
+import { MetricCard } from "@/components/ui/metric-card";
 import { useRouter } from "@/hooks/useRouter";
 import { Film, Heart, GraduationCap, Tag, Play, Music, Dumbbell, BookOpen, Coffee, ShoppingBag } from "lucide-react";
 const categories = [{
@@ -93,71 +94,79 @@ export default function Analytics() {
           </p>
         </div>
 
-        {/* Top Metrics */}
-        <div className="grid grid-cols-2 gap-4">
-          <WidgetCard variant="gradient" className="text-center py-6 hover-scale">
-            <div className="space-y-2">
-              <p className="text-sm opacity-90">Monthly Spend</p>
-              <p className="text-2xl font-bold">₹{totalSpends.toLocaleString()}</p>
-              <p className="text-xs opacity-75">This month</p>
-            </div>
-          </WidgetCard>
+        {/* Apple-style Top Metrics */}
+        <div className="grid grid-cols-2 gap-3">
+          <MetricCard
+            title="Monthly Spend"
+            value={`₹${totalSpends.toLocaleString()}`}
+            subtitle="This month"
+            variant="premium"
+          />
           
-          <WidgetCard variant="savings" className="text-center py-6 hover-scale">
-            <div className="space-y-2">
-              <p className="text-sm opacity-90">You can save</p>
-              <p className="text-2xl font-bold">₹{(totalSavings * 12).toLocaleString()}</p>
-              <p className="text-xs opacity-75">Per year</p>
-            </div>
-          </WidgetCard>
+          <MetricCard
+            title="You can save"
+            value={`₹${(totalSavings * 12).toLocaleString()}`}
+            subtitle="Per year"
+            variant="success"
+          />
         </div>
 
-        {/* Categories */}
-        <div className="space-y-6">
+        {/* Apple-style Categories */}
+        <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-semibold">Categories</h2>
-            
+            <h2 className="heading-lg">Categories</h2>
           </div>
           
-          <div className="space-y-5">
+          <div className="space-y-3">
             {categories.map(category => {
             const Icon = category.icon;
-            return <WidgetCard key={category.id} className="p-5 animate-fade-in hover-scale cursor-pointer" onClick={() => router.push(`/category/${category.id}`)}>
+            return <WidgetCard 
+                key={category.id} 
+                variant="default"
+                interactive
+                onClick={() => router.push(`/category/${category.id}`)}
+              >
                   {/* Category Header */}
-                  <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center">
+                      <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
                         <Icon className="h-5 w-5 text-primary" />
                       </div>
                       <div>
-                        <h3 className="font-semibold text-base">{category.name}</h3>
-                        <p className="text-sm text-muted-foreground">
+                        <h3 className="heading-xs text-foreground">{category.name}</h3>
+                        <p className="caption text-muted-foreground">
                           {category.apps.length} subscriptions
                         </p>
                       </div>
                     </div>
                     
                     <div className="text-right">
-                      <p className="font-bold text-lg">₹{category.spends}</p>
-                      <p className="text-xs text-muted-foreground">per month</p>
+                      <p className="heading-sm text-foreground font-semibold">₹{category.spends}</p>
+                      <p className="caption text-muted-foreground">per month</p>
                     </div>
                   </div>
                   
                   {/* App Icons */}
                   <div className="flex items-center justify-between">
-                    <div className="flex space-x-3 flex-1">
+                    <div className="flex space-x-2 flex-1">
                       {category.apps.slice(0, 4).map((app, index) => {
                     const AppIcon = app.icon;
-                    return <div key={index} className="w-8 h-8 bg-muted/50 rounded-lg flex items-center justify-center hover:bg-muted transition-colors" title={`${app.name} - ₹${app.amount}`}>
-                            <AppIcon className="h-4 w-4 text-muted-foreground" />
+                    return <div 
+                            key={index} 
+                            className="w-8 h-8 bg-secondary rounded-md flex items-center justify-center hover:bg-secondary-dark transition-colors" 
+                            title={`${app.name} - ₹${app.amount}`}
+                          >
+                            <AppIcon className="h-4 w-4 text-secondary-foreground" />
                           </div>;
                   })}
-                      {category.apps.length > 4 && <div className="w-8 h-8 bg-muted/50 rounded-lg flex items-center justify-center text-xs text-muted-foreground">
+                      {category.apps.length > 4 && 
+                        <div className="w-8 h-8 bg-secondary rounded-md flex items-center justify-center caption text-secondary-foreground">
                           +{category.apps.length - 4}
-                        </div>}
+                        </div>
+                      }
                     </div>
                     
-                    <Button variant="outline" size="sm" className="ml-4" onClick={() => router.push(`/category/${category.id}`)}>
+                    <Button variant="outline" size="sm" className="ml-4">
                       View All
                     </Button>
                   </div>

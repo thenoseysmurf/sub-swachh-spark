@@ -1,6 +1,7 @@
 import { MobileLayout } from "@/components/ui/mobile-layout";
 import { Button } from "@/components/ui/button";
 import { WidgetCard } from "@/components/ui/widget-card";
+import { MetricCard } from "@/components/ui/metric-card";
 import { useRouter } from "@/hooks/useRouter";
 import { Clock, TrendingDown, Music, Coffee, Tv, Dumbbell, Settings, ArrowUpDown } from "lucide-react";
 import { useState } from "react";
@@ -81,19 +82,17 @@ export default function DeadSpendDetector() {
   }) : mockDeadSpendData;
   const totalDeadSpend = mockDeadSpendData.reduce((sum, sub) => sum + sub.amount * 12, 0);
   const monthlyWaste = mockDeadSpendData.reduce((sum, sub) => sum + sub.amount, 0);
-  return <MobileLayout title="Spend Optimizer" showBackButton>
-      <div className="px-4 pt-3 pb-6 space-y-4">
-        {/* Header Stats */}
-        <div className="text-center space-y-3">
-          <div className="w-12 h-12 mx-auto bg-gradient-to-br from-orange-400 to-red-500 rounded-xl flex items-center justify-center">
-            <TrendingDown className="h-6 w-6 text-white" />
-          </div>
-          <div className="space-y-1">
-            <h2 className="text-2xl font-bold text-destructive">₹{monthlyWaste.toLocaleString()}</h2>
-            <p className="text-xs text-muted-foreground">
-              Money you are losing every year
-            </p>
-          </div>
+  return <MobileLayout title="Spend Optimizer" showBackButton showBottomNav={true}>
+      <div className="px-4 pt-3 pb-6 space-y-6">
+        {/* Apple-style Header Stats */}
+        <div className="space-y-4">
+          <MetricCard
+            title="Monthly Waste"
+            value={`₹${monthlyWaste.toLocaleString()}`}
+            subtitle="Money you could save"
+            variant="warning"
+            className="text-center"
+          />
         </div>
 
         {/* Sort Filter */}
@@ -101,43 +100,67 @@ export default function DeadSpendDetector() {
           
         </div>
 
-        {/* Underutilized Subscriptions */}
-        <div className="space-y-3">
-          {sortedSubscriptions.map(subscription => {
-          const Icon = subscription.icon;
-          return <WidgetCard key={subscription.id} className="p-3">
-                  <div className="flex items-center gap-3">
-                    <div className={`w-10 h-10 rounded-lg bg-muted/50 flex items-center justify-center ${subscription.color}`}>
-                      <Icon className="h-5 w-5" />
-                    </div>
-                    
-                    <div className="flex-1 min-w-0">
-                       <div className="flex items-center justify-between mb-1">
-                         <h4 className="font-semibold text-sm truncate">{subscription.name}</h4>
-                         <span className={`px-1.5 py-0.5 rounded text-xs font-medium ${getInactivityClasses(subscription.lastUsed)}`}>
-                           {getInactivityLevel(subscription.lastUsed)}
-                         </span>
-                       </div>
-                      
-                      <div className="flex items-center justify-between mb-2">
-                        <p className="text-lg font-bold">₹{subscription.amount}<span className="text-xs font-normal text-muted-foreground">/mo</span></p>
-                        <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                          <Clock className="h-3 w-3" />
-                          {subscription.lastUsed}
+        {/* Apple-style Underutilized Subscriptions */}
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <h2 className="heading-lg">Inactive Subscriptions</h2>
+            <span className="caption bg-warning/10 text-warning px-2 py-1 rounded-md">
+              {sortedSubscriptions.length} found
+            </span>
+          </div>
+          
+          <div className="space-y-3">
+            {sortedSubscriptions.map(subscription => {
+            const Icon = subscription.icon;
+            return <WidgetCard key={subscription.id} variant="default" interactive>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-3 flex-1">
+                        <div className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center">
+                          <Icon className="h-5 w-5 text-secondary-foreground" />
+                        </div>
+                        
+                        <div className="flex-1 space-y-1">
+                          <div className="flex items-center justify-between">
+                            <h4 className="heading-xs text-foreground">{subscription.name}</h4>
+                            <span className={`caption px-2 py-1 rounded-md ${
+                              getInactivityLevel(subscription.lastUsed) === "highly inactive" 
+                                ? 'bg-destructive/10 text-destructive' 
+                                : 'bg-warning/10 text-warning'
+                            }`}>
+                              {getInactivityLevel(subscription.lastUsed)}
+                            </span>
+                          </div>
+                          
+                          <div className="flex items-center justify-between">
+                            <p className="heading-sm text-foreground font-semibold">
+                              ₹{subscription.amount}
+                              <span className="caption text-muted-foreground font-normal">/mo</span>
+                            </p>
+                            <div className="flex items-center space-x-1">
+                              <Clock className="h-3 w-3 text-muted-foreground" />
+                              <span className="caption text-muted-foreground">{subscription.lastUsed}</span>
+                            </div>
+                          </div>
+                          
+                          <p className="caption text-muted-foreground">{subscription.reason}</p>
                         </div>
                       </div>
                       
-                      <Button size="sm" variant="outline" className="w-full h-7 text-xs" onClick={() => router.push(`/subscription/${subscription.id}`)}>
-                        <Settings className="h-3 w-3 mr-1" />
+                      <Button 
+                        size="sm" 
+                        variant="outline" 
+                        className="ml-3" 
+                        onClick={() => router.push(`/subscription/${subscription.id}`)}
+                      >
                         Manage
                       </Button>
                     </div>
-                  </div>
-                </WidgetCard>;
-        })}
+                  </WidgetCard>;
+          })}
+          </div>
         </div>
 
-        {/* Summary Action */}
+        {/* Apple-style Summary Action */}
         <div className="pt-2">
           <Button variant="outline" className="w-full" onClick={() => router.push("/dashboard")}>
             Back to Dashboard

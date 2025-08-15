@@ -32,8 +32,8 @@ export default function ActionConfirmation() {
             </h2>
             <p className="body-lg">
               {actionData.type === "cancelled" 
-                ? `Your ${actionData.serviceName} subscription has been cancelled successfully.`
-                : `Your ${actionData.serviceName} subscription is now paused. Resume anytime!`
+                ? `Your ${actionData.serviceName} subscription has been permanently cancelled.`
+                : `Your ${actionData.serviceName} subscription is now temporarily paused.`
               }
             </p>
           </div>
@@ -66,18 +66,18 @@ export default function ActionConfirmation() {
                 <div className="flex items-start space-x-3">
                   <div className="w-2 h-2 bg-success rounded-full mt-2"></div>
                   <div>
-                    <p className="font-medium">Access Until Billing End</p>
+                    <p className="font-medium">Service Access Continues</p>
                     <p className="text-sm text-muted-foreground">
-                      Continue using {actionData.serviceName} until your current billing period ends.
+                      You can continue using {actionData.serviceName} until your current billing period ends.
                     </p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
                   <div className="w-2 h-2 bg-success rounded-full mt-2"></div>
                   <div>
-                    <p className="font-medium">No More Charges</p>
+                    <p className="font-medium">Billing Cancelled</p>
                     <p className="text-sm text-muted-foreground">
-                      Your payment method will not be charged from next billing cycle.
+                      Your payment method will no longer be charged for this subscription.
                     </p>
                   </div>
                 </div>
@@ -87,9 +87,9 @@ export default function ActionConfirmation() {
                 <div className="flex items-start space-x-3">
                   <div className="w-2 h-2 bg-yellow-500 rounded-full mt-2"></div>
                   <div>
-                    <p className="font-medium">Service Temporarily Paused</p>
+                    <p className="font-medium">Service Paused</p>
                     <p className="text-sm text-muted-foreground">
-                      {actionData.serviceName} access is paused. Resume anytime from your subscriptions.
+                      {actionData.serviceName} access is temporarily suspended. Resume anytime.
                     </p>
                   </div>
                 </div>
@@ -98,7 +98,7 @@ export default function ActionConfirmation() {
                   <div>
                     <p className="font-medium">Billing Paused</p>
                     <p className="text-sm text-muted-foreground">
-                      No charges while subscription is paused.
+                      No charges will occur while your subscription is paused.
                     </p>
                   </div>
                 </div>

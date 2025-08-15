@@ -40,7 +40,7 @@ const Index = () => {
             <div className="display-md gradient-success font-bold">
               ₹25,000+
             </div>
-            <p className="text-white/80 body-md">Average yearly savings</p>
+            
           </div>
         </div>
 

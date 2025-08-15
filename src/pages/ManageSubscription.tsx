@@ -11,7 +11,6 @@ import {
   XCircle, 
   ExternalLink,
   AlertTriangle,
-  History,
   Shield
 } from "lucide-react";
 
@@ -123,9 +122,10 @@ export default function ManageSubscription() {
         </WidgetCard>
 
         {/* Action Message */}
-        <div className="text-center">
-          <p className="body-lg text-muted-foreground">
-            Make your move — pause or cancel in a tap.
+        <div className="text-center space-y-2">
+          <h3 className="heading-sm">Take Control of Your Subscription</h3>
+          <p className="text-muted-foreground">
+            Choose what works best for you — pause, cancel, or get guided help.
           </p>
         </div>
 
@@ -133,78 +133,60 @@ export default function ManageSubscription() {
         <div className="space-y-3">
           <Button 
             variant="outline" 
-            className="w-full justify-start" 
-            size="lg"
+            className="w-full justify-between h-14" 
             onClick={() => handleAction("pause")}
             disabled={isLoading}
           >
-            <Pause className="h-5 w-5 mr-3" />
-            Pause Subscription
-            <span className="ml-auto text-sm text-muted-foreground">Resume anytime</span>
-          </Button>
-
-          <Button 
-            variant="outline" 
-            className="w-full justify-start text-destructive border-destructive hover:bg-destructive hover:text-destructive-foreground" 
-            size="lg"
-            onClick={() => handleAction("cancel")}
-            disabled={isLoading}
-          >
-            <XCircle className="h-5 w-5 mr-3" />
-            Cancel Subscription
-            <span className="ml-auto text-sm">Instant</span>
+            <div className="flex items-center">
+              <Pause className="h-5 w-5 mr-3" />
+              <div className="text-left">
+                <p className="font-medium">Pause Subscription</p>
+                <p className="text-xs text-muted-foreground">Take a break, resume anytime</p>
+              </div>
+            </div>
           </Button>
 
           <Button 
             variant="primary" 
-            className="w-full justify-start" 
-            size="lg"
+            className="w-full justify-between h-14" 
             onClick={() => handleAction("guided_cancel")}
             disabled={isLoading}
           >
-            <ExternalLink className="h-5 w-5 mr-3" />
-            Guided Cancellation
-            <span className="ml-auto text-sm">Step-by-step instructions</span>
+            <div className="flex items-center">
+              <ExternalLink className="h-5 w-5 mr-3" />
+              <div className="text-left">
+                <p className="font-medium">Get Cancellation Help</p>
+                <p className="text-xs opacity-90">Easy step-by-step guidance</p>
+              </div>
+            </div>
           </Button>
 
           <Button 
             variant="outline" 
-            className="w-full justify-start" 
-            size="lg"
+            className="w-full justify-between h-14 text-destructive border-destructive/30 hover:bg-destructive/10" 
+            onClick={() => handleAction("cancel")}
+            disabled={isLoading}
+          >
+            <div className="flex items-center">
+              <XCircle className="h-5 w-5 mr-3" />
+              <div className="text-left">
+                <p className="font-medium">Cancel Now</p>
+                <p className="text-xs text-muted-foreground">Immediate cancellation</p>
+              </div>
+            </div>
+          </Button>
+
+          <Button 
+            variant="ghost" 
+            className="w-full justify-center h-12 text-muted-foreground hover:text-foreground" 
             onClick={reportIssue}
             disabled={isLoading}
           >
-            <AlertTriangle className="h-5 w-5 mr-3" />
-            Report Issue
-            <span className="ml-auto text-sm text-muted-foreground">Get help</span>
+            <AlertTriangle className="h-4 w-4 mr-2" />
+            Need help? Report an issue
           </Button>
         </div>
 
-        {/* Payment History */}
-        <WidgetCard className="space-y-4">
-          <div className="flex items-center space-x-2">
-            <History className="h-5 w-5" />
-            <h3 className="heading-sm">Recent Payments</h3>
-          </div>
-          
-          <div className="space-y-3">
-            {mockSubscription.history.map((payment, index) => (
-              <div key={index} className="flex items-center justify-between p-3 bg-muted rounded-lg">
-                <div>
-                  <p className="font-medium">₹{payment.amount}</p>
-                  <p className="text-sm text-muted-foreground">
-                    {new Date(payment.date).toLocaleDateString('en-IN')}
-                  </p>
-                </div>
-                <div className="text-right">
-                  <span className="px-2 py-1 text-xs bg-success-light text-success-foreground rounded-full">
-                    Paid
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </WidgetCard>
 
         {isLoading && (
           <div className="fixed inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center">

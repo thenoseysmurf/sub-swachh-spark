@@ -5,7 +5,16 @@ import zomatoLogo from "@/assets/logos/zomato.png";
 import adobeLogo from "@/assets/logos/adobe.png";
 import disneyLogo from "@/assets/logos/disney-hotstar.png";
 import gymLogo from "@/assets/logos/gym.png";
-import { Music, Tv, Coffee, Palette, Dumbbell, Star } from "lucide-react";
+import primeVideoLogo from "@/assets/logos/prime-video.png";
+import youtubePremiumLogo from "@/assets/logos/youtube-premium.png";
+import nikeTrainingLogo from "@/assets/logos/nike-training.png";
+import myFitnessPalLogo from "@/assets/logos/myfitnesspal.png";
+import headspaceLogo from "@/assets/logos/headspace.png";
+import skillshareLogo from "@/assets/logos/skillshare.png";
+import courseraLogo from "@/assets/logos/coursera.png";
+import duolingoLogo from "@/assets/logos/duolingo.png";
+import amazonPrimeLogo from "@/assets/logos/amazon-prime.png";
+import { Music, Tv, Coffee, Palette, Dumbbell, Star, Play, Heart, BookOpen, GraduationCap, ShoppingBag } from "lucide-react";
 
 interface AppLogoProps {
   appName: string;
@@ -25,6 +34,15 @@ const logoMap: Record<string, string> = {
   "Disney": disneyLogo,
   "Gym Membership": gymLogo,
   "Gym": gymLogo,
+  "Prime Video": primeVideoLogo,
+  "YouTube Premium": youtubePremiumLogo,
+  "Nike Training": nikeTrainingLogo,
+  "MyFitnessPal": myFitnessPalLogo,
+  "Headspace": headspaceLogo,
+  "Skillshare": skillshareLogo,
+  "Coursera": courseraLogo,
+  "Duolingo": duolingoLogo,
+  "Amazon Prime": amazonPrimeLogo,
 };
 
 const iconMap: Record<string, any> = {
@@ -39,6 +57,15 @@ const iconMap: Record<string, any> = {
   "Disney": Tv,
   "Gym Membership": Dumbbell,
   "Gym": Dumbbell,
+  "Prime Video": Play,
+  "YouTube Premium": Play,
+  "Nike Training": Dumbbell,
+  "MyFitnessPal": Heart,
+  "Headspace": Heart,
+  "Skillshare": BookOpen,
+  "Coursera": GraduationCap,
+  "Duolingo": BookOpen,
+  "Amazon Prime": ShoppingBag,
 };
 
 export function AppLogo({ appName, className, size = "md" }: AppLogoProps) {

@@ -1,6 +1,7 @@
 import { MobileLayout } from "@/components/ui/mobile-layout";
 import { Button } from "@/components/ui/button";
 import { WidgetCard } from "@/components/ui/widget-card";
+import { AppLogo } from "@/components/ui/app-logo";
 import { useRouter } from "@/hooks/useRouter";
 import { useParams } from "react-router-dom";
 import { Film, Heart, GraduationCap, Tag, Play, Music, Dumbbell, BookOpen, Coffee, ShoppingBag, Tv, TrendingUp, Calendar, DollarSign, Activity } from "lucide-react";
@@ -135,8 +136,8 @@ export default function AppSubscription() {
       <div className="px-4 pt-2 pb-4 space-y-3 h-[calc(100vh-4rem)] flex flex-col">
         {/* App Header */}
         <div className="text-center space-y-2">
-          <div className="w-16 h-16 bg-gradient-primary rounded-2xl flex items-center justify-center mx-auto">
-            <Icon className="h-8 w-8 text-white" />
+          <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto p-2 bg-gradient-primary">
+            <AppLogo appName={app.name} size="lg" className="w-full h-full" />
           </div>
           <div>
             <h1 className="text-xl font-bold">{app.name}</h1>

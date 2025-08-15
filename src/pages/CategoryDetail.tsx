@@ -1,5 +1,6 @@
 import { MobileLayout } from "@/components/ui/mobile-layout";
 import { WidgetCard } from "@/components/ui/widget-card";
+import { AppLogo } from "@/components/ui/app-logo";
 import { useRouter } from "@/hooks/useRouter";
 import { useParams } from "react-router-dom";
 import { Film, Heart, GraduationCap, Tag, Play, Music, Dumbbell, BookOpen, Coffee, ShoppingBag, Tv, Users, AlertTriangle } from "lucide-react";
@@ -166,13 +167,10 @@ export default function CategoryDetail() {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-4">
                       <div className={cn(
-                        "w-12 h-12 rounded-xl flex items-center justify-center",
+                        "w-12 h-12 rounded-xl flex items-center justify-center p-1",
                         isInactive ? "bg-destructive/10" : "bg-primary/10"
                       )}>
-                        <AppIcon className={cn(
-                          "h-6 w-6",
-                          isInactive ? "text-destructive" : "text-primary"
-                        )} />
+                        <AppLogo appName={app.name} size="lg" className="w-full h-full" />
                       </div>
                       
                       <div className="flex-1">

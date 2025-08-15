@@ -2,6 +2,7 @@ import { MobileLayout } from "@/components/ui/mobile-layout";
 import { Button } from "@/components/ui/button";
 import { WidgetCard } from "@/components/ui/widget-card";
 import { MetricCard } from "@/components/ui/metric-card";
+import { AppLogo } from "@/components/ui/app-logo";
 import { useRouter } from "@/hooks/useRouter";
 import { Film, Heart, GraduationCap, Tag, Play, Music, Dumbbell, BookOpen, Coffee, ShoppingBag } from "lucide-react";
 const categories = [{
@@ -149,16 +150,15 @@ export default function Analytics() {
                   {/* App Icons */}
                   <div className="flex items-center justify-between">
                     <div className="flex space-x-2 flex-1">
-                      {category.apps.slice(0, 4).map((app, index) => {
-                    const AppIcon = app.icon;
-                    return <div 
-                            key={index} 
-                            className="w-8 h-8 bg-secondary rounded-md flex items-center justify-center hover:bg-secondary-dark transition-colors" 
-                            title={`${app.name} - ₹${app.amount}`}
-                          >
-                            <AppIcon className="h-4 w-4 text-secondary-foreground" />
-                          </div>;
-                  })}
+                      {category.apps.slice(0, 4).map((app, index) => (
+                        <div 
+                          key={index} 
+                          className="w-8 h-8 hover:scale-110 transition-transform" 
+                          title={`${app.name} - ₹${app.amount}`}
+                        >
+                          <AppLogo appName={app.name} size="sm" className="w-full h-full" />
+                        </div>
+                      ))}
                       {category.apps.length > 4 && 
                         <div className="w-8 h-8 bg-secondary rounded-md flex items-center justify-center caption text-secondary-foreground">
                           +{category.apps.length - 4}

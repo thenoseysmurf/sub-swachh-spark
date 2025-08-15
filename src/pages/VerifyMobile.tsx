@@ -130,7 +130,7 @@ export default function VerifyMobile() {
 
               <div className="bg-muted/50 rounded-lg p-4 mt-6">
                 <p className="text-sm text-muted-foreground text-center">
-                  Auto-detects active subscriptions
+                  Linked accounts are used to Auto-detect active subscriptions
                 </p>
               </div>
 

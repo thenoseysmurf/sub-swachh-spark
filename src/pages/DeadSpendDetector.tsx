@@ -2,9 +2,11 @@ import { MobileLayout } from "@/components/ui/mobile-layout";
 import { Button } from "@/components/ui/button";
 import { WidgetCard } from "@/components/ui/widget-card";
 import { MetricCard } from "@/components/ui/metric-card";
+import { AppLogo } from "@/components/ui/app-logo";
 import { useRouter } from "@/hooks/useRouter";
 import { Clock, TrendingDown, Music, Coffee, Tv, Dumbbell, Settings, ArrowUpDown } from "lucide-react";
 import { useState } from "react";
+import { cn } from "@/lib/utils";
 const mockDeadSpendData = [{
   id: 2,
   name: "Spotify Premium",
@@ -115,9 +117,7 @@ export default function DeadSpendDetector() {
             return <WidgetCard key={subscription.id} variant="default" interactive>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-3 flex-1">
-                        <div className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center">
-                          <Icon className="h-5 w-5 text-secondary-foreground" />
-                        </div>
+                        <AppLogo appName={subscription.name} size="lg" />
                         
                         <div className="flex-1 space-y-1">
                           <div className="flex items-center justify-between">
@@ -148,8 +148,11 @@ export default function DeadSpendDetector() {
                       
                       <Button 
                         size="sm" 
-                        variant="outline" 
-                        className="ml-3" 
+                        variant={getInactivityLevel(subscription.lastUsed) === "highly inactive" ? "premium" : "outline"}
+                        className={cn(
+                          "ml-3 font-medium",
+                          getInactivityLevel(subscription.lastUsed) === "highly inactive" && "text-white shadow-glow hover:shadow-premium"
+                        )} 
                         onClick={() => router.push(`/subscription/${subscription.id}`)}
                       >
                         Manage

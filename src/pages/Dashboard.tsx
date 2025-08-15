@@ -4,7 +4,9 @@ import { Button } from "@/components/ui/button";
 import { WidgetCard } from "@/components/ui/widget-card";
 import { MetricCard } from "@/components/ui/metric-card";
 import { PremiumLoading } from "@/components/ui/premium-loading";
+import { AppLogo } from "@/components/ui/app-logo";
 import { useRouter } from "@/hooks/useRouter";
+import { cn } from "@/lib/utils";
 import { TrendingUp, TrendingDown, Calendar, Filter, Settings, BarChart3, AlertCircle, Play, Pause, Star, Crown, Sparkles } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, LineChart, Line } from "recharts";
 const mockSubscriptions = [{
@@ -236,13 +238,16 @@ export default function Dashboard() {
             >
               <div className="flex items-center justify-between">
                 <div className="flex-1 space-y-2">
-                  <div className="flex items-center space-x-2">
-                    <h4 className="heading-xs text-foreground">{subscription.name}</h4>
-                    {subscription.isDead && <AlertCircle className="h-4 w-4 text-destructive" />}
-                    {subscription.status === "paused" && <Pause className="h-4 w-4 text-warning" />}
-                    {!subscription.isDead && subscription.status === "active" && (
-                      <Play className="h-4 w-4 text-success" />
-                    )}
+                  <div className="flex items-center space-x-3">
+                    <AppLogo appName={subscription.name} size="md" />
+                    <div className="flex items-center space-x-2">
+                      <h4 className="heading-xs text-foreground">{subscription.name}</h4>
+                      {subscription.isDead && <AlertCircle className="h-4 w-4 text-destructive" />}
+                      {subscription.status === "paused" && <Pause className="h-4 w-4 text-warning" />}
+                      {!subscription.isDead && subscription.status === "active" && (
+                        <Play className="h-4 w-4 text-success" />
+                      )}
+                    </div>
                   </div>
                   
                   <div className="flex items-center space-x-4">
@@ -273,10 +278,13 @@ export default function Dashboard() {
                 </div>
                 
                 <Button 
-                  variant="outline" 
+                  variant={subscription.isDead ? "premium" : "outline"}
                   size="sm" 
                   onClick={() => router.push(`/subscription/${subscription.id}`)}
-                  className="ml-4"
+                  className={cn(
+                    "ml-4 font-medium",
+                    subscription.isDead && "text-white shadow-glow hover:shadow-premium"
+                  )}
                 >
                   Manage
                 </Button>

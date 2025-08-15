@@ -132,53 +132,50 @@ export default function AppSubscription() {
   const isInactive = app.status === 'inactive';
   const avgUsage = app.usageData.reduce((sum: number, val: number) => sum + val, 0) / app.usageData.length;
   return <MobileLayout title={app.name} onBack={() => router.back()}>
-      <div className="px-6 pt-4 pb-8 space-y-6">
+      <div className="px-4 pt-2 pb-4 space-y-3 h-[calc(100vh-4rem)] flex flex-col">
         {/* App Header */}
-        <div className="text-center space-y-4">
-          <div className="w-20 h-20 bg-gradient-primary rounded-3xl flex items-center justify-center mx-auto">
-            <Icon className="h-10 w-10 text-white" />
+        <div className="text-center space-y-2">
+          <div className="w-16 h-16 bg-gradient-primary rounded-2xl flex items-center justify-center mx-auto">
+            <Icon className="h-8 w-8 text-white" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold">{app.name}</h1>
-            <p className="text-muted-foreground">{app.plan}</p>
+            <h1 className="text-xl font-bold">{app.name}</h1>
+            <p className="text-sm text-muted-foreground">{app.plan}</p>
           </div>
         </div>
 
         {/* Spending Info */}
-        <WidgetCard className="p-6">
-          <div className="grid grid-cols-2 gap-6">
+        <WidgetCard className="p-4">
+          <div className="grid grid-cols-2 gap-4">
             <div className="text-center">
-              <div className="flex items-center justify-center space-x-2 mb-2">
-                
-                <span className="text-sm font-medium">Monthly Spend</span>
-              </div>
-              <p className="text-2xl font-bold">₹{app.amount}</p>
+              <span className="text-xs font-medium text-muted-foreground">Monthly Spend</span>
+              <p className="text-xl font-bold">₹{app.amount}</p>
             </div>
             
             <div className="text-center">
-              <div className="flex items-center justify-center space-x-2 mb-2">
-                <Calendar className="h-5 w-5 text-primary" />
-                <span className="text-sm font-medium">Last Used</span>
+              <div className="flex items-center justify-center space-x-1 mb-1">
+                <Calendar className="h-3 w-3 text-primary" />
+                <span className="text-xs font-medium text-muted-foreground">Last Used</span>
               </div>
-              <p className="text-sm font-semibold">{app.lastActiveDate}</p>
+              <p className="text-xs font-semibold">{app.lastActiveDate}</p>
             </div>
           </div>
         </WidgetCard>
 
         {/* Usage Chart */}
-        <WidgetCard className="p-6">
-          <div className="space-y-4">
+        <WidgetCard className="p-4 flex-1">
+          <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <h3 className="text-lg font-semibold">Usage vs Cost</h3>
-              <div className="flex items-center space-x-2">
-                <Activity className="h-4 w-4 text-primary" />
-                <span className="text-sm text-muted-foreground">Monthly trend</span>
+              <h3 className="text-base font-semibold">Usage vs Cost</h3>
+              <div className="flex items-center space-x-1">
+                <Activity className="h-3 w-3 text-primary" />
+                <span className="text-xs text-muted-foreground">Monthly trend</span>
               </div>
             </div>
             
             {/* Simple usage visualization */}
             <div className="space-y-2">
-              <div className="flex justify-between text-sm text-muted-foreground">
+              <div className="flex justify-between text-xs text-muted-foreground">
                 <span>Usage</span>
                 <span>{Math.round(avgUsage)}% avg</span>
               </div>
@@ -189,8 +186,8 @@ export default function AppSubscription() {
               </div>
             </div>
             
-            <div className="bg-muted/50 rounded-lg p-4">
-              <p className="text-sm text-center">
+            <div className="bg-muted/50 rounded-lg p-3">
+              <p className="text-xs text-center">
                 {isInactive ? "Canceling this will save you ₹1,428 per month and ₹17,988 per year" : avgUsage > 60 ? "Great value! You're using this subscription effectively" : "Low usage detected. Consider if you really need this subscription"}
               </p>
             </div>
@@ -198,24 +195,24 @@ export default function AppSubscription() {
         </WidgetCard>
 
         {/* Subscription Details */}
-        <WidgetCard className="p-6">
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Subscription Details</h3>
+        <WidgetCard className="p-4">
+          <div className="space-y-3">
+            <h3 className="text-base font-semibold">Subscription Details</h3>
             
-            <div className="space-y-3">
+            <div className="space-y-2">
               <div className="flex justify-between">
-                <span className="text-muted-foreground">Purchase Date</span>
-                <span className="font-medium">{app.purchaseDate}</span>
+                <span className="text-xs text-muted-foreground">Purchase Date</span>
+                <span className="text-xs font-medium">{app.purchaseDate}</span>
               </div>
               
               <div className="flex justify-between">
-                <span className="text-muted-foreground">Next Billing</span>
-                <span className="font-medium">{app.nextBilling}</span>
+                <span className="text-xs text-muted-foreground">Next Billing</span>
+                <span className="text-xs font-medium">{app.nextBilling}</span>
               </div>
               
               <div className="flex justify-between">
-                <span className="text-muted-foreground">Status</span>
-                <span className={`font-medium ${isInactive ? 'text-destructive' : 'text-green-600'}`}>
+                <span className="text-xs text-muted-foreground">Status</span>
+                <span className={`text-xs font-medium ${isInactive ? 'text-destructive' : 'text-green-600'}`}>
                   {isInactive ? 'Inactive' : 'Active'}
                 </span>
               </div>
@@ -224,7 +221,7 @@ export default function AppSubscription() {
         </WidgetCard>
 
         {/* CTA Button */}
-        <Button className="w-full h-12 text-lg font-semibold bg-foreground text-background hover:bg-foreground/90" onClick={() => router.push(`/subscription/${app.name.toLowerCase().replace(/\s+/g, '-')}`)}>
+        <Button className="w-full h-10 text-sm font-semibold bg-foreground text-background hover:bg-foreground/90" onClick={() => router.push(`/subscription/${app.name.toLowerCase().replace(/\s+/g, '-')}`)}>
           Manage Subscription
         </Button>
       </div>

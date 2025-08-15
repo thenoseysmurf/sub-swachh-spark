@@ -29,10 +29,6 @@ export default function VerifyMobile() {
     router.push("/profile-setup");
   };
 
-  const handleAddManually = () => {
-    router.push("/profile-setup");
-  };
-
   return (
     <MobileLayout 
       title="Linked Accounts" 

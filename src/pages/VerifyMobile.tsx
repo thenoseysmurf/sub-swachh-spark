@@ -3,12 +3,18 @@ import { MobileLayout } from "@/components/ui/mobile-layout";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "@/hooks/useRouter";
 import { WidgetCard } from "@/components/ui/widget-card";
-import { Loader2, CheckCircle2, CreditCard, Smartphone, Link, Shield } from "lucide-react";
+import { Loader2, CheckCircle2, CreditCard, Smartphone, Link, Shield, X } from "lucide-react";
 
 export default function VerifyMobile() {
   const router = useRouter();
   const [step, setStep] = useState<"scanning" | "results">("scanning");
-  const [foundSources, setFoundSources] = useState({ upiIds: 2, cards: 1 });
+  const [upiAccounts] = useState([
+    { id: "1", name: "user@paytm", provider: "Paytm" },
+    { id: "2", name: "user@phonepe", provider: "PhonePe" }
+  ]);
+  const [paymentCards] = useState([
+    { id: "1", name: "HDFC Credit Card", last4: "4567", type: "Credit" }
+  ]);
 
   useEffect(() => {
     // Auto start scanning when component mounts
@@ -29,7 +35,7 @@ export default function VerifyMobile() {
 
   return (
     <MobileLayout 
-      title="Linked Accounts Discovery" 
+      title="Linked Accounts" 
       onBack={() => router.back()}
     >
       <div className="px-4 py-6 space-y-6">
@@ -85,9 +91,8 @@ export default function VerifyMobile() {
             <WidgetCard variant="savings" className="text-center space-y-4">
               <CheckCircle2 className="h-8 w-8 mx-auto" />
               <div>
-                <h2 className="heading-lg">Discovery Complete!</h2>
                 <p className="body-lg">
-                  Found {foundSources.upiIds} UPI IDs and {foundSources.cards} card linked to your account
+                  Found {upiAccounts.length} UPI IDs and {paymentCards.length} card linked to your account
                 </p>
               </div>
             </WidgetCard>
@@ -96,50 +101,46 @@ export default function VerifyMobile() {
               <h3 className="heading-sm">Linked Payment Methods</h3>
               
               <div className="space-y-3">
-                <div className="flex items-center space-x-3 p-4 bg-gradient-to-r from-success/5 to-success/10 rounded-lg border border-success/20">
-                  <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-success/10">
-                    <Smartphone className="h-5 w-5 text-success" />
+                {upiAccounts.map((upi) => (
+                  <div key={upi.id} className="flex items-center space-x-3 p-4 bg-gradient-to-r from-success/5 to-success/10 rounded-lg border border-success/20">
+                    <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-success/10">
+                      <Smartphone className="h-5 w-5 text-success" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="font-medium text-foreground">{upi.name}</p>
+                      <p className="text-sm text-muted-foreground">{upi.provider}</p>
+                    </div>
+                    <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-destructive">
+                      <X className="h-4 w-4" />
+                    </Button>
                   </div>
-                  <div className="flex-1">
-                    <p className="font-medium text-foreground">UPI Accounts</p>
-                    <p className="text-sm text-muted-foreground">{foundSources.upiIds} active UPI IDs detected</p>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-xs text-success font-medium">Connected ✓</p>
-                  </div>
-                </div>
+                ))}
 
-                <div className="flex items-center space-x-3 p-4 bg-gradient-to-r from-primary/5 to-primary/10 rounded-lg border border-primary/20">
-                  <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10">
-                    <CreditCard className="h-5 w-5 text-primary" />
+                {paymentCards.map((card) => (
+                  <div key={card.id} className="flex items-center space-x-3 p-4 bg-gradient-to-r from-primary/5 to-primary/10 rounded-lg border border-primary/20">
+                    <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10">
+                      <CreditCard className="h-5 w-5 text-primary" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="font-medium text-foreground">{card.name}</p>
+                      <p className="text-sm text-muted-foreground">**** {card.last4}</p>
+                    </div>
+                    <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-destructive">
+                      <X className="h-4 w-4" />
+                    </Button>
                   </div>
-                  <div className="flex-1">
-                    <p className="font-medium text-foreground">Payment Cards</p>
-                    <p className="text-sm text-muted-foreground">{foundSources.cards} active card linked</p>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-xs text-primary font-medium">Connected ✓</p>
-                  </div>
-                </div>
+                ))}
               </div>
 
               <div className="bg-muted/50 rounded-lg p-4 mt-6">
                 <p className="text-sm text-muted-foreground text-center">
-                  These payment methods will be used to automatically detect and track your active subscriptions
+                  Auto-detects active subscriptions
                 </p>
               </div>
 
-              <div className="space-y-3 pt-4">
+              <div className="pt-4">
                 <Button onClick={handleContinue} className="w-full" variant="primary" size="lg">
                   Continue to Profile Setup
-                </Button>
-                
-                <Button 
-                  onClick={handleAddManually} 
-                  variant="outline" 
-                  className="w-full"
-                >
-                  Add More Payment Methods
                 </Button>
               </div>
             </WidgetCard>

@@ -48,7 +48,7 @@ const mockDeadSpendData = [{
 export default function DeadSpendDetector() {
   const router = useRouter();
   const [sortByInactivity, setSortByInactivity] = useState(true); // Default to sorted by inactivity
-  
+
   // Helper function to extract days from lastUsed string
   const extractDays = (lastUsed: string) => {
     const match = lastUsed.match(/(\d+)/);
@@ -64,26 +64,21 @@ export default function DeadSpendDetector() {
   // Helper function to get inactivity color classes
   const getInactivityClasses = (lastUsed: string) => {
     const level = getInactivityLevel(lastUsed);
-    return level === "highly inactive" 
-      ? "bg-red-100 text-red-700 dark:bg-red-900/20 dark:text-red-400"
-      : "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/20 dark:text-yellow-400";
+    return level === "highly inactive" ? "bg-red-100 text-red-700 dark:bg-red-900/20 dark:text-red-400" : "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/20 dark:text-yellow-400";
   };
-  
+
   // Sort subscriptions by inactivity level first, then by days
-  const sortedSubscriptions = sortByInactivity 
-    ? [...mockDeadSpendData].sort((a, b) => {
-        const aLevel = getInactivityLevel(a.lastUsed);
-        const bLevel = getInactivityLevel(b.lastUsed);
-        
-        // First sort by inactivity level (highly inactive first)
-        if (aLevel === "highly inactive" && bLevel === "moderately inactive") return -1;
-        if (aLevel === "moderately inactive" && bLevel === "highly inactive") return 1;
-        
-        // Then sort by days within same level (higher days first)
-        return extractDays(b.lastUsed) - extractDays(a.lastUsed);
-      })
-    : mockDeadSpendData;
-  
+  const sortedSubscriptions = sortByInactivity ? [...mockDeadSpendData].sort((a, b) => {
+    const aLevel = getInactivityLevel(a.lastUsed);
+    const bLevel = getInactivityLevel(b.lastUsed);
+
+    // First sort by inactivity level (highly inactive first)
+    if (aLevel === "highly inactive" && bLevel === "moderately inactive") return -1;
+    if (aLevel === "moderately inactive" && bLevel === "highly inactive") return 1;
+
+    // Then sort by days within same level (higher days first)
+    return extractDays(b.lastUsed) - extractDays(a.lastUsed);
+  }) : mockDeadSpendData;
   const totalDeadSpend = mockDeadSpendData.reduce((sum, sub) => sum + sub.amount * 12, 0);
   const monthlyWaste = mockDeadSpendData.reduce((sum, sub) => sum + sub.amount, 0);
   return <MobileLayout title="Spend Optimizer" showBackButton>
@@ -103,22 +98,14 @@ export default function DeadSpendDetector() {
 
         {/* Sort Filter */}
         <div className="flex justify-end">
-          <Button 
-            variant="ghost" 
-            size="sm"
-            onClick={() => setSortByInactivity(!sortByInactivity)}
-            className="text-xs gap-1"
-          >
-            <ArrowUpDown className="h-3 w-3" />
-            {sortByInactivity ? "Default" : "Sort by Inactivity"}
-          </Button>
+          
         </div>
 
         {/* Underutilized Subscriptions */}
         <div className="space-y-3">
           {sortedSubscriptions.map(subscription => {
-            const Icon = subscription.icon;
-            return <WidgetCard key={subscription.id} className="p-3">
+          const Icon = subscription.icon;
+          return <WidgetCard key={subscription.id} className="p-3">
                   <div className="flex items-center gap-3">
                     <div className={`w-10 h-10 rounded-lg bg-muted/50 flex items-center justify-center ${subscription.color}`}>
                       <Icon className="h-5 w-5" />
@@ -147,7 +134,7 @@ export default function DeadSpendDetector() {
                     </div>
                   </div>
                 </WidgetCard>;
-          })}
+        })}
         </div>
 
         {/* Summary Action */}

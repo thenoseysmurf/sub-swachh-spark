@@ -29,8 +29,7 @@ const Index = () => {
             Subscription<br />Swachh
           </h1>
           <p className="body-xl text-white/90 leading-relaxed max-w-sm mx-auto">
-            Take control of your subscriptions.<br />
-            Save thousands every year with AI insights.
+            Save your Pocket Drain! Without using Brain!
           </p>
         </div>
 

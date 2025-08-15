@@ -122,7 +122,7 @@ export default function Analytics() {
           <div className="space-y-5">
             {categories.map(category => {
             const Icon = category.icon;
-            return <WidgetCard key={category.id} className="p-5 animate-fade-in hover-scale">
+            return <WidgetCard key={category.id} className="p-5 animate-fade-in hover-scale cursor-pointer" onClick={() => router.push(`/category/${category.id}`)}>
                   {/* Category Header */}
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center space-x-3">

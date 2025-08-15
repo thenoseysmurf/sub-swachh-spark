@@ -2,26 +2,13 @@ import { MobileLayout } from "@/components/ui/mobile-layout";
 import { WidgetCard } from "@/components/ui/widget-card";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "@/hooks/useRouter";
-import { 
-  ExternalLink, 
-  CheckCircle, 
-  Smartphone, 
-  Globe,
-  MessageCircle
-} from "lucide-react";
-
+import { ExternalLink, CheckCircle, Smartphone, Globe, MessageCircle } from "lucide-react";
 export default function CancellationInstructions() {
   const router = useRouter();
-
   const openNetflixApp = () => {
     window.open("https://netflix.com/cancelplan", "_blank");
   };
-
-  return (
-    <MobileLayout 
-      title="Cancellation Guide" 
-      onBack={() => router.back()}
-    >
+  return <MobileLayout title="Cancellation Guide" onBack={() => router.back()}>
       <div className="px-4 py-6 space-y-6">
         {/* Header */}
         <WidgetCard className="text-center space-y-4">
@@ -116,29 +103,14 @@ export default function CancellationInstructions() {
 
         {/* Action Buttons */}
         <div className="space-y-3">
-          <Button 
-            variant="primary" 
-            className="w-full justify-start" 
-            size="lg"
-            onClick={openNetflixApp}
-          >
-            <ExternalLink className="h-5 w-5 mr-3" />
-            Open Netflix to Cancel
-            <span className="ml-auto text-sm">Direct link</span>
-          </Button>
+          
 
-          <Button 
-            variant="outline" 
-            className="w-full justify-start" 
-            size="lg"
-            onClick={() => router.push("/action-confirmation")}
-          >
+          <Button variant="outline" className="w-full justify-start" size="lg" onClick={() => router.push("/action-confirmation")}>
             <MessageCircle className="h-5 w-5 mr-3" />
             I've Cancelled My Subscription
             <span className="ml-auto text-sm text-muted-foreground">Confirm</span>
           </Button>
         </div>
       </div>
-    </MobileLayout>
-  );
+    </MobileLayout>;
 }

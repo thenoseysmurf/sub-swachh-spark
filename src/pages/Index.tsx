@@ -6,48 +6,65 @@ const Index = () => {
   const router = useRouter();
 
   return (
-    <div className="min-h-screen bg-gradient-primary">
-      <div className="px-6 py-16 flex flex-col items-center justify-center min-h-screen space-y-12">
-        {/* App Icon */}
-        <div className="relative">
-          <div className="w-24 h-24 rounded-3xl bg-gradient-to-br from-green-400 via-blue-400 to-purple-500 flex items-center justify-center shadow-2xl">
-            <Zap className="w-12 h-12 text-white" />
+    <div className="min-h-screen bg-gradient-hero relative overflow-hidden">
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute -top-4 -left-4 w-72 h-72 bg-primary/20 rounded-full animate-float blur-3xl"></div>
+        <div className="absolute top-1/2 -right-8 w-64 h-64 bg-success/20 rounded-full animate-float blur-3xl" style={{animationDelay: '1s'}}></div>
+        <div className="absolute -bottom-8 left-1/3 w-80 h-80 bg-primary-glow/20 rounded-full animate-float blur-3xl" style={{animationDelay: '2s'}}></div>
+      </div>
+
+      <div className="relative px-6 py-16 flex flex-col items-center justify-center min-h-screen space-y-8">
+        {/* App Icon with Enhanced Styling */}
+        <div className="relative animate-bounce-in">
+          <div className="w-28 h-28 rounded-3xl bg-gradient-hero shadow-glow flex items-center justify-center backdrop-blur-sm border border-white/20 animate-pulse-glow">
+            <Zap className="w-14 h-14 text-white drop-shadow-lg" />
           </div>
+          <div className="absolute -inset-2 bg-gradient-hero rounded-3xl blur-lg opacity-60 animate-pulse-glow"></div>
         </div>
 
-        {/* Hero Content */}
-        <div className="text-center text-white space-y-6 max-w-sm">
-          <h1 className="text-4xl font-bold tracking-tight">
+        {/* Hero Content with Enhanced Typography */}
+        <div className="text-center text-white space-y-6 max-w-md animate-slide-up stagger-1">
+          <h1 className="display-lg gradient-text bg-gradient-to-r from-white via-primary-glow to-success-glow bg-clip-text text-transparent">
             Subscription<br />Swachh
           </h1>
-          <p className="text-lg opacity-90 leading-relaxed">
+          <p className="body-xl text-white/90 leading-relaxed max-w-sm mx-auto">
             Take control of your subscriptions.<br />
-            Save thousands every year.
+            Save thousands every year with AI insights.
           </p>
         </div>
 
-        {/* Savings Display */}
-        <div className="text-center space-y-3">
-          <div className="text-6xl font-bold text-green-400">
-            ₹25,000+
+        {/* Savings Display with Glass Effect */}
+        <div className="text-center space-y-3 animate-slide-up stagger-2">
+          <div className="glass-card p-6 backdrop-blur-xl">
+            <div className="display-md gradient-success font-bold">
+              ₹25,000+
+            </div>
+            <p className="text-white/80 body-md">Average yearly savings</p>
           </div>
-          <p className="text-white/80 text-lg">Average yearly savings</p>
         </div>
 
-        {/* CTA Button */}
-        <div className="w-full max-w-sm">
+        {/* Enhanced CTA Button */}
+        <div className="w-full max-w-sm animate-slide-up stagger-3">
           <Button 
             onClick={() => router.push("/signup")}
-            className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-4 px-8 rounded-2xl text-lg shadow-lg"
+            variant="premium"
+            size="xl"
+            className="w-full"
           >
-            Get Started
+            Get Started Free
           </Button>
         </div>
 
-        {/* Trust Indicator */}
-        <div className="text-center">
-          <p className="text-white/70 text-sm">
-            Trusted by 50,000+ users
+        {/* Trust Indicator with Social Proof */}
+        <div className="text-center space-y-2 animate-slide-up stagger-4">
+          <div className="flex items-center justify-center space-x-1">
+            {Array.from({ length: 5 }, (_, i) => (
+              <div key={i} className="w-4 h-4 bg-success rounded-full animate-pulse-glow" style={{animationDelay: `${i * 0.2}s`}}></div>
+            ))}
+          </div>
+          <p className="text-white/70 caption-lg">
+            Trusted by 50,000+ smart savers
           </p>
         </div>
       </div>

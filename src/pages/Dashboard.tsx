@@ -139,19 +139,19 @@ export default function Dashboard() {
 
         {/* Spend Chart */}
         <WidgetCard className="cursor-pointer hover:scale-105 transition-transform" onClick={() => router.push("/analytics")}>
-          <div className="space-y-4">
+          <div className="space-y-2">
             <div className="flex items-center justify-between">
               <h3 className="heading-sm">Usage Analytics</h3>
               <TrendingUp className="h-5 w-5 text-success" />
             </div>
             
-            <div className="h-40">
+            <div className="h-28">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={monthlySpendData} margin={{
-                top: 5,
-                right: 5,
-                left: 5,
-                bottom: 5
+                top: 2,
+                right: 2,
+                left: 2,
+                bottom: 2
               }}>
                   <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{
                   fontSize: 10,

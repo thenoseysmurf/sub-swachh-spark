@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MobileLayout } from "@/components/ui/mobile-layout";
 import { Button } from "@/components/ui/button";
 import { WidgetCard } from "@/components/ui/widget-card";
@@ -83,6 +83,16 @@ const filters = ["All", "Inactive", "Paused"];
 export default function Dashboard() {
   const router = useRouter();
   const [activeFilter, setActiveFilter] = useState("All");
+  const [userName, setUserName] = useState("John");
+
+  useEffect(() => {
+    const userProfile = localStorage.getItem("userProfile");
+    if (userProfile) {
+      const profile = JSON.parse(userProfile);
+      const firstName = profile.name.split(" ")[0];
+      setUserName(firstName);
+    }
+  }, []);
   const totalSpend = mockSubscriptions.reduce((sum, sub) => sum + sub.amount * 12, 0);
   const deadSpend = mockSubscriptions.filter(sub => sub.isDead).reduce((sum, sub) => sum + sub.amount * 12, 0);
   const inactiveCount = mockSubscriptions.filter(sub => sub.isDead || sub.status === "paused").length;
@@ -104,7 +114,7 @@ export default function Dashboard() {
         <div className="glass-nav p-4 rounded-xl -mx-4 mb-6 animate-slide-down">
           <div className="flex items-center justify-between">
             <div className="space-y-1">
-              <h1 className="display-md gradient-text">Hi, John! 👋</h1>
+              <h1 className="display-md gradient-text">Hi, {userName}! 👋</h1>
               <p className="caption text-muted-foreground">Welcome back to your dashboard</p>
             </div>
             <div className="flex space-x-2">

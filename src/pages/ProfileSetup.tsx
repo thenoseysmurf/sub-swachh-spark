@@ -32,6 +32,9 @@ export default function ProfileSetup() {
       return;
     }
 
+    // Save profile data to localStorage
+    localStorage.setItem("userProfile", JSON.stringify(formData));
+
     // Continue to alerts configuration
     router.push("/configure-alerts");
   };

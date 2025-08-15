@@ -64,14 +64,6 @@ export default function DeadSpendDetector() {
           </p>
         </div>
 
-        {/* Quick Action */}
-        <WidgetCard variant="savings" className="text-center">
-          <div className="space-y-2">
-            <h3 className="font-semibold">Potential Monthly Savings</h3>
-            <p className="text-2xl font-bold">₹{monthlyWaste.toLocaleString()}</p>
-            <p className="text-sm opacity-90">Cancel unused subscriptions now</p>
-          </div>
-        </WidgetCard>
 
         {/* Dead Spend List */}
         <div className="space-y-4">

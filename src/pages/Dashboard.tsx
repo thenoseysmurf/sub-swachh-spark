@@ -145,26 +145,28 @@ export default function Dashboard() {
               <TrendingUp className="h-5 w-5 text-success" />
             </div>
             
-            <div className="h-28">
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={monthlySpendData} margin={{
-                top: 2,
-                right: 2,
-                left: 2,
-                bottom: 2
-              }}>
-                  <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{
-                  fontSize: 10,
-                  fill: 'hsl(var(--muted-foreground))'
-                }} interval={0} />
-                  <YAxis hide />
-                  <Line type="monotone" dataKey="amount" stroke="hsl(var(--primary))" strokeWidth={2} dot={{
-                  fill: 'hsl(var(--primary))',
-                  strokeWidth: 2,
-                  r: 2
-                }} />
-                </LineChart>
-              </ResponsiveContainer>
+            <div className="h-28 flex items-center justify-center">
+              <div className="w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart data={monthlySpendData} margin={{
+                  top: 2,
+                  right: 2,
+                  left: 2,
+                  bottom: 2
+                }}>
+                    <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{
+                    fontSize: 10,
+                    fill: 'hsl(var(--muted-foreground))'
+                  }} interval={0} />
+                    <YAxis hide />
+                    <Line type="monotone" dataKey="amount" stroke="hsl(var(--primary))" strokeWidth={2} dot={{
+                    fill: 'hsl(var(--primary))',
+                    strokeWidth: 2,
+                    r: 2
+                  }} />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
             </div>
             
             <p className="body-sm text-muted-foreground text-center">Monthly Spend Analytics</p>

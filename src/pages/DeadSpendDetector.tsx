@@ -47,17 +47,41 @@ const mockDeadSpendData = [{
 }];
 export default function DeadSpendDetector() {
   const router = useRouter();
-  const [sortByInactivity, setSortByInactivity] = useState(false);
+  const [sortByInactivity, setSortByInactivity] = useState(true); // Default to sorted by inactivity
   
   // Helper function to extract days from lastUsed string
   const extractDays = (lastUsed: string) => {
     const match = lastUsed.match(/(\d+)/);
     return match ? parseInt(match[1]) : 0;
   };
+
+  // Helper function to determine inactivity level
+  const getInactivityLevel = (lastUsed: string) => {
+    const days = extractDays(lastUsed);
+    return days > 60 ? "highly inactive" : "moderately inactive";
+  };
+
+  // Helper function to get inactivity color classes
+  const getInactivityClasses = (lastUsed: string) => {
+    const level = getInactivityLevel(lastUsed);
+    return level === "highly inactive" 
+      ? "bg-red-100 text-red-700 dark:bg-red-900/20 dark:text-red-400"
+      : "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/20 dark:text-yellow-400";
+  };
   
-  // Sort subscriptions by inactivity
+  // Sort subscriptions by inactivity level first, then by days
   const sortedSubscriptions = sortByInactivity 
-    ? [...mockDeadSpendData].sort((a, b) => extractDays(b.lastUsed) - extractDays(a.lastUsed))
+    ? [...mockDeadSpendData].sort((a, b) => {
+        const aLevel = getInactivityLevel(a.lastUsed);
+        const bLevel = getInactivityLevel(b.lastUsed);
+        
+        // First sort by inactivity level (highly inactive first)
+        if (aLevel === "highly inactive" && bLevel === "moderately inactive") return -1;
+        if (aLevel === "moderately inactive" && bLevel === "highly inactive") return 1;
+        
+        // Then sort by days within same level (higher days first)
+        return extractDays(b.lastUsed) - extractDays(a.lastUsed);
+      })
     : mockDeadSpendData;
   
   const totalDeadSpend = mockDeadSpendData.reduce((sum, sub) => sum + sub.amount * 12, 0);
@@ -101,12 +125,12 @@ export default function DeadSpendDetector() {
                     </div>
                     
                     <div className="flex-1 min-w-0">
-                      <div className="flex items-center justify-between mb-1">
-                        <h4 className="font-semibold text-sm truncate">{subscription.name}</h4>
-                        <span className={`px-1.5 py-0.5 rounded text-xs font-medium ${subscription.confidence === "Very High" ? "bg-red-100 text-red-700 dark:bg-red-900/20 dark:text-red-400" : "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/20 dark:text-yellow-400"}`}>
-                          {subscription.confidence === "Very High" ? "High Risk" : "Risk"}
-                        </span>
-                      </div>
+                       <div className="flex items-center justify-between mb-1">
+                         <h4 className="font-semibold text-sm truncate">{subscription.name}</h4>
+                         <span className={`px-1.5 py-0.5 rounded text-xs font-medium ${getInactivityClasses(subscription.lastUsed)}`}>
+                           {getInactivityLevel(subscription.lastUsed)}
+                         </span>
+                       </div>
                       
                       <div className="flex items-center justify-between mb-2">
                         <p className="text-lg font-bold">₹{subscription.amount}<span className="text-xs font-normal text-muted-foreground">/mo</span></p>

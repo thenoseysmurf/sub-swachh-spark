@@ -58,7 +58,7 @@ export default function Signup() {
       return;
     }
     setErrors({});
-    router.push("/dashboard");
+    router.push("/verify-mobile");
   };
 
   const getStepProgress = () => {

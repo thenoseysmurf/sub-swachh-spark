@@ -39,7 +39,7 @@ const Index = () => {
 
         {/* Enhanced CTA Button */}
         <div className="w-full max-w-sm animate-slide-up stagger-3">
-          <Button onClick={() => router.push("/signup")} variant="primary" size="xl" className="w-full">
+          <Button onClick={() => router.push("/signup")} variant="primary" size="xl" className="w-full bg-white text-slate-900 hover:bg-white/90 border-2 border-white/20">
             {t('landing.getStarted')}
           </Button>
         </div>

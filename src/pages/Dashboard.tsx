@@ -108,8 +108,11 @@ export default function Dashboard() {
               <p className="caption text-muted-foreground">{t('dashboard.welcomeSubtitle')}</p>
             </div>
             <div className="flex space-x-2">
-              <Button variant="glass" size="icon-sm" onClick={() => router.push("/notifications")} className="interactive-scale">
+              <Button variant="glass" size="icon-sm" onClick={() => router.push("/notifications")} className="interactive-scale relative">
                 <Bell className="h-4 w-4" />
+                <span className="absolute -top-1 -right-1 bg-destructive text-destructive-foreground text-xs rounded-full min-w-[16px] h-4 flex items-center justify-center font-medium">
+                  2
+                </span>
               </Button>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>

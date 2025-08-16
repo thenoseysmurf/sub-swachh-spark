@@ -19,8 +19,8 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				sans: ['Inter', 'system-ui', 'sans-serif'],
-				mono: ['JetBrains Mono', 'monospace'],
+				sans: ['ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Noto Sans', 'Ubuntu', 'Cantarell', 'Helvetica Neue', 'Arial', 'sans-serif'],
+				mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'DejaVu Sans Mono', 'Courier New', 'monospace'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
@@ -39,6 +39,12 @@ export default {
 					dark: 'hsl(var(--primary-dark))',
 					glow: 'hsl(var(--primary-glow))',
 					foreground: 'hsl(var(--primary-foreground))'
+				},
+				kpi: {
+					total: 'hsl(var(--kpi-total))',
+					cost: 'hsl(var(--kpi-cost))',
+					inactive: 'hsl(var(--kpi-inactive))',
+					renewal: 'hsl(var(--kpi-renewal))'
 				},
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
@@ -97,7 +103,7 @@ export default {
 			borderRadius: {
 				xs: 'var(--radius-xs)',
 				sm: 'var(--radius-sm)',
-				DEFAULT: 'var(--radius)',
+				DEFAULT: '0.75rem',
 				md: 'var(--radius-md)',
 				lg: 'var(--radius-lg)',
 				xl: 'var(--radius-xl)',

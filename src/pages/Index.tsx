@@ -62,12 +62,6 @@ const Index = () => {
           </Button>
         </div>
 
-        {/* Trust Indicator with Glass Effect */}
-        <div className="glass-card rounded-xl p-4 max-w-xs text-center animate-slide-up stagger-3">
-          <p className="caption text-muted-foreground">
-            Trusted by 50,000+ smart savers
-          </p>
-        </div>
       </div>
     </div>;
 };

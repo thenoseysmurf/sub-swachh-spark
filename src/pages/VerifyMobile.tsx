@@ -7,7 +7,7 @@ import { Loader2, CheckCircle2, CreditCard, Smartphone, Link, Shield, X } from "
 export default function VerifyMobile() {
   const router = useRouter();
   const [step, setStep] = useState<"scanning" | "results">("scanning");
-  const [upiAccounts] = useState([{
+  const [upiAccounts, setUpiAccounts] = useState([{
     id: "1",
     name: "user@paytm",
     provider: "Paytm"
@@ -16,12 +16,20 @@ export default function VerifyMobile() {
     name: "user@phonepe",
     provider: "PhonePe"
   }]);
-  const [paymentCards] = useState([{
+  const [paymentCards, setPaymentCards] = useState([{
     id: "1",
     name: "HDFC Credit Card",
     last4: "4567",
     type: "Credit"
   }]);
+
+  const removeUpiAccount = (id: string) => {
+    setUpiAccounts(accounts => accounts.filter(account => account.id !== id));
+  };
+
+  const removePaymentCard = (id: string) => {
+    setPaymentCards(cards => cards.filter(card => card.id !== id));
+  };
   useEffect(() => {
     // Auto start scanning when component mounts
     const timer = setTimeout(() => {
@@ -82,7 +90,12 @@ export default function VerifyMobile() {
                       <p className="text-sm font-medium text-foreground truncate">{upi.name}</p>
                       <p className="text-xs text-muted-foreground">{upi.provider}</p>
                     </div>
-                    <Button variant="ghost" size="icon" className="h-6 w-6 text-muted-foreground hover:text-destructive">
+                    <Button 
+                      variant="ghost" 
+                      size="icon" 
+                      className="h-6 w-6 text-muted-foreground hover:text-destructive"
+                      onClick={() => removeUpiAccount(upi.id)}
+                    >
                       <X className="h-3 w-3" />
                     </Button>
                   </div>)}
@@ -95,7 +108,12 @@ export default function VerifyMobile() {
                       <p className="text-sm font-medium text-foreground truncate">{card.name}</p>
                       <p className="text-xs text-muted-foreground">**** {card.last4}</p>
                     </div>
-                    <Button variant="ghost" size="icon" className="h-6 w-6 text-muted-foreground hover:text-destructive">
+                    <Button 
+                      variant="ghost" 
+                      size="icon" 
+                      className="h-6 w-6 text-muted-foreground hover:text-destructive"
+                      onClick={() => removePaymentCard(card.id)}
+                    >
                       <X className="h-3 w-3" />
                     </Button>
                   </div>)}

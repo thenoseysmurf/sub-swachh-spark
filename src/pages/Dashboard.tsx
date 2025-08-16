@@ -6,6 +6,7 @@ import { MetricCard } from "@/components/ui/metric-card";
 import { PremiumLoading } from "@/components/ui/premium-loading";
 import { AppLogo } from "@/components/ui/app-logo";
 import { useRouter } from "@/hooks/useRouter";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { cn } from "@/lib/utils";
 import { TrendingUp, TrendingDown, Calendar, Filter, Settings, BarChart3, AlertCircle, Play, Pause, Star, Crown, Sparkles, Bell, Languages, LogOut } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger } from "@/components/ui/dropdown-menu";
@@ -62,10 +63,16 @@ const monthlySpendData = [{
   month: "Aug",
   amount: 2800
 }];
-const filters = ["All", "Inactive", "Paused"];
+const filters = [
+  { key: "all", label: "filters.all" },
+  { key: "inactive", label: "filters.inactive" },
+  { key: "paused", label: "filters.paused" }
+];
+
 export default function Dashboard() {
   const router = useRouter();
-  const [activeFilter, setActiveFilter] = useState("All");
+  const { language, setLanguage, t } = useLanguage();
+  const [activeFilter, setActiveFilter] = useState("all");
   const [userName, setUserName] = useState("John");
   useEffect(() => {
     const userProfile = localStorage.getItem("userProfile");
@@ -81,11 +88,11 @@ export default function Dashboard() {
   const inactiveCount = mockSubscriptions.filter(sub => sub.isDead || sub.status === "paused").length;
   const filteredSubscriptions = mockSubscriptions.filter(sub => {
     switch (activeFilter) {
-      case "All":
+      case "all":
         return true;
-      case "Inactive":
+      case "inactive":
         return sub.isDead || sub.status === "paused";
-      case "Paused":
+      case "paused":
         return sub.status === "paused";
       default:
         return true;
@@ -97,8 +104,8 @@ export default function Dashboard() {
         <div className="glass-nav p-4 rounded-xl -mx-4 mb-6 animate-slide-down">
           <div className="flex items-center justify-between">
             <div className="space-y-1">
-              <h1 className="display-md gradient-text">Hi, {userName}! 👋</h1>
-              <p className="caption text-muted-foreground">Welcome to your dashboard</p>
+              <h1 className="display-md gradient-text">{t('dashboard.welcome').replace('{name}', userName)}</h1>
+              <p className="caption text-muted-foreground">{t('dashboard.welcomeSubtitle')}</p>
             </div>
             <div className="flex space-x-2">
               <Button variant="glass" size="icon-sm" onClick={() => router.push("/notifications")} className="interactive-scale">
@@ -113,22 +120,26 @@ export default function Dashboard() {
                 <DropdownMenuContent align="end" className="w-48">
                   <DropdownMenuItem onClick={() => router.push("/configure-alerts")}>
                     <Settings className="h-4 w-4 mr-2" />
-                    Configure Alerts
+                    {t('settings.configureAlerts')}
                   </DropdownMenuItem>
                   <DropdownMenuSub>
                     <DropdownMenuSubTrigger>
                       <Languages className="h-4 w-4 mr-2" />
-                      Language
+                      {t('settings.language')}
                     </DropdownMenuSubTrigger>
                     <DropdownMenuSubContent>
-                      <DropdownMenuItem>English</DropdownMenuItem>
-                      <DropdownMenuItem>Hindi</DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => setLanguage('en')}>
+                        {t('settings.english')}
+                      </DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => setLanguage('hi')}>
+                        {t('settings.hindi')}
+                      </DropdownMenuItem>
                     </DropdownMenuSubContent>
                   </DropdownMenuSub>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={() => router.push("/")}>
                     <LogOut className="h-4 w-4 mr-2" />
-                    Logout
+                    {t('settings.logout')}
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -138,9 +149,9 @@ export default function Dashboard() {
 
         {/* Apple-style Key Metrics */}
         <div className="grid grid-cols-2 gap-3 animate-slide-up stagger-1">
-          <MetricCard title="Monthly Spend" value={`₹${monthlySpend.toLocaleString()}`} subtitle={`${totalSubscriptions} subscriptions`} variant="premium" className="cursor-pointer" onClick={() => router.push("/analytics")} />
+          <MetricCard title={t('dashboard.monthlySpend')} value={`₹${monthlySpend.toLocaleString()}`} subtitle={`${totalSubscriptions} ${t('dashboard.subscriptions')}`} variant="premium" className="cursor-pointer" onClick={() => router.push("/analytics")} />
 
-          <MetricCard title="Dead Spend" value={`₹${deadSpend.toLocaleString()}`} subtitle={`${inactiveCount} inactive subs`} variant="warning" className="cursor-pointer" onClick={() => router.push("/dead-spend-detector")} />
+          <MetricCard title={t('dashboard.deadSpend')} value={`₹${deadSpend.toLocaleString()}`} subtitle={`${inactiveCount} ${t('dashboard.inactiveSubscriptions')}`} variant="warning" className="cursor-pointer" onClick={() => router.push("/dead-spend-detector")} />
         </div>
 
 
@@ -150,7 +161,7 @@ export default function Dashboard() {
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
                 <BarChart3 className="h-5 w-5 text-primary" />
-                <h3 className="heading-sm">Monthly Spend Trend</h3>
+                <h3 className="heading-sm">{t('dashboard.monthlySpendTrend')}</h3>
               </div>
               <div className="flex items-center space-x-1 text-success">
                 <TrendingUp className="h-4 w-4" />
@@ -198,19 +209,19 @@ export default function Dashboard() {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <Star className="h-5 w-5 text-primary" />
-              <h3 className="heading-sm">Your Subscriptions</h3>
+              <h3 className="heading-sm">{t('dashboard.yourSubscriptions')}</h3>
             </div>
             <span className="caption bg-primary/10 text-primary px-2 py-1 rounded-full">
-              {filteredSubscriptions.length} active
+              {filteredSubscriptions.length} {t('dashboard.active')}
             </span>
           </div>
 
           <div className="flex space-x-2 overflow-x-auto pb-2 scrollbar-hide">
-            {filters.map((filter, index) => <button key={filter} onClick={() => setActiveFilter(filter)} className={`
+            {filters.map((filter, index) => <button key={filter.key} onClick={() => setActiveFilter(filter.key)} className={`
                   px-4 py-2 rounded-full caption-lg font-medium whitespace-nowrap transition-all duration-300
-                  ${activeFilter === filter ? "bg-gradient-primary text-white shadow-md transform scale-105" : "glass-surface text-muted-foreground hover:bg-accent interactive-scale"}
+                  ${activeFilter === filter.key ? "bg-gradient-primary text-white shadow-md transform scale-105" : "glass-surface text-muted-foreground hover:bg-accent interactive-scale"}
                 `}>
-                {filter}
+                {t(filter.label)}
               </button>)}
           </div>
         </div>
@@ -247,21 +258,21 @@ export default function Dashboard() {
                   
                   <div className="flex items-center space-x-2">
                     <span className="caption bg-secondary text-secondary-foreground px-2 py-1 rounded-md">
-                      {subscription.category}
+                      {t(`category.${subscription.category.toLowerCase()}`)}
                     </span>
                   </div>
                 </div>
                 
                 <Button variant="primary" size="sm" onClick={() => router.push(`/subscription/${subscription.id}`)} className="ml-4 font-medium">
-                  Manage
+                  {t('dashboard.manage')}
                 </Button>
               </div>
             </WidgetCard>)}
           
           {filteredSubscriptions.length === 0 && <div className="text-center py-12 animate-fade-in">
               <PremiumLoading variant="pulse" size="lg" className="mx-auto mb-4" />
-              <p className="body-md text-muted-foreground">No subscriptions found</p>
-              <p className="caption text-muted-foreground">Try adjusting your filters</p>
+              <p className="body-md text-muted-foreground">{t('dashboard.noSubscriptionsFound')}</p>
+              <p className="caption text-muted-foreground">{t('dashboard.tryAdjustingFilters')}</p>
             </div>}
         </div>
 

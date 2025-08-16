@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { useRouter } from "@/hooks/useRouter";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { WidgetCard } from "@/components/ui/widget-card";
 import { Check, Bell, MessageSquare, Mail, Clock } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
@@ -23,6 +24,7 @@ const channels = [
 
 export default function ConfigureAlerts() {
   const router = useRouter();
+  const { t } = useLanguage();
   const { toast } = useToast();
   
   const [settings, setSettings] = useState({
@@ -56,7 +58,7 @@ export default function ConfigureAlerts() {
   const handleSave = () => {
     // Show success toast
     toast({
-      title: "Settings saved!",
+      title: t('alerts.settingsSaved'),
       description: "Your alert preferences have been configured.",
       variant: "default"
     });
@@ -69,7 +71,7 @@ export default function ConfigureAlerts() {
 
   return (
     <MobileLayout 
-      title="Smart Alerts" 
+      title={t('alerts.title')} 
       onBack={() => router.back()}
       showBottomNav={false}
     >
@@ -91,7 +93,7 @@ export default function ConfigureAlerts() {
           {/* Alert Timing */}
           <div className="space-y-2">
             <div>
-              <Label className="text-sm font-semibold">Pre-renewal Alerts</Label>
+              <Label className="text-sm font-semibold">{t('alerts.preRenewalAlerts')}</Label>
               <p className="text-xs text-muted-foreground">
                 When should we remind you?
               </p>
@@ -123,7 +125,7 @@ export default function ConfigureAlerts() {
           {/* Alert Channels */}
           <div className="space-y-2">
             <div>
-              <Label className="text-sm font-semibold">Alert Channels</Label>
+              <Label className="text-sm font-semibold">{t('alerts.alertChannels')}</Label>
               <p className="text-xs text-muted-foreground">
                 How should we notify you?
               </p>
@@ -146,7 +148,7 @@ export default function ConfigureAlerts() {
                     `}
                   >
                     <Icon className="h-4 w-4 text-primary" />
-                    <span className="flex-1 text-left text-sm font-medium">{channel.label}</span>
+                    <span className="flex-1 text-left text-sm font-medium">{t(`alerts.${channel.id}`)}</span>
                     {settings.channels.includes(channel.id) && (
                       <Check className="h-3 w-3 text-primary" />
                     )}
@@ -160,7 +162,7 @@ export default function ConfigureAlerts() {
           <div className="space-y-2">
             <div className="flex items-center justify-between">
               <div>
-                <Label className="text-sm font-semibold">Quiet Hours</Label>
+                <Label className="text-sm font-semibold">{t('alerts.quietHours')}</Label>
                 <p className="text-xs text-muted-foreground">
                   Pause notifications during these hours
                 </p>
@@ -192,7 +194,7 @@ export default function ConfigureAlerts() {
           </div>
 
           <Button onClick={handleSave} className="w-full" variant="primary">
-            Save Settings
+            {t('alerts.saveSettings')}
           </Button>
         </WidgetCard>
       </div>

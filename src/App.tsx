@@ -4,8 +4,6 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
-import { SplashScreen } from "@/components/ui/splash-screen";
-import { useState } from "react";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Signup from "./pages/Signup";
@@ -24,54 +22,42 @@ import CancellationInstructions from "./pages/CancellationInstructions";
 
 const queryClient = new QueryClient();
 
-const App = () => {
-  const [showSplash, setShowSplash] = useState(true);
-
-  const handleSplashComplete = () => {
-    setShowSplash(false);
-  };
-
-  return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider
-        attribute="class"
-        defaultTheme="dark"
-        enableSystem
-        disableTransitionOnChange
-      >
-        <div className="min-h-screen bg-gradient-background">
-          <TooltipProvider>
-            <Toaster />
-            <Sonner />
-            {showSplash ? (
-              <SplashScreen onComplete={handleSplashComplete} />
-            ) : (
-              <BrowserRouter>
-                <Routes>
-                  <Route path="/" element={<Index />} />
-                  <Route path="/signup" element={<Signup />} />
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/verify-mobile" element={<VerifyMobile />} />
-                  <Route path="/profile-setup" element={<ProfileSetup />} />
-                  <Route path="/configure-alerts" element={<ConfigureAlerts />} />
-                  <Route path="/dashboard" element={<Dashboard />} />
-                  <Route path="/subscription/:id" element={<ManageSubscription />} />
-                  <Route path="/action-confirmation" element={<ActionConfirmation />} />
-                  <Route path="/analytics" element={<Analytics />} />
-                  <Route path="/category/:categoryId" element={<CategoryDetail />} />
-                  <Route path="/app/:category/:appName" element={<AppSubscription />} />
-                  <Route path="/dead-spend-detector" element={<DeadSpendDetector />} />
-                  <Route path="/cancellation-instructions/:id" element={<CancellationInstructions />} />
-                  {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-              </BrowserRouter>
-            )}
-          </TooltipProvider>
-        </div>
-      </ThemeProvider>
-    </QueryClientProvider>
-  );
-};
+const App = () => (
+  <QueryClientProvider client={queryClient}>
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="dark"
+      enableSystem
+      disableTransitionOnChange
+    >
+      <div className="min-h-screen bg-gradient-background">
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/verify-mobile" element={<VerifyMobile />} />
+            <Route path="/profile-setup" element={<ProfileSetup />} />
+            <Route path="/configure-alerts" element={<ConfigureAlerts />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/subscription/:id" element={<ManageSubscription />} />
+            <Route path="/action-confirmation" element={<ActionConfirmation />} />
+            <Route path="/analytics" element={<Analytics />} />
+            <Route path="/category/:categoryId" element={<CategoryDetail />} />
+            <Route path="/app/:category/:appName" element={<AppSubscription />} />
+            <Route path="/dead-spend-detector" element={<DeadSpendDetector />} />
+            <Route path="/cancellation-instructions/:id" element={<CancellationInstructions />} />
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+        </TooltipProvider>
+      </div>
+    </ThemeProvider>
+  </QueryClientProvider>
+);
 
 export default App;

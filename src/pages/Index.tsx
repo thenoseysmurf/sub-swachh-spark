@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useRouter } from "@/hooks/useRouter";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { PiggyBank } from "lucide-react";
+import { PiggyBank, Coins, ArrowRight } from "lucide-react";
 const Index = () => {
   const router = useRouter();
   const { t } = useLanguage();
@@ -18,14 +18,18 @@ const Index = () => {
       </div>
 
       <div className="relative px-6 py-16 flex flex-col items-center justify-center min-h-screen space-y-8">
-        {/* Modern Logo and App Name */}
-        <div className="text-center space-y-4 animate-fade-in">
+        {/* Enhanced Logo with Coins and App Name */}
+        <div className="text-center space-y-6 animate-fade-in">
           <div className="relative mx-auto w-fit">
-            <div className="glass-card w-20 h-20 rounded-2xl flex items-center justify-center border border-border-accent/20">
-              <PiggyBank className="w-10 h-10 text-primary" />
+            <div className="glass-card w-32 h-32 rounded-3xl flex items-center justify-center border-2 border-primary/30 bg-gradient-to-br from-primary/10 to-accent/10 shadow-xl">
+              <div className="relative">
+                <PiggyBank className="w-16 h-16 text-primary" />
+                <Coins className="w-8 h-8 text-yellow-500 absolute -top-2 -right-2 animate-bounce" />
+                <Coins className="w-6 h-6 text-yellow-400 absolute -bottom-1 -left-1 animate-pulse" />
+              </div>
             </div>
           </div>
-          <h1 className="heading-lg text-foreground font-bold tracking-tight">
+          <h1 className="text-5xl font-extrabold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent tracking-tight leading-tight">
             PocketWise
           </h1>
         </div>
@@ -43,9 +47,10 @@ const Index = () => {
             onClick={() => router.push("/signup")} 
             variant="default" 
             size="xl" 
-            className="w-full bg-purple-600 hover:bg-purple-700 text-white border-purple-500"
+            className="w-full bg-purple-600 hover:bg-purple-700 text-white border-purple-500 flex items-center justify-center gap-2"
           >
             {t('landing.getStarted')}
+            <ArrowRight className="w-5 h-5" />
           </Button>
         </div>
 

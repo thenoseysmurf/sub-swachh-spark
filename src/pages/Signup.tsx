@@ -18,7 +18,6 @@ export default function Signup() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [otpSent, setOtpSent] = useState(false);
   const [otpVerified, setOtpVerified] = useState(false);
-
   const handleSendOTP = (e: React.FormEvent) => {
     e.preventDefault();
     const newErrors: Record<string, string> = {};
@@ -32,7 +31,6 @@ export default function Signup() {
     setErrors({});
     setOtpSent(true);
   };
-
   const handleVerifyOTP = (e: React.FormEvent) => {
     e.preventDefault();
     const newErrors: Record<string, string> = {};
@@ -46,7 +44,6 @@ export default function Signup() {
     setErrors({});
     setOtpVerified(true);
   };
-
   const handleOnboard = (e: React.FormEvent) => {
     e.preventDefault();
     const newErrors: Record<string, string> = {};
@@ -60,15 +57,12 @@ export default function Signup() {
     setErrors({});
     router.push("/verify-mobile");
   };
-
   const getStepProgress = () => {
     if (otpVerified) return 100;
     if (otpSent) return 66;
     return 33;
   };
-
-  return (
-    <MobileLayout showBackButton={false} showBottomNav={false}>
+  return <MobileLayout showBackButton={false} showBottomNav={false}>
       <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-accent/30 px-4 py-8">
         {/* Header */}
         <div className="text-center space-y-4 mb-12">
@@ -80,18 +74,7 @@ export default function Signup() {
         </div>
 
         {/* Progress Indicator */}
-        <div className="w-full max-w-sm mx-auto mb-8">
-          <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
-            <span>Getting Started</span>
-            <span className="text-primary font-medium">{getStepProgress()}% Complete</span>
-          </div>
-          <div className="w-full bg-muted rounded-full h-2">
-            <div 
-              className="bg-gradient-primary h-2 rounded-full transition-all duration-500 ease-out" 
-              style={{ width: `${getStepProgress()}%` }}
-            />
-          </div>
-        </div>
+        
 
         {/* Form Container */}
         <div className="max-w-sm mx-auto space-y-6">
@@ -110,26 +93,11 @@ export default function Signup() {
             <div className="space-y-3">
               <Label htmlFor="mobile" className="sr-only">Mobile Number</Label>
               <div className="flex gap-2">
-                <Input 
-                  id="mobile" 
-                  type="tel" 
-                  placeholder="Enter 10-digit mobile number" 
-                  value={formData.mobile} 
-                  onChange={e => setFormData(prev => ({
-                    ...prev,
-                    mobile: e.target.value
-                  }))} 
-                  className={`${errors.mobile ? "border-destructive" : ""} flex-1`} 
-                  maxLength={10}
-                  disabled={otpSent}
-                />
-                <Button 
-                  onClick={handleSendOTP} 
-                  variant={otpSent ? "outline" : "primary"}
-                  size="sm"
-                  disabled={otpSent || !formData.mobile}
-                  className="whitespace-nowrap px-4"
-                >
+                <Input id="mobile" type="tel" placeholder="Enter 10-digit mobile number" value={formData.mobile} onChange={e => setFormData(prev => ({
+                ...prev,
+                mobile: e.target.value
+              }))} className={`${errors.mobile ? "border-destructive" : ""} flex-1`} maxLength={10} disabled={otpSent} />
+                <Button onClick={handleSendOTP} variant={otpSent ? "outline" : "primary"} size="sm" disabled={otpSent || !formData.mobile} className="whitespace-nowrap px-4">
                   {otpSent ? "Sent ✓" : "Send OTP"}
                 </Button>
               </div>
@@ -138,8 +106,7 @@ export default function Signup() {
           </WidgetCard>
 
           {/* Step 2: OTP Verification */}
-          {otpSent && (
-            <WidgetCard className={`transition-all duration-300 animate-slide-up ${!otpVerified ? 'ring-2 ring-primary/20' : 'opacity-75'}`}>
+          {otpSent && <WidgetCard className={`transition-all duration-300 animate-slide-up ${!otpVerified ? 'ring-2 ring-primary/20' : 'opacity-75'}`}>
               <div className="flex items-center gap-3 mb-4">
                 <div className={`flex items-center justify-center w-8 h-8 rounded-full ${otpVerified ? 'bg-success text-white' : 'bg-primary/10 text-primary'}`}>
                   {otpVerified ? <Check className="w-4 h-4" /> : <Shield className="w-4 h-4" />}
@@ -153,37 +120,20 @@ export default function Signup() {
               <div className="space-y-3">
                 <Label htmlFor="otp" className="sr-only">OTP Code</Label>
                 <div className="flex gap-2">
-                  <Input 
-                    id="otp" 
-                    type="text" 
-                    placeholder="Enter 6-digit code" 
-                    value={formData.otp} 
-                    onChange={e => setFormData(prev => ({
-                      ...prev,
-                      otp: e.target.value
-                    }))} 
-                    className={`${errors.otp ? "border-destructive" : ""} flex-1 text-center tracking-widest`} 
-                    maxLength={6}
-                    disabled={otpVerified || !otpSent}
-                  />
-                  <Button 
-                    onClick={handleVerifyOTP} 
-                    variant={otpVerified ? "outline" : "primary"}
-                    size="sm"
-                    disabled={otpVerified || !formData.otp || !otpSent}
-                    className="whitespace-nowrap px-4"
-                  >
+                  <Input id="otp" type="text" placeholder="Enter 6-digit code" value={formData.otp} onChange={e => setFormData(prev => ({
+                ...prev,
+                otp: e.target.value
+              }))} className={`${errors.otp ? "border-destructive" : ""} flex-1 text-center tracking-widest`} maxLength={6} disabled={otpVerified || !otpSent} />
+                  <Button onClick={handleVerifyOTP} variant={otpVerified ? "outline" : "primary"} size="sm" disabled={otpVerified || !formData.otp || !otpSent} className="whitespace-nowrap px-4">
                     {otpVerified ? "Done ✓" : "Verify"}
                   </Button>
                 </div>
                 {errors.otp && <p className="text-sm text-destructive flex items-center gap-1">{errors.otp}</p>}
               </div>
-            </WidgetCard>
-          )}
+            </WidgetCard>}
 
           {/* Step 3: Email & Final Setup */}
-          {otpVerified && (
-            <WidgetCard className="transition-all duration-300 animate-slide-up ring-2 ring-primary/20">
+          {otpVerified && <WidgetCard className="transition-all duration-300 animate-slide-up ring-2 ring-primary/20">
               <div className="flex items-center gap-3 mb-6">
                 <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 text-primary">
                   <Mail className="w-4 h-4" />
@@ -197,33 +147,19 @@ export default function Signup() {
               <div className="space-y-6">
                 <div className="space-y-2">
                   <Label htmlFor="email" className="text-sm font-medium text-foreground">Email Address</Label>
-                  <Input 
-                    id="email" 
-                    type="email" 
-                    placeholder="your@email.com" 
-                    value={formData.email} 
-                    onChange={e => setFormData(prev => ({
-                      ...prev,
-                      email: e.target.value
-                    }))} 
-                    className={errors.email ? "border-destructive" : ""} 
-                    disabled={!otpVerified}
-                  />
+                  <Input id="email" type="email" placeholder="your@email.com" value={formData.email} onChange={e => setFormData(prev => ({
+                ...prev,
+                email: e.target.value
+              }))} className={errors.email ? "border-destructive" : ""} disabled={!otpVerified} />
                   {errors.email && <p className="text-sm text-destructive">{errors.email}</p>}
                 </div>
 
                 <div className="bg-muted/50 rounded-lg p-4 space-y-3">
                   <div className="flex items-start gap-3">
-                    <Checkbox 
-                      id="syncUpiCards" 
-                      checked={formData.syncUpiCards} 
-                      onCheckedChange={checked => setFormData(prev => ({
-                        ...prev,
-                        syncUpiCards: !!checked
-                      }))} 
-                      disabled={!otpVerified}
-                      className="mt-0.5"
-                    />
+                    <Checkbox id="syncUpiCards" checked={formData.syncUpiCards} onCheckedChange={checked => setFormData(prev => ({
+                  ...prev,
+                  syncUpiCards: !!checked
+                }))} disabled={!otpVerified} className="mt-0.5" />
                     <div className="space-y-1">
                       <Label htmlFor="syncUpiCards" className="text-sm font-medium leading-none">
                         Sync Payment Methods
@@ -235,34 +171,22 @@ export default function Signup() {
                   </div>
                 </div>
 
-                <Button 
-                  onClick={handleOnboard} 
-                  className="w-full" 
-                  variant="primary" 
-                  size="lg"
-                  disabled={!formData.email || !otpVerified}
-                >
+                <Button onClick={handleOnboard} className="w-full" variant="primary" size="lg" disabled={!formData.email || !otpVerified}>
                   Create My Account
                 </Button>
               </div>
-            </WidgetCard>
-          )}
+            </WidgetCard>}
 
           {/* Sign In Link */}
           <div className="text-center pt-4">
             <p className="body-sm text-muted-foreground">
               Already have an account?{" "}
-              <button 
-                type="button" 
-                onClick={() => router.push("/login")} 
-                className="text-primary font-medium hover:underline transition-colors"
-              >
+              <button type="button" onClick={() => router.push("/login")} className="text-primary font-medium hover:underline transition-colors">
                 Sign In
               </button>
             </p>
           </div>
         </div>
       </div>
-    </MobileLayout>
-  );
+    </MobileLayout>;
 }

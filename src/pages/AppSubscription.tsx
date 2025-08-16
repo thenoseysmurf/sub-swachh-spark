@@ -218,15 +218,12 @@ export default function AppSubscription() {
                 </span>
               </div>
             </div>
+            
+            <Button variant="primary" className="w-full h-12 text-sm font-medium mt-4" onClick={() => router.push(`/subscription/1`)}>
+              Manage Subscription
+            </Button>
           </div>
         </WidgetCard>
-      </div>
-
-      {/* Fixed Bottom CTA Button */}
-      <div className="fixed bottom-20 left-0 right-0 p-4 bg-background border-t">
-        <Button variant="primary" className="w-full h-12 text-sm font-medium" onClick={() => router.push(`/subscription/1`)}>
-          Manage Subscription
-        </Button>
       </div>
     </MobileLayout>;
 }

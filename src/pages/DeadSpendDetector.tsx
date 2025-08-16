@@ -122,10 +122,11 @@ export default function DeadSpendDetector() {
                               ₹{subscription.amount}
                               <span className="caption text-muted-foreground font-normal">/mo</span>
                             </p>
-                            <div className="flex items-center space-x-1">
-                              <Clock className="h-3 w-3 text-muted-foreground" />
-                              <span className="caption text-muted-foreground">90+ days ago</span>
-                            </div>
+                          </div>
+                          
+                          <div className="flex items-center space-x-1">
+                            <Clock className="h-3 w-3 text-muted-foreground" />
+                            <span className="caption text-muted-foreground">90+ days ago</span>
                           </div>
                           
                           

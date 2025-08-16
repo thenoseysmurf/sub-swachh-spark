@@ -114,9 +114,7 @@ export default function DeadSpendDetector() {
                         <div className="flex-1 space-y-1">
                           <div className="flex items-center justify-between">
                             <h4 className="heading-xs text-foreground">{subscription.name}</h4>
-                            <span className={`caption px-2 py-1 rounded-md ${getInactivityLevel(subscription.lastUsed) === "highly inactive" ? 'bg-destructive/10 text-destructive' : 'bg-warning/10 text-warning'}`}>
-                              {getInactivityLevel(subscription.lastUsed)}
-                            </span>
+                            
                           </div>
                           
                           <div className="flex items-center justify-between">

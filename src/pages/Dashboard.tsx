@@ -7,7 +7,8 @@ import { PremiumLoading } from "@/components/ui/premium-loading";
 import { AppLogo } from "@/components/ui/app-logo";
 import { useRouter } from "@/hooks/useRouter";
 import { cn } from "@/lib/utils";
-import { TrendingUp, TrendingDown, Calendar, Filter, Settings, BarChart3, AlertCircle, Play, Pause, Star, Crown, Sparkles, Bell } from "lucide-react";
+import { TrendingUp, TrendingDown, Calendar, Filter, Settings, BarChart3, AlertCircle, Play, Pause, Star, Crown, Sparkles, Bell, Languages, LogOut } from "lucide-react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger } from "@/components/ui/dropdown-menu";
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, LineChart, Line } from "recharts";
 const mockSubscriptions = [{
   id: 1,
@@ -103,9 +104,34 @@ export default function Dashboard() {
               <Button variant="glass" size="icon-sm" onClick={() => router.push("/notifications")} className="interactive-scale">
                 <Bell className="h-4 w-4" />
               </Button>
-              <Button variant="glass" size="icon-sm" onClick={() => router.push("/configure-alerts")} className="interactive-scale">
-                <Settings className="h-4 w-4" />
-              </Button>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="glass" size="icon-sm" className="interactive-scale">
+                    <Settings className="h-4 w-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-48">
+                  <DropdownMenuItem onClick={() => router.push("/configure-alerts")}>
+                    <Settings className="h-4 w-4 mr-2" />
+                    Configure Alerts
+                  </DropdownMenuItem>
+                  <DropdownMenuSub>
+                    <DropdownMenuSubTrigger>
+                      <Languages className="h-4 w-4 mr-2" />
+                      Language
+                    </DropdownMenuSubTrigger>
+                    <DropdownMenuSubContent>
+                      <DropdownMenuItem>English</DropdownMenuItem>
+                      <DropdownMenuItem>Hindi</DropdownMenuItem>
+                    </DropdownMenuSubContent>
+                  </DropdownMenuSub>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={() => router.push("/")}>
+                    <LogOut className="h-4 w-4 mr-2" />
+                    Logout
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
           </div>
         </div>

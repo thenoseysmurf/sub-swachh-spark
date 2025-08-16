@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useRouter } from "@/hooks/useRouter";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Zap } from "lucide-react";
+import { PiggyBank } from "lucide-react";
 const Index = () => {
   const router = useRouter();
   const { t } = useLanguage();
@@ -17,20 +17,22 @@ const Index = () => {
       }}></div>
       </div>
 
-      <div className="relative px-6 py-16 flex flex-col items-center justify-center min-h-screen space-y-8">
-        {/* App Icon with Enhanced Styling */}
-        <div className="relative animate-bounce-in">
-          <div className="w-28 h-28 rounded-3xl bg-gradient-hero shadow-glow flex items-center justify-center backdrop-blur-sm border border-white/20 animate-pulse-glow">
-            <Zap className="w-14 h-14 text-white drop-shadow-lg" />
+      <div className="relative px-6 py-16 flex flex-col items-center justify-center min-h-screen space-y-6">
+        {/* Logo and App Name - Aligned Layout */}
+        <div className="flex items-center space-x-4 animate-bounce-in">
+          <div className="relative">
+            <div className="w-20 h-20 rounded-2xl bg-gradient-hero shadow-glow flex items-center justify-center backdrop-blur-sm border border-white/20 animate-pulse-glow">
+              <PiggyBank className="w-10 h-10 text-white drop-shadow-lg" />
+            </div>
+            <div className="absolute -inset-2 bg-gradient-hero rounded-2xl blur-lg opacity-60 animate-pulse-glow"></div>
           </div>
-          <div className="absolute -inset-2 bg-gradient-hero rounded-3xl blur-lg opacity-60 animate-pulse-glow"></div>
+          <h1 className="display-lg gradient-text bg-gradient-to-r from-white via-primary-glow to-success-glow bg-clip-text text-transparent text-4xl font-bold">
+            PocketWise
+          </h1>
         </div>
 
         {/* Hero Content with Enhanced Typography */}
         <div className="text-center text-white space-y-6 max-w-md animate-slide-up stagger-1">
-          <h1 className="display-lg gradient-text bg-gradient-to-r from-white via-primary-glow to-success-glow bg-clip-text text-transparent text-4xl">
-            PocketWise
-          </h1>
           <p className="body-xl leading-relaxed max-w-sm mx-auto text-slate-50 text-base font-light text-center">{t('landing.subtitle')}</p>
         </div>
 

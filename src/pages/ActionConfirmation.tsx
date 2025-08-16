@@ -29,15 +29,15 @@ export default function ActionConfirmation() {
       onBack={() => router.back()}
       showBottomNav={true}
     >
-      <div className="px-4 py-8 space-y-6">
+      <div className="px-4 py-6 space-y-4">
         {/* Success Message */}
-        <WidgetCard className="text-center space-y-4">
-          <CheckCircle2 className="h-16 w-16 mx-auto text-success" />
+        <WidgetCard size="sm" className="text-center space-y-3">
+          <CheckCircle2 className="h-12 w-12 mx-auto text-success" />
           <div>
-            <h2 className="heading-xl mb-2">
+            <h2 className="heading-lg mb-1">
               {actionData.type === "cancelled" ? "Subscription Cancelled! 🎉" : "Subscription Paused!"}
             </h2>
-            <p className="body-lg">
+            <p className="body-md">
               {actionData.type === "cancelled" 
                 ? `Your ${actionData.serviceName} subscription has been permanently cancelled.`
                 : `Your ${actionData.serviceName} subscription is now temporarily paused.`
@@ -47,13 +47,13 @@ export default function ActionConfirmation() {
         </WidgetCard>
 
         {/* Savings Widget */}
-        <WidgetCard variant="gradient" className="text-center space-y-4">
-          <TrendingUp className="h-12 w-12 mx-auto opacity-90" />
+        <WidgetCard variant="gradient" size="sm" className="text-center space-y-3">
+          <TrendingUp className="h-10 w-10 mx-auto opacity-90" />
           <div>
-            <h3 className="heading-lg mb-2">
+            <h3 className="heading-md mb-1">
               {actionData.type === "cancelled" ? "Money Saved" : "Savings While Paused"}
             </h3>
-            <p className="text-3xl font-bold">₹{actionData.annualSavings.toLocaleString()}</p>
+            <p className="text-2xl font-bold">₹{actionData.annualSavings.toLocaleString()}</p>
             <p className="text-sm opacity-90 mt-1">
               {actionData.type === "cancelled" 
                 ? `No more ₹${actionData.monthlyAmount} monthly charges!`
@@ -64,7 +64,7 @@ export default function ActionConfirmation() {
         </WidgetCard>
 
         {/* Action Summary */}
-        <WidgetCard className="space-y-4">
+        <WidgetCard size="sm" className="space-y-3">
           <h3 className="heading-sm">What Happens Next?</h3>
           
           <div className="space-y-3">

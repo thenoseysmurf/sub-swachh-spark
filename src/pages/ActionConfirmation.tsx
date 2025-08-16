@@ -31,8 +31,8 @@ export default function ActionConfirmation() {
     >
       <div className="px-4 py-8 space-y-6">
         {/* Success Message */}
-        <WidgetCard variant={actionData.type === "paused" ? "savings" : "savings"} className="text-center space-y-4">
-          <CheckCircle2 className="h-16 w-16 mx-auto" />
+        <WidgetCard className="text-center space-y-4">
+          <CheckCircle2 className="h-16 w-16 mx-auto text-success" />
           <div>
             <h2 className="heading-xl mb-2">
               {actionData.type === "cancelled" ? "Subscription Cancelled! 🎉" : "Subscription Paused!"}

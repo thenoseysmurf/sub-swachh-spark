@@ -29,8 +29,16 @@ const Index = () => {
               </div>
             </div>
           </div>
-          <h1 className="text-5xl font-extrabold text-purple-600 tracking-tight leading-tight drop-shadow-2xl animate-bounce-in" style={{ filter: 'drop-shadow(0 0 20px rgba(255, 255, 255, 0.8))' }}>
-            PocketWise
+          <h1 className="text-5xl font-extrabold text-white tracking-tight leading-tight" style={{ filter: 'drop-shadow(0 0 15px rgba(147, 51, 234, 0.8))' }}>
+            {"PocketWise".split("").map((letter, index) => (
+              <span 
+                key={index} 
+                className="inline-block animate-bounce-in hover:animate-pulse hover:scale-110 transition-all duration-300" 
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                {letter}
+              </span>
+            ))}
           </h1>
         </div>
 

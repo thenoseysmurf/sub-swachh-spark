@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useRouter } from "@/hooks/useRouter";
 import { WidgetCard } from "@/components/ui/widget-card";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 import { Check, Shield, Smartphone, Mail } from "lucide-react";
 export default function Signup() {
   const router = useRouter();
@@ -93,10 +94,15 @@ export default function Signup() {
             <div className="space-y-3">
               <Label htmlFor="mobile" className="sr-only">Mobile Number</Label>
               <div className="flex gap-2">
-                <Input id="mobile" type="tel" placeholder="Enter 10-digit mobile number" value={formData.mobile} onChange={e => setFormData(prev => ({
-                ...prev,
-                mobile: e.target.value
-              }))} className={`${errors.mobile ? "border-destructive" : ""} flex-1`} maxLength={10} disabled={otpSent} />
+                <div className="flex">
+                  <div className="flex items-center px-3 bg-muted border border-r-0 rounded-l-md text-sm text-muted-foreground">
+                    +91
+                  </div>
+                  <Input id="mobile" type="tel" placeholder="Enter 10-digit mobile number" value={formData.mobile} onChange={e => setFormData(prev => ({
+                    ...prev,
+                    mobile: e.target.value
+                  }))} className={`${errors.mobile ? "border-destructive" : ""} flex-1 rounded-l-none`} maxLength={10} disabled={otpSent} />
+                </div>
                 <Button onClick={handleSendOTP} variant={otpSent ? "outline" : "primary"} size="sm" disabled={otpSent || !formData.mobile} className="whitespace-nowrap px-4">
                   {otpSent ? "Sent ✓" : "Send OTP"}
                 </Button>
@@ -119,16 +125,32 @@ export default function Signup() {
 
               <div className="space-y-3">
                 <Label htmlFor="otp" className="sr-only">OTP Code</Label>
-                <div className="flex gap-2">
-                  <Input id="otp" type="text" placeholder="Enter 6-digit code" value={formData.otp} onChange={e => setFormData(prev => ({
-                ...prev,
-                otp: e.target.value
-              }))} className={`${errors.otp ? "border-destructive" : ""} flex-1 text-center tracking-widest`} maxLength={6} disabled={otpVerified || !otpSent} />
-                  <Button onClick={handleVerifyOTP} variant={otpVerified ? "outline" : "primary"} size="sm" disabled={otpVerified || !formData.otp || !otpSent} className="whitespace-nowrap px-4">
-                    {otpVerified ? "Done ✓" : "Verify"}
+                <div className="flex flex-col gap-3">
+                  <div className="flex justify-center">
+                    <InputOTP
+                      maxLength={6}
+                      value={formData.otp}
+                      onChange={(value) => setFormData(prev => ({
+                        ...prev,
+                        otp: value
+                      }))}
+                      disabled={otpVerified || !otpSent}
+                    >
+                      <InputOTPGroup>
+                        <InputOTPSlot index={0} />
+                        <InputOTPSlot index={1} />
+                        <InputOTPSlot index={2} />
+                        <InputOTPSlot index={3} />
+                        <InputOTPSlot index={4} />
+                        <InputOTPSlot index={5} />
+                      </InputOTPGroup>
+                    </InputOTP>
+                  </div>
+                  <Button onClick={handleVerifyOTP} variant={otpVerified ? "outline" : "primary"} size="sm" disabled={otpVerified || !formData.otp || !otpSent} className="w-full">
+                    {otpVerified ? "Done ✓" : "Verify OTP"}
                   </Button>
                 </div>
-                {errors.otp && <p className="text-sm text-destructive flex items-center gap-1">{errors.otp}</p>}
+                {errors.otp && <p className="text-sm text-destructive flex items-center gap-1 justify-center">{errors.otp}</p>}
               </div>
             </WidgetCard>}
 

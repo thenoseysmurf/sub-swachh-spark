@@ -256,13 +256,6 @@ export default function Dashboard() {
                     <span className="caption bg-secondary text-secondary-foreground px-2 py-1 rounded-md">
                       {subscription.category}
                     </span>
-                    <span className={`caption px-2 py-1 rounded-md ${
-                      subscription.status === 'active' 
-                        ? 'bg-success/10 text-success' 
-                        : 'bg-warning/10 text-warning'
-                    }`}>
-                      {subscription.status}
-                    </span>
                   </div>
                 </div>
                 

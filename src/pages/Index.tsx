@@ -29,7 +29,7 @@ const Index = () => {
               </div>
             </div>
           </div>
-          <h1 className="text-5xl font-extrabold text-white tracking-tight leading-tight drop-shadow-2xl">
+          <h1 className="text-5xl font-extrabold text-purple-600 tracking-tight leading-tight drop-shadow-2xl animate-bounce-in" style={{ filter: 'drop-shadow(0 0 20px rgba(255, 255, 255, 0.8))' }}>
             PocketWise
           </h1>
         </div>

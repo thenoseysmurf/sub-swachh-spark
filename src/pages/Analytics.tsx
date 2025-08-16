@@ -100,7 +100,7 @@ export default function Analytics() {
         {/* Apple-style Top Metrics */}
         <div className="grid grid-cols-2 gap-3">
           <MetricCard
-            title={t('analytics.totalSpend')}
+            title="Annual Spend"
             value={`₹${(totalSpends * 12).toLocaleString()}`}
             variant="premium"
           />

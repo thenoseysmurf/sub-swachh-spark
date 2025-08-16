@@ -59,12 +59,11 @@ export function MetricCard({
       {(subtitle || trend) && (
         <div className={cn(
           "mt-2",
-          trend ? "flex items-center justify-between" : "text-center"
+          trend ? "flex items-center justify-between" : ""
         )}>
           {subtitle && (
             <p className={cn(
               "body-sm",
-              trend ? "" : "text-center",
               variant === "premium" ? "text-primary-foreground/70" : "text-muted-foreground"
             )}>
               {subtitle}

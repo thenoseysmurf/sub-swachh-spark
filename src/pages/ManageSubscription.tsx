@@ -142,8 +142,7 @@ export default function ManageSubscription() {
             <div className="flex items-center">
               <XCircle className="h-5 w-5 mr-3" />
               <div className="text-left">
-                <p className="font-medium">Cancel Now</p>
-                <p className="text-xs text-muted-foreground">Immediate cancellation</p>
+                <p className="font-medium">Cancel Subscription</p>
               </div>
             </div>
           </Button>

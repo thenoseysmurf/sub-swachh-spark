@@ -22,11 +22,9 @@ export default function VerifyMobile() {
     last4: "4567",
     type: "Credit"
   }]);
-
   const removeUpiAccount = (id: string) => {
     setUpiAccounts(accounts => accounts.filter(account => account.id !== id));
   };
-
   const removePaymentCard = (id: string) => {
     setPaymentCards(cards => cards.filter(card => card.id !== id));
   };
@@ -51,7 +49,7 @@ export default function VerifyMobile() {
           <div className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-primary/10 mb-2">
             <Link className="w-5 h-5 text-primary" />
           </div>
-          <h1 className="heading-md text-foreground">Find Your Payment Methods</h1>
+          <h1 className="heading-md text-foreground">Your Payment Methods</h1>
           <p className="body-sm text-muted-foreground max-w-sm mx-auto">
             Scanning for UPI IDs and cards to discover active subscriptions
           </p>
@@ -90,12 +88,7 @@ export default function VerifyMobile() {
                       <p className="text-sm font-medium text-foreground truncate">{upi.name}</p>
                       <p className="text-xs text-muted-foreground">{upi.provider}</p>
                     </div>
-                    <Button 
-                      variant="ghost" 
-                      size="icon" 
-                      className="h-6 w-6 text-muted-foreground hover:text-destructive"
-                      onClick={() => removeUpiAccount(upi.id)}
-                    >
+                    <Button variant="ghost" size="icon" className="h-6 w-6 text-muted-foreground hover:text-destructive" onClick={() => removeUpiAccount(upi.id)}>
                       <X className="h-3 w-3" />
                     </Button>
                   </div>)}
@@ -108,12 +101,7 @@ export default function VerifyMobile() {
                       <p className="text-sm font-medium text-foreground truncate">{card.name}</p>
                       <p className="text-xs text-muted-foreground">**** {card.last4}</p>
                     </div>
-                    <Button 
-                      variant="ghost" 
-                      size="icon" 
-                      className="h-6 w-6 text-muted-foreground hover:text-destructive"
-                      onClick={() => removePaymentCard(card.id)}
-                    >
+                    <Button variant="ghost" size="icon" className="h-6 w-6 text-muted-foreground hover:text-destructive" onClick={() => removePaymentCard(card.id)}>
                       <X className="h-3 w-3" />
                     </Button>
                   </div>)}

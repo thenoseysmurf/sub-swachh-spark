@@ -39,7 +39,7 @@ const mockSubscriptions = [{
   amount: 299,
   nextRenewal: "2024-08-25",
   status: "paused",
-  isDead: false,
+  isDead: true,
   category: "Food"
 }];
 const monthlySpendData = [{
@@ -76,7 +76,7 @@ export default function Dashboard() {
     }
   }, []);
   const monthlySpend = mockSubscriptions.reduce((sum, sub) => sum + sub.amount, 0);
-  const deadSpend = mockSubscriptions.filter(sub => sub.isDead).reduce((sum, sub) => sum + sub.amount * 12, 0);
+  const deadSpend = Math.round(mockSubscriptions.filter(sub => sub.isDead).reduce((sum, sub) => sum + sub.amount, 0));
   const totalSubscriptions = mockSubscriptions.length;
   const inactiveCount = mockSubscriptions.filter(sub => sub.isDead || sub.status === "paused").length;
   const filteredSubscriptions = mockSubscriptions.filter(sub => {

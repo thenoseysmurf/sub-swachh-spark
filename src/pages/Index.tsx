@@ -38,7 +38,7 @@ Without using Brain!</p>
 
         {/* Enhanced CTA Button */}
         <div className="w-full max-w-sm animate-slide-up stagger-3">
-          <Button onClick={() => router.push("/signup")} variant="success" size="xl" className="w-full">
+          <Button onClick={() => router.push("/signup")} variant="outline-primary" size="xl" className="w-full">
             Get Started
           </Button>
         </div>

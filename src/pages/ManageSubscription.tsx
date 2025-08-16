@@ -128,14 +128,22 @@ export default function ManageSubscription() {
             </div>
           </Button>
 
-          
+          <Button variant="primary" className="w-full justify-between h-12" onClick={() => handleAction("guided_cancel")} disabled={isLoading}>
+            <div className="flex items-center">
+              <ExternalLink className="h-5 w-5 mr-3" />
+              <div className="text-left">
+                <p className="font-medium">Get Cancellation Help</p>
+                <p className="text-xs opacity-90">Easy step-by-step guidance</p>
+              </div>
+            </div>
+          </Button>
 
           <Button variant="outline" className="w-full justify-between h-12 text-destructive border-destructive/30 hover:bg-destructive/10" onClick={() => handleAction("cancel")} disabled={isLoading}>
             <div className="flex items-center">
               <XCircle className="h-5 w-5 mr-3" />
               <div className="text-left">
                 <p className="font-medium">Cancel Now</p>
-                
+                <p className="text-xs text-muted-foreground">Immediate cancellation</p>
               </div>
             </div>
           </Button>

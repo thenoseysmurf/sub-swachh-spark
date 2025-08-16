@@ -42,7 +42,7 @@ export default function Notifications() {
   const unreadCount = notifications.filter(n => !n.isRead).length;
 
   return (
-    <MobileLayout showBackButton={true} title="Notifications" showBottomNav={true}>
+    <MobileLayout showBackButton={true} onBack={() => router.push("/dashboard")} title="Notifications" showBottomNav={true}>
       <div className="px-4 py-6 space-y-6 animate-fade-in">
         {/* Header */}
         <div className="glass-nav p-4 rounded-xl -mx-4 mb-6 animate-slide-down">

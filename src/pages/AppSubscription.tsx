@@ -133,7 +133,7 @@ export default function AppSubscription() {
   const isInactive = app.status === 'inactive';
   const avgUsage = app.usageData.reduce((sum: number, val: number) => sum + val, 0) / app.usageData.length;
   return <MobileLayout title={app.name} onBack={() => router.back()} showBottomNav={true}>
-      <div className="px-4 pt-2 pb-4 space-y-3 h-[calc(100vh-4rem)] flex flex-col">
+      <div className="px-4 pt-2 pb-20 space-y-4">
         {/* App Header */}
         <div className="text-center space-y-2">
           <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto p-2 bg-gradient-primary">
@@ -164,7 +164,7 @@ export default function AppSubscription() {
         </WidgetCard>
 
         {/* Usage Chart */}
-        <WidgetCard className="p-4 flex-1">
+        <WidgetCard className="p-4">
           <div className="space-y-3">
             <div className="flex items-center justify-between">
               <h3 className="text-base font-semibold">Usage vs Cost</h3>
@@ -188,16 +188,9 @@ export default function AppSubscription() {
             </div>
             
             <div className="bg-muted/50 rounded-lg p-3">
-              <p className="text-xs text-center mb-3">
+              <p className="text-xs text-center">
                 {isInactive ? "Canceling this will save you ₹1,428 per month and ₹17,988 per year" : avgUsage > 60 ? "Great value! You're using this subscription effectively" : "Low usage detected. Consider if you really need this subscription"}
               </p>
-              <Button 
-                size="sm" 
-                className="w-full h-8 text-xs font-medium" 
-                onClick={() => router.push(`/subscription/1`)}
-              >
-                Manage Subscription
-              </Button>
             </div>
           </div>
         </WidgetCard>
@@ -227,9 +220,11 @@ export default function AppSubscription() {
             </div>
           </div>
         </WidgetCard>
+      </div>
 
-        {/* CTA Button */}
-        <Button className="w-full h-10 text-sm font-semibold bg-foreground text-background hover:bg-foreground/90" onClick={() => router.push(`/subscription/1`)}>
+      {/* Fixed Bottom CTA Button */}
+      <div className="fixed bottom-20 left-0 right-0 p-4 bg-background border-t">
+        <Button className="w-full h-12 text-sm font-semibold bg-foreground text-background hover:bg-foreground/90" onClick={() => router.push(`/subscription/1`)}>
           Manage Subscription
         </Button>
       </div>

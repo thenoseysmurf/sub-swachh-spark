@@ -106,7 +106,7 @@ export default function Analytics() {
           />
           
           <MetricCard
-            title={t('analytics.deadSpend')}
+            title="Annual Dead Spend"
             value={`₹${(totalSavings * 12).toLocaleString()}`}
             variant="premium"
           />

@@ -4,16 +4,7 @@ import { MobileLayout } from "@/components/ui/mobile-layout";
 import { Button } from "@/components/ui/button";
 import { WidgetCard } from "@/components/ui/widget-card";
 import { useRouter } from "@/hooks/useRouter";
-import { 
-  Calendar, 
-  CreditCard, 
-  Pause, 
-  XCircle, 
-  ExternalLink,
-  AlertTriangle,
-  Shield
-} from "lucide-react";
-
+import { Calendar, CreditCard, Pause, XCircle, ExternalLink, AlertTriangle, Shield } from "lucide-react";
 const mockSubscription = {
   id: 1,
   name: "Netflix",
@@ -26,19 +17,27 @@ const mockSubscription = {
   category: "OTT",
   description: "Video streaming service",
   website: "netflix.com",
-  history: [
-    { date: "2024-07-20", amount: 199, status: "paid" },
-    { date: "2024-06-20", amount: 199, status: "paid" },
-    { date: "2024-05-20", amount: 199, status: "paid" }
-  ]
+  history: [{
+    date: "2024-07-20",
+    amount: 199,
+    status: "paid"
+  }, {
+    date: "2024-06-20",
+    amount: 199,
+    status: "paid"
+  }, {
+    date: "2024-05-20",
+    amount: 199,
+    status: "paid"
+  }]
 };
-
 export default function ManageSubscription() {
-  const { id } = useParams();
+  const {
+    id
+  } = useParams();
   const router = useRouter();
   const [actionType, setActionType] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-
   const handleAction = async (action: string) => {
     setActionType(action);
     setIsLoading(true);
@@ -46,7 +45,6 @@ export default function ManageSubscription() {
     // Simulate API call
     setTimeout(() => {
       setIsLoading(false);
-      
       if (action === "guided_cancel") {
         // Navigate to instruction page
         router.push(`/cancellation-instructions/${id}`);
@@ -56,18 +54,11 @@ export default function ManageSubscription() {
       }
     }, 1500);
   };
-
   const reportIssue = () => {
     // For demo, just show success
     alert("Issue reported successfully. Our team will help you cancel this subscription.");
   };
-
-  return (
-    <MobileLayout 
-      title="Manage Subscription" 
-      onBack={() => router.back()}
-      showBottomNav={true}
-    >
+  return <MobileLayout title="Manage Subscription" onBack={() => router.back()} showBottomNav={true}>
       <div className="px-4 py-2 space-y-3">
         {/* Subscription Header */}
         <WidgetCard className="text-center space-y-2">
@@ -95,11 +86,11 @@ export default function ManageSubscription() {
                 <p className="font-medium">Next Renewal</p>
                 <p className="text-sm text-muted-foreground">
                   {new Date(mockSubscription.nextRenewal).toLocaleDateString('en-IN', {
-                    weekday: 'long',
-                    year: 'numeric',
-                    month: 'long', 
-                    day: 'numeric'
-                  })}
+                  weekday: 'long',
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric'
+                })}
                 </p>
               </div>
             </div>
@@ -123,36 +114,21 @@ export default function ManageSubscription() {
         </WidgetCard>
 
         {/* Action Message */}
-        <div className="text-center">
-          <h3 className="text-sm font-semibold mb-1">Take Control of Your Subscription</h3>
-          <p className="text-xs text-muted-foreground">
-            Choose what works best for you — pause, cancel, or get guided help.
-          </p>
-        </div>
+        
 
         {/* Action Buttons */}
         <div className="space-y-1.5">
-          <Button 
-            variant="outline" 
-            className="w-full justify-between h-12"
-            onClick={() => handleAction("pause")}
-            disabled={isLoading}
-          >
+          <Button variant="outline" className="w-full justify-between h-12" onClick={() => handleAction("pause")} disabled={isLoading}>
             <div className="flex items-center">
               <Pause className="h-5 w-5 mr-3" />
               <div className="text-left">
                 <p className="font-medium">Pause Subscription</p>
-                <p className="text-xs text-muted-foreground">Take a break, resume anytime</p>
+                
               </div>
             </div>
           </Button>
 
-          <Button 
-            variant="primary" 
-            className="w-full justify-between h-12" 
-            onClick={() => handleAction("guided_cancel")}
-            disabled={isLoading}
-          >
+          <Button variant="primary" className="w-full justify-between h-12" onClick={() => handleAction("guided_cancel")} disabled={isLoading}>
             <div className="flex items-center">
               <ExternalLink className="h-5 w-5 mr-3" />
               <div className="text-left">
@@ -162,12 +138,7 @@ export default function ManageSubscription() {
             </div>
           </Button>
 
-          <Button 
-            variant="outline" 
-            className="w-full justify-between h-12 text-destructive border-destructive/30 hover:bg-destructive/10" 
-            onClick={() => handleAction("cancel")}
-            disabled={isLoading}
-          >
+          <Button variant="outline" className="w-full justify-between h-12 text-destructive border-destructive/30 hover:bg-destructive/10" onClick={() => handleAction("cancel")} disabled={isLoading}>
             <div className="flex items-center">
               <XCircle className="h-5 w-5 mr-3" />
               <div className="text-left">
@@ -177,27 +148,19 @@ export default function ManageSubscription() {
             </div>
           </Button>
 
-          <Button 
-            variant="ghost" 
-            className="w-full justify-center h-10 text-muted-foreground hover:text-foreground" 
-            onClick={reportIssue}
-            disabled={isLoading}
-          >
+          <Button variant="ghost" className="w-full justify-center h-10 text-muted-foreground hover:text-foreground" onClick={reportIssue} disabled={isLoading}>
             <AlertTriangle className="h-4 w-4 mr-2" />
             Need help? Report an issue
           </Button>
         </div>
 
 
-        {isLoading && (
-          <div className="fixed inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center">
+        {isLoading && <div className="fixed inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center">
             <WidgetCard className="text-center p-6">
               <div className="animate-spin h-8 w-8 border-2 border-primary border-t-transparent rounded-full mx-auto mb-4"></div>
               <p>Processing your request...</p>
             </WidgetCard>
-          </div>
-        )}
+          </div>}
       </div>
-    </MobileLayout>
-  );
+    </MobileLayout>;
 }

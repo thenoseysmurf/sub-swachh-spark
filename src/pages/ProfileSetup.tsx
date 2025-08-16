@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useRouter } from "@/hooks/useRouter";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { WidgetCard } from "@/components/ui/widget-card";
 import { Check } from "lucide-react";
 
@@ -12,6 +13,7 @@ import { Check } from "lucide-react";
 
 export default function ProfileSetup() {
   const router = useRouter();
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     name: "John Doe", // Pre-filled from signup
     age: "",
@@ -41,22 +43,22 @@ export default function ProfileSetup() {
 
   return (
     <MobileLayout 
-      title="Profile Setup" 
+      title={t('profile.title')} 
       onBack={() => router.back()}
       showBottomNav={false}
     >
       <div className="px-4 py-6 space-y-6">
         <div className="text-center space-y-2">
           <p className="body-lg text-muted-foreground">
-            Let's personalize your savings journey.
+            {t('profile.subtitle')}
           </p>
         </div>
 
         <WidgetCard className="space-y-6">
           <div className="text-center">
-            <h2 className="heading-lg">Tell Us About Yourself</h2>
+            <h2 className="heading-lg">{t('profile.title')}</h2>
             <p className="body-sm text-muted-foreground mt-1">
-              We'll customize recommendations for you
+              {t('profile.subtitle')}
             </p>
           </div>
 
@@ -64,7 +66,7 @@ export default function ProfileSetup() {
             {/* Basic Info */}
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="name">Full Name</Label>
+                <Label htmlFor="name">{t('profile.name')}</Label>
                 <Input
                   id="name"
                   value={formData.name}
@@ -75,7 +77,7 @@ export default function ProfileSetup() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="age">Age</Label>
+                  <Label htmlFor="age">{t('profile.age')}</Label>
                   <Input
                     id="age"
                     type="number"
@@ -104,7 +106,7 @@ export default function ProfileSetup() {
 
 
             <Button type="submit" className="w-full" variant="primary" size="lg">
-              Save & Continue
+              {t('common.continue')}
             </Button>
           </form>
         </WidgetCard>

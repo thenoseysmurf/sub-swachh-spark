@@ -4,6 +4,7 @@ import { WidgetCard } from "@/components/ui/widget-card";
 import { MetricCard } from "@/components/ui/metric-card";
 import { AppLogo } from "@/components/ui/app-logo";
 import { useRouter } from "@/hooks/useRouter";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Film, Heart, GraduationCap, Tag, Play, Music, Dumbbell, BookOpen, Coffee, ShoppingBag } from "lucide-react";
 const categories = [{
   id: 1,
@@ -84,9 +85,10 @@ const categories = [{
 }];
 export default function Analytics() {
   const router = useRouter();
+  const { t } = useLanguage();
   const totalSpends = categories.reduce((sum, cat) => sum + cat.spends, 0);
   const totalSavings = categories.reduce((sum, cat) => sum + cat.savings, 0);
-  return <MobileLayout title="Usage Analytics" onBack={() => router.back()} showBottomNav={true}>
+  return <MobileLayout title={t('analytics.title')} onBack={() => router.back()} showBottomNav={true}>
       <div className="px-4 pt-2 pb-8 space-y-8">
         {/* Header Message */}
         <div className="text-center px-2">
@@ -98,13 +100,13 @@ export default function Analytics() {
         {/* Apple-style Top Metrics */}
         <div className="grid grid-cols-2 gap-3">
           <MetricCard
-            title="Annual Spend"
+            title={t('analytics.totalSpend')}
             value={`₹${(totalSpends * 12).toLocaleString()}`}
             variant="premium"
           />
           
           <MetricCard
-            title="Potential Savings"
+            title={t('analytics.deadSpend')}
             value={`₹${(totalSavings * 12).toLocaleString()}`}
             variant="premium"
           />
@@ -113,7 +115,7 @@ export default function Analytics() {
         {/* Apple-style Categories */}
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="heading-lg">Categories</h2>
+            <h2 className="heading-lg">{t('analytics.categoryBreakdown')}</h2>
           </div>
           
           <div className="space-y-3">

@@ -3,6 +3,7 @@ import { MobileLayout } from "@/components/ui/mobile-layout";
 import { WidgetCard } from "@/components/ui/widget-card";
 import { AppLogo } from "@/components/ui/app-logo";
 import { useRouter } from "@/hooks/useRouter";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Bell, Calendar, Clock } from "lucide-react";
 
 const mockNotifications = [
@@ -37,12 +38,13 @@ const mockNotifications = [
 
 export default function Notifications() {
   const router = useRouter();
+  const { t } = useLanguage();
   const [notifications] = useState(mockNotifications);
 
   const unreadCount = notifications.filter(n => !n.isRead).length;
 
   return (
-    <MobileLayout showBackButton={true} onBack={() => router.push("/dashboard")} title="Notifications" showBottomNav={true}>
+    <MobileLayout showBackButton={true} onBack={() => router.push("/dashboard")} title={t('notifications.title')} showBottomNav={true}>
       <div className="px-4 py-6 space-y-6 animate-fade-in">
         {/* Header */}
         <div className="glass-nav p-4 rounded-xl -mx-4 mb-6 animate-slide-down">
@@ -50,10 +52,10 @@ export default function Notifications() {
             <div className="space-y-1">
               <div className="flex items-center space-x-2">
                 <Bell className="h-5 w-5 text-primary" />
-                <h1 className="heading-lg">Notifications</h1>
+                <h1 className="heading-lg">{t('notifications.title')}</h1>
               </div>
               <p className="caption text-muted-foreground">
-                {unreadCount > 0 ? `${unreadCount} new notifications` : "You're all caught up!"}
+                {unreadCount > 0 ? `${unreadCount} ${t('notifications.recent')}` : t('notifications.noNotifications')}
               </p>
             </div>
           </div>
@@ -117,7 +119,7 @@ export default function Notifications() {
           {notifications.length === 0 && (
             <div className="text-center py-12 animate-fade-in">
               <Bell className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-              <p className="body-md text-muted-foreground">No notifications yet</p>
+              <p className="body-md text-muted-foreground">{t('notifications.noNotifications')}</p>
               <p className="caption text-muted-foreground">We'll notify you about upcoming renewals</p>
             </div>
           )}

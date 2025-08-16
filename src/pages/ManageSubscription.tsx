@@ -4,6 +4,7 @@ import { MobileLayout } from "@/components/ui/mobile-layout";
 import { Button } from "@/components/ui/button";
 import { WidgetCard } from "@/components/ui/widget-card";
 import { useRouter } from "@/hooks/useRouter";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Calendar, CreditCard, Pause, XCircle, ExternalLink, AlertTriangle, Shield } from "lucide-react";
 const mockSubscription = {
   id: 1,
@@ -36,6 +37,7 @@ export default function ManageSubscription() {
     id
   } = useParams();
   const router = useRouter();
+  const { t } = useLanguage();
   const [actionType, setActionType] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const handleAction = async (action: string) => {
@@ -61,7 +63,7 @@ export default function ManageSubscription() {
     // For demo, just show success
     alert("Issue reported successfully. Our team will help you cancel this subscription.");
   };
-  return <MobileLayout title="Manage Subscription" onBack={() => router.back()} showBottomNav={true}>
+  return <MobileLayout title={t('manage.title')} onBack={() => router.back()} showBottomNav={true}>
       <div className="px-4 py-2 space-y-3">
         {/* Subscription Header */}
         <WidgetCard className="text-center space-y-2">
@@ -80,13 +82,13 @@ export default function ManageSubscription() {
 
         {/* Subscription Details */}
         <WidgetCard className="space-y-2">
-          <h3 className="text-sm font-semibold">Subscription Details</h3>
+          <h3 className="text-sm font-semibold">{t('manage.details')}</h3>
           
           <div className="space-y-1.5">
             <div className="flex items-center space-x-3">
               <Calendar className="h-5 w-5 text-muted-foreground" />
               <div className="flex-1">
-                <p className="font-medium">Next Renewal</p>
+                <p className="font-medium">{t('manage.nextBilling')}</p>
                 <p className="text-sm text-muted-foreground">
                   {new Date(mockSubscription.nextRenewal).toLocaleDateString('en-IN', {
                   weekday: 'long',
@@ -125,7 +127,7 @@ export default function ManageSubscription() {
             <div className="flex items-center">
               <Pause className="h-5 w-5 mr-3" />
               <div className="text-left">
-                <p className="font-medium">Pause Subscription</p>
+                <p className="font-medium">{t('manage.pauseSubscription')}</p>
                 
               </div>
             </div>
@@ -137,7 +139,7 @@ export default function ManageSubscription() {
             <div className="flex items-center">
               <XCircle className="h-5 w-5 mr-3" />
               <div className="text-left">
-                <p className="font-medium">Cancel Now</p>
+                <p className="font-medium">{t('manage.cancelSubscription')}</p>
                 
               </div>
             </div>

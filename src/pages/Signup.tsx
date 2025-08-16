@@ -5,11 +5,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useRouter } from "@/hooks/useRouter";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { WidgetCard } from "@/components/ui/widget-card";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 import { Check, Shield, Smartphone, Mail } from "lucide-react";
 export default function Signup() {
   const router = useRouter();
+  const { t } = useLanguage();
   const otpRef = useRef<HTMLInputElement>(null);
   const [formData, setFormData] = useState({
     mobile: "",
@@ -80,8 +82,8 @@ export default function Signup() {
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-primary shadow-card mb-4">
             <Shield className="w-8 h-8 text-white" />
           </div>
-          <h1 className="heading-xl text-foreground">Welcome to Subscription Swachh</h1>
-          <p className="body-lg text-muted-foreground max-w-sm mx-auto">Create your account and start saving thousands on subscriptions</p>
+          <h1 className="heading-xl text-foreground">{t('auth.signup.title')}</h1>
+          <p className="body-lg text-muted-foreground max-w-sm mx-auto">{t('auth.signup.subtitle')}</p>
         </div>
 
         {/* Progress Indicator */}
@@ -96,8 +98,8 @@ export default function Signup() {
                 {otpSent ? <Check className="w-4 h-4" /> : <Smartphone className="w-4 h-4" />}
               </div>
               <div>
-                <h3 className="font-medium text-foreground">Mobile Verification</h3>
-                <p className="text-sm text-muted-foreground">We'll send you a verification code</p>
+                <h3 className="font-medium text-foreground">{t('auth.signup.verifyMobile')}</h3>
+                <p className="text-sm text-muted-foreground">{t('auth.signup.otpSent')}</p>
               </div>
             </div>
 
@@ -108,13 +110,13 @@ export default function Signup() {
                   <div className="flex items-center px-3 bg-muted border border-r-0 rounded-l-md text-sm text-muted-foreground">
                     +91
                   </div>
-                  <Input id="mobile" type="tel" placeholder="Enter 10-digit mobile number" value={formData.mobile} onChange={e => setFormData(prev => ({
+                  <Input id="mobile" type="tel" placeholder={t('auth.signup.mobile')} value={formData.mobile} onChange={e => setFormData(prev => ({
                     ...prev,
                     mobile: e.target.value
                   }))} className={`${errors.mobile ? "border-destructive" : ""} flex-1 rounded-l-none`} maxLength={10} disabled={otpSent} />
                 </div>
                 <Button onClick={handleSendOTP} variant={otpSent ? "outline" : "primary"} size="sm" disabled={otpSent || !formData.mobile} className="whitespace-nowrap px-4">
-                  {otpSent ? "Sent ✓" : "Send OTP"}
+                  {otpSent ? "Sent ✓" : t('auth.signup.resendOtp')}
                 </Button>
               </div>
               {errors.mobile && <p className="text-sm text-destructive flex items-center gap-1">{errors.mobile}</p>}
@@ -128,8 +130,8 @@ export default function Signup() {
                   {otpVerified ? <Check className="w-4 h-4" /> : <Shield className="w-4 h-4" />}
                 </div>
                 <div>
-                  <h3 className="font-medium text-foreground">Enter Verification Code</h3>
-                  <p className="text-sm text-muted-foreground">Check your messages for the 6-digit code</p>
+                  <h3 className="font-medium text-foreground">{t('auth.signup.enterOtp')}</h3>
+                  <p className="text-sm text-muted-foreground">{t('auth.signup.otpSent')}</p>
                 </div>
               </div>
 
@@ -158,7 +160,7 @@ export default function Signup() {
                     </InputOTP>
                   </div>
                   <Button onClick={handleVerifyOTP} variant={otpVerified ? "outline" : "primary"} size="sm" disabled={otpVerified || !formData.otp || !otpSent} className="w-full">
-                    {otpVerified ? "Done ✓" : "Verify OTP"}
+                    {otpVerified ? "Done ✓" : t('auth.signup.verify')}
                   </Button>
                 </div>
                 {errors.otp && <p className="text-sm text-destructive flex items-center gap-1 justify-center">{errors.otp}</p>}
@@ -172,15 +174,15 @@ export default function Signup() {
                   <Mail className="w-4 h-4" />
                 </div>
                 <div>
-                  <h3 className="font-medium text-foreground">Complete Your Profile</h3>
-                  <p className="text-sm text-muted-foreground">Almost there! Just a few more details</p>
+                  <h3 className="font-medium text-foreground">{t('profile.title')}</h3>
+                  <p className="text-sm text-muted-foreground">{t('profile.subtitle')}</p>
                 </div>
               </div>
 
               <div className="space-y-6">
                 <div className="space-y-2">
-                  <Label htmlFor="email" className="text-sm font-medium text-foreground">Email Address</Label>
-                  <Input id="email" type="email" placeholder="your@email.com" value={formData.email} onChange={e => setFormData(prev => ({
+                  <Label htmlFor="email" className="text-sm font-medium text-foreground">{t('auth.signup.email')}</Label>
+                  <Input id="email" type="email" placeholder={t('auth.signup.email')} value={formData.email} onChange={e => setFormData(prev => ({
                 ...prev,
                 email: e.target.value
               }))} className={errors.email ? "border-destructive" : ""} disabled={!otpVerified} />
@@ -195,17 +197,17 @@ export default function Signup() {
                 }))} disabled={!otpVerified} className="mt-0.5" />
                     <div className="space-y-1">
                       <Label htmlFor="syncUpiCards" className="text-sm font-medium leading-none">
-                        Sync Payment Methods
+                        {t('auth.signup.syncAccounts')}
                       </Label>
                       <p className="text-xs text-muted-foreground leading-relaxed">
-                        Automatically detect your UPI IDs and cards for faster subscription discovery
+                        {t('auth.signup.syncAccounts')}
                       </p>
                     </div>
                   </div>
                 </div>
 
                 <Button onClick={handleOnboard} className="w-full" variant="primary" size="lg" disabled={!formData.email || !otpVerified}>
-                  Create My Account
+                  {t('auth.signup.createAccount')}
                 </Button>
               </div>
             </WidgetCard>}
@@ -213,9 +215,9 @@ export default function Signup() {
           {/* Sign In Link */}
           <div className="text-center pt-4">
             <p className="body-sm text-muted-foreground">
-              Already have an account?{" "}
+              {t('auth.signup.alreadyHaveAccount')}{" "}
               <button type="button" onClick={() => router.push("/login")} className="text-primary font-medium hover:underline transition-colors">
-                Sign In
+                {t('auth.signup.signIn')}
               </button>
             </p>
           </div>

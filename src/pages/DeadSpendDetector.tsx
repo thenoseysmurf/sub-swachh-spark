@@ -4,6 +4,7 @@ import { WidgetCard } from "@/components/ui/widget-card";
 import { MetricCard } from "@/components/ui/metric-card";
 import { AppLogo } from "@/components/ui/app-logo";
 import { useRouter } from "@/hooks/useRouter";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Clock, TrendingDown, Music, Coffee, Tv, Dumbbell, Settings, ArrowUpDown } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
@@ -50,6 +51,7 @@ const mockDeadSpendData = [{
 }];
 export default function DeadSpendDetector() {
   const router = useRouter();
+  const { t } = useLanguage();
   const [sortByInactivity, setSortByInactivity] = useState(true); // Default to sorted by inactivity
 
   // Helper function to extract days from lastUsed string
@@ -84,11 +86,11 @@ export default function DeadSpendDetector() {
   }) : mockDeadSpendData;
   const totalDeadSpend = mockDeadSpendData.reduce((sum, sub) => sum + sub.amount * 12, 0);
   const monthlyWaste = mockDeadSpendData.reduce((sum, sub) => sum + sub.amount, 0);
-  return <MobileLayout title="Spend Optimizer" showBackButton onBack={() => router.push("/dashboard")} showBottomNav={true}>
+  return <MobileLayout title={t('deadSpend.title')} showBackButton onBack={() => router.push("/dashboard")} showBottomNav={true}>
       <div className="px-4 pt-3 pb-6 space-y-6">
         {/* Apple-style Header Stats */}
         <div className="space-y-4">
-          <MetricCard title="Monthly Waste" value={`₹${monthlyWaste.toLocaleString()}`} subtitle="Money you could save" variant="warning" className="text-center" />
+          <MetricCard title={t('deadSpend.potentialSavings')} value={`₹${monthlyWaste.toLocaleString()}`} subtitle="Money you could save" variant="warning" className="text-center" />
         </div>
 
         {/* Sort Filter */}
@@ -99,7 +101,7 @@ export default function DeadSpendDetector() {
         {/* Apple-style Underutilized Subscriptions */}
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="heading-lg">Inactive Subscriptions</h2>
+            <h2 className="heading-lg">{t('deadSpend.unusedSubscriptions')}</h2>
             
           </div>
           
@@ -126,7 +128,7 @@ export default function DeadSpendDetector() {
                           
                           <div className="flex items-center space-x-1">
                             <Clock className="h-3 w-3 text-muted-foreground" />
-                            <span className="caption text-muted-foreground">90+ days ago</span>
+                            <span className="caption text-muted-foreground">{t('deadSpend.neverUsed')}</span>
                           </div>
                           
                           
@@ -134,7 +136,7 @@ export default function DeadSpendDetector() {
                       </div>
                       
                       <Button size="sm" variant="outline" className="ml-3 font-medium bg-purple-500 text-white hover:bg-purple-600 border-purple-500" onClick={() => router.push(`/subscription/${subscription.id}`)}>
-                        Manage
+                        {t('dashboard.manage')}
                       </Button>
                     </div>
                   </WidgetCard>;

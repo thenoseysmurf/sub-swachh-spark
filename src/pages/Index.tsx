@@ -1,8 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { useRouter } from "@/hooks/useRouter";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Zap } from "lucide-react";
 const Index = () => {
   const router = useRouter();
+  const { t } = useLanguage();
   return <div className="min-h-screen bg-gradient-hero relative overflow-hidden">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
@@ -29,8 +31,7 @@ const Index = () => {
           <h1 className="display-lg gradient-text bg-gradient-to-r from-white via-primary-glow to-success-glow bg-clip-text text-transparent text-4xl">
             PocketWise
           </h1>
-          <p className="body-xl leading-relaxed max-w-sm mx-auto text-slate-50 text-base font-light text-center">Save your Pocket Drain! 
-Without using Brain!</p>
+          <p className="body-xl leading-relaxed max-w-sm mx-auto text-slate-50 text-base font-light text-center">{t('landing.subtitle')}</p>
         </div>
 
         {/* Savings Display with Glass Effect */}
@@ -39,7 +40,7 @@ Without using Brain!</p>
         {/* Enhanced CTA Button */}
         <div className="w-full max-w-sm animate-slide-up stagger-3">
           <Button onClick={() => router.push("/signup")} variant="primary" size="xl" className="w-full">
-            Get Started
+            {t('landing.getStarted')}
           </Button>
         </div>
 

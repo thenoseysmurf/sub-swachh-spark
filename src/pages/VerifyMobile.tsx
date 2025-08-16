@@ -2,10 +2,12 @@ import { useState, useEffect } from "react";
 import { MobileLayout } from "@/components/ui/mobile-layout";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "@/hooks/useRouter";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { WidgetCard } from "@/components/ui/widget-card";
 import { Loader2, CheckCircle2, CreditCard, Smartphone, Link, Shield, X } from "lucide-react";
 export default function VerifyMobile() {
   const router = useRouter();
+  const { t } = useLanguage();
   const [step, setStep] = useState<"scanning" | "results">("scanning");
   const [upiAccounts, setUpiAccounts] = useState([{
     id: "1",

@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { MobileLayout } from "@/components/ui/mobile-layout";
 import { useRouter } from "@/hooks/useRouter";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { WidgetCard } from "@/components/ui/widget-card";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 
 export default function Login() {
   const router = useRouter();
+  const { t } = useLanguage();
   const [pin, setPin] = useState("");
 
   const handleKeypadPress = (value: string) => {
@@ -26,8 +28,8 @@ export default function Login() {
       <div className="px-4 py-8 space-y-6">
         {/* Header */}
         <div className="text-center space-y-2">
-          <h1 className="heading-xl text-primary">Welcome Back!</h1>
-          <p className="body-lg text-muted-foreground">Let's get you back in control.</p>
+          <h1 className="heading-xl text-primary">{t('auth.login.title')}</h1>
+          <p className="body-lg text-muted-foreground">{t('auth.login.subtitle')}</p>
         </div>
 
         {/* PIN Form */}

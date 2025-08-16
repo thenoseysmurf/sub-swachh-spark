@@ -40,7 +40,7 @@ const mockDeadSpendData = [{
 }, {
   id: 6,
   name: "Gym Membership",
-  amount: 2500,
+  amount: 899,
   category: "Fitness",
   lastUsed: "120+ days ago",
   confidence: "Very High",

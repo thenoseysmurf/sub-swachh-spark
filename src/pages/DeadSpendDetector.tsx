@@ -88,13 +88,7 @@ export default function DeadSpendDetector() {
       <div className="px-4 pt-3 pb-6 space-y-6">
         {/* Apple-style Header Stats */}
         <div className="space-y-4">
-          <MetricCard
-            title="Monthly Waste"
-            value={`₹${monthlyWaste.toLocaleString()}`}
-            subtitle="Money you could save"
-            variant="warning"
-            className="text-center"
-          />
+          <MetricCard title="Monthly Waste" value={`₹${monthlyWaste.toLocaleString()}`} subtitle="Money you could save" variant="warning" className="text-center" />
         </div>
 
         {/* Sort Filter */}
@@ -122,11 +116,7 @@ export default function DeadSpendDetector() {
                         <div className="flex-1 space-y-1">
                           <div className="flex items-center justify-between">
                             <h4 className="heading-xs text-foreground">{subscription.name}</h4>
-                            <span className={`caption px-2 py-1 rounded-md ${
-                              getInactivityLevel(subscription.lastUsed) === "highly inactive" 
-                                ? 'bg-destructive/10 text-destructive' 
-                                : 'bg-warning/10 text-warning'
-                            }`}>
+                            <span className={`caption px-2 py-1 rounded-md ${getInactivityLevel(subscription.lastUsed) === "highly inactive" ? 'bg-destructive/10 text-destructive' : 'bg-warning/10 text-warning'}`}>
                               {getInactivityLevel(subscription.lastUsed)}
                             </span>
                           </div>
@@ -142,16 +132,11 @@ export default function DeadSpendDetector() {
                             </div>
                           </div>
                           
-                          <p className="caption text-muted-foreground">{subscription.reason}</p>
+                          
                         </div>
                       </div>
                       
-                      <Button 
-                        size="sm" 
-                        variant="outline"
-                        className="ml-3 font-medium bg-purple-500 text-white hover:bg-purple-600 border-purple-500" 
-                        onClick={() => router.push(`/subscription/${subscription.id}`)}
-                      >
+                      <Button size="sm" variant="outline" className="ml-3 font-medium bg-purple-500 text-white hover:bg-purple-600 border-purple-500" onClick={() => router.push(`/subscription/${subscription.id}`)}>
                         Manage
                       </Button>
                     </div>

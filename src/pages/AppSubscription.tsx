@@ -224,7 +224,7 @@ export default function AppSubscription() {
 
       {/* Fixed Bottom CTA Button */}
       <div className="fixed bottom-20 left-0 right-0 p-4 bg-background border-t">
-        <Button className="w-full h-12 text-sm font-semibold bg-foreground text-background hover:bg-foreground/90" onClick={() => router.push(`/subscription/1`)}>
+        <Button variant="primary" className="w-full h-12 text-sm font-medium" onClick={() => router.push(`/subscription/1`)}>
           Manage Subscription
         </Button>
       </div>

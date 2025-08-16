@@ -19,6 +19,7 @@ import CategoryDetail from "./pages/CategoryDetail";
 import AppSubscription from "./pages/AppSubscription";
 import DeadSpendDetector from "./pages/DeadSpendDetector";
 import CancellationInstructions from "./pages/CancellationInstructions";
+import CancellationConfirmation from "./pages/CancellationConfirmation";
 import Notifications from "./pages/Notifications";
 
 const queryClient = new QueryClient();
@@ -51,6 +52,7 @@ const App = () => (
             <Route path="/app/:category/:appName" element={<AppSubscription />} />
             <Route path="/dead-spend-detector" element={<DeadSpendDetector />} />
             <Route path="/cancellation-instructions/:id" element={<CancellationInstructions />} />
+            <Route path="/cancellation-confirmation/:id" element={<CancellationConfirmation />} />
             <Route path="/notifications" element={<Notifications />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />

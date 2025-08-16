@@ -11,13 +11,14 @@ export default function ActionConfirmation() {
   const urlParams = new URLSearchParams(window.location.search);
   const actionType = urlParams.get('action') || 'cancelled';
   const serviceName = urlParams.get('service') || 'Netflix';
+  const savings = urlParams.get('savings');
 
   // Mock data - in real app, this would come from the previous action
   const actionData = {
     type: actionType === 'pause' ? 'paused' : 'cancelled',
     serviceName: serviceName,
     monthlyAmount: 199,
-    annualSavings: 2388,
+    annualSavings: savings ? parseInt(savings) : 2388,
     canUndo: true
   };
 

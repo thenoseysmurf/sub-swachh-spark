@@ -48,8 +48,11 @@ export default function ManageSubscription() {
       if (action === "guided_cancel") {
         // Navigate to instruction page
         router.push(`/cancellation-instructions/${id}`);
+      } else if (action === "cancel") {
+        // Navigate to cancellation confirmation
+        router.push(`/cancellation-confirmation/${id}`);
       } else {
-        // For pause/cancel, go directly to confirmation with action type
+        // For pause, go directly to confirmation with action type
         router.push(`/action-confirmation?action=${action}&service=${mockSubscription.name}`);
       }
     }, 1500);

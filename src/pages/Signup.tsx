@@ -40,6 +40,7 @@ export default function Signup() {
     }
     setErrors({});
     setOtpSent(true);
+    setFormData(prev => ({ ...prev, otp: "123456" }));
   };
   const handleVerifyOTP = (e: React.FormEvent) => {
     e.preventDefault();

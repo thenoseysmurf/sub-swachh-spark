@@ -39,7 +39,7 @@ const mockSubscriptions = [{
   amount: 299,
   nextRenewal: "2024-08-25",
   status: "paused",
-  isDead: true,
+  isDead: false,
   category: "Food"
 }];
 const monthlySpendData = [{
@@ -160,7 +160,7 @@ export default function Dashboard() {
                     axisLine={false} 
                     tickLine={false} 
                     tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }} 
-                    interval={1} 
+                    interval={0} 
                   />
                   <YAxis hide />
                   <Line 

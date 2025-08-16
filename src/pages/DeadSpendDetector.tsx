@@ -148,11 +148,8 @@ export default function DeadSpendDetector() {
                       
                       <Button 
                         size="sm" 
-                        variant={getInactivityLevel(subscription.lastUsed) === "highly inactive" ? "premium" : "outline"}
-                        className={cn(
-                          "ml-3 font-medium",
-                          getInactivityLevel(subscription.lastUsed) === "highly inactive" && "text-white shadow-glow hover:shadow-premium"
-                        )} 
+                        variant="outline"
+                        className="ml-3 font-medium bg-purple-500 text-white hover:bg-purple-600 border-purple-500" 
                         onClick={() => router.push(`/subscription/${subscription.id}`)}
                       >
                         Manage

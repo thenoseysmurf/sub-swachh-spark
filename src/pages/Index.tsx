@@ -41,9 +41,9 @@ const Index = () => {
         <div className="w-full max-w-sm animate-slide-up stagger-2">
           <Button 
             onClick={() => router.push("/signup")} 
-            variant="glass" 
+            variant="default" 
             size="xl" 
-            className="w-full"
+            className="w-full bg-purple-600 hover:bg-purple-700 text-white border-purple-500"
           >
             {t('landing.getStarted')}
           </Button>

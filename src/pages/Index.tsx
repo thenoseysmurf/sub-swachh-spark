@@ -29,7 +29,7 @@ const Index = () => {
               </div>
             </div>
           </div>
-          <h1 className="text-5xl font-extrabold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent tracking-tight leading-tight">
+          <h1 className="text-5xl font-extrabold text-white tracking-tight leading-tight drop-shadow-2xl">
             PocketWise
           </h1>
         </div>

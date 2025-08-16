@@ -7,7 +7,7 @@ import { PremiumLoading } from "@/components/ui/premium-loading";
 import { AppLogo } from "@/components/ui/app-logo";
 import { useRouter } from "@/hooks/useRouter";
 import { cn } from "@/lib/utils";
-import { TrendingUp, TrendingDown, Calendar, Filter, Settings, BarChart3, AlertCircle, Play, Pause, Star, Crown, Sparkles } from "lucide-react";
+import { TrendingUp, TrendingDown, Calendar, Filter, Settings, BarChart3, AlertCircle, Play, Pause, Star, Crown, Sparkles, Bell } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, LineChart, Line } from "recharts";
 const mockSubscriptions = [{
   id: 1,
@@ -43,12 +43,6 @@ const mockSubscriptions = [{
   category: "Food"
 }];
 const monthlySpendData = [{
-  month: "Jan",
-  amount: 2800
-}, {
-  month: "Feb",
-  amount: 3200
-}, {
   month: "Mar",
   amount: 2950
 }, {
@@ -66,18 +60,6 @@ const monthlySpendData = [{
 }, {
   month: "Aug",
   amount: 2800
-}, {
-  month: "Sep",
-  amount: 2650
-}, {
-  month: "Oct",
-  amount: 2900
-}, {
-  month: "Nov",
-  amount: 3150
-}, {
-  month: "Dec",
-  amount: 2800
 }];
 const filters = ["All", "Inactive", "Paused"];
 export default function Dashboard() {
@@ -93,8 +75,9 @@ export default function Dashboard() {
       setUserName(firstName);
     }
   }, []);
-  const totalSpend = mockSubscriptions.reduce((sum, sub) => sum + sub.amount * 12, 0);
+  const monthlySpend = mockSubscriptions.reduce((sum, sub) => sum + sub.amount, 0);
   const deadSpend = mockSubscriptions.filter(sub => sub.isDead).reduce((sum, sub) => sum + sub.amount * 12, 0);
+  const totalSubscriptions = mockSubscriptions.length;
   const inactiveCount = mockSubscriptions.filter(sub => sub.isDead || sub.status === "paused").length;
   const filteredSubscriptions = mockSubscriptions.filter(sub => {
     switch (activeFilter) {
@@ -118,8 +101,8 @@ export default function Dashboard() {
               <p className="caption text-muted-foreground">Welcome back to your dashboard</p>
             </div>
             <div className="flex space-x-2">
-              <Button variant="glass" size="icon-sm" onClick={() => router.push("/analytics")} className="interactive-scale">
-                <BarChart3 className="h-4 w-4" />
+              <Button variant="glass" size="icon-sm" onClick={() => router.push("/notifications")} className="interactive-scale">
+                <Bell className="h-4 w-4" />
               </Button>
               <Button variant="glass" size="icon-sm" onClick={() => router.push("/configure-alerts")} className="interactive-scale">
                 <Settings className="h-4 w-4" />
@@ -131,9 +114,9 @@ export default function Dashboard() {
         {/* Apple-style Key Metrics */}
         <div className="grid grid-cols-2 gap-3 animate-slide-up stagger-1">
           <MetricCard
-            title="Annual Spend"
-            value={`₹${totalSpend.toLocaleString()}`}
-            trend={{ value: "+5.2%", direction: "up" }}
+            title="Monthly Spend"
+            value={`₹${monthlySpend.toLocaleString()}`}
+            subtitle={`${totalSubscriptions} subscriptions`}
             variant="premium"
             className="cursor-pointer"
             onClick={() => router.push("/analytics")}
@@ -161,7 +144,7 @@ export default function Dashboard() {
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
                 <BarChart3 className="h-5 w-5 text-primary" />
-                <h3 className="heading-sm">Usage Analytics</h3>
+                <h3 className="heading-sm">Monthly Spend Trend</h3>
               </div>
               <div className="flex items-center space-x-1 text-success">
                 <TrendingUp className="h-4 w-4" />
@@ -198,10 +181,6 @@ export default function Dashboard() {
               </ResponsiveContainer>
             </div>
             
-            <div className="text-center space-y-1">
-              <p className="caption-lg font-medium">Monthly Spend Trend</p>
-              <p className="caption text-muted-foreground">Tap to view detailed analytics</p>
-            </div>
           </div>
         </WidgetCard>
 
@@ -288,13 +267,10 @@ export default function Dashboard() {
                 </div>
                 
                 <Button 
-                  variant={subscription.isDead ? "premium" : "outline"}
+                  variant="primary"
                   size="sm" 
                   onClick={() => router.push(`/subscription/${subscription.id}`)}
-                  className={cn(
-                    "ml-4 font-medium",
-                    subscription.isDead && "text-white shadow-glow hover:shadow-premium"
-                  )}
+                  className="ml-4 font-medium"
                 >
                   Manage
                 </Button>

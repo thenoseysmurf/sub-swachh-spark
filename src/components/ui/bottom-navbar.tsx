@@ -20,7 +20,7 @@ export function BottomNavbar({ className }: BottomNavbarProps) {
     },
     {
       icon: BarChart3,
-      label: "Insights",
+      label: "Analytics",
       path: "/analytics",
       isActive: location.pathname === "/analytics"
     },

@@ -86,7 +86,7 @@ export default function Analytics() {
   const router = useRouter();
   const totalSpends = categories.reduce((sum, cat) => sum + cat.spends, 0);
   const totalSavings = categories.reduce((sum, cat) => sum + cat.savings, 0);
-  return <MobileLayout title="Spending Insights" onBack={() => router.back()} showBottomNav={true}>
+  return <MobileLayout title="Usage Analytics" onBack={() => router.back()} showBottomNav={true}>
       <div className="px-4 pt-2 pb-8 space-y-8">
         {/* Header Message */}
         <div className="text-center px-2">
@@ -98,17 +98,15 @@ export default function Analytics() {
         {/* Apple-style Top Metrics */}
         <div className="grid grid-cols-2 gap-3">
           <MetricCard
-            title="Monthly Spend"
-            value={`₹${totalSpends.toLocaleString()}`}
-            subtitle="This month"
+            title="Annual Spend"
+            value={`₹${(totalSpends * 12).toLocaleString()}`}
             variant="premium"
           />
           
           <MetricCard
-            title="You can save"
+            title="Potential Savings"
             value={`₹${(totalSavings * 12).toLocaleString()}`}
-            subtitle="Per year"
-            variant="success"
+            variant="premium"
           />
         </div>
 

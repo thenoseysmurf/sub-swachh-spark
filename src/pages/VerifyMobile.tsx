@@ -50,9 +50,7 @@ export default function VerifyMobile() {
             <Link className="w-5 h-5 text-primary" />
           </div>
           <h1 className="heading-md text-foreground">Your Payment Methods</h1>
-          <p className="body-sm text-muted-foreground max-w-sm mx-auto">
-            Scanning for UPI IDs and cards to discover active subscriptions
-          </p>
+          <p className="body-sm text-muted-foreground max-w-sm mx-auto">Linking for UPI IDs and Cards for subscriptions</p>
         </div>
 
         {step === "scanning" && <WidgetCard className="text-center py-8 space-y-4">

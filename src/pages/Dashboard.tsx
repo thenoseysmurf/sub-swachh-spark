@@ -17,7 +17,7 @@ const mockSubscriptions = [{
   amount: 199,
   nextRenewal: "2024-08-20",
   status: "active",
-  isDead: false,
+  isDead: true,
   category: "OTT"
 }, {
   id: 2,
@@ -25,7 +25,7 @@ const mockSubscriptions = [{
   amount: 119,
   nextRenewal: "2024-08-18",
   status: "active",
-  isDead: true,
+  isDead: false,
   category: "Music"
 }, {
   id: 3,

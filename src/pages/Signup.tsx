@@ -116,7 +116,7 @@ export default function Signup() {
                   }))} className={`${errors.mobile ? "border-destructive" : ""} flex-1 rounded-l-none`} maxLength={10} disabled={otpSent} />
                 </div>
                 <Button onClick={handleSendOTP} variant={otpSent ? "outline" : "primary"} size="sm" disabled={otpSent || !formData.mobile} className="whitespace-nowrap px-4">
-                  {otpSent ? "Sent ✓" : t('auth.signup.resendOtp')}
+                  {otpSent ? "Sent ✓" : "Send OTP"}
                 </Button>
               </div>
               {errors.mobile && <p className="text-sm text-destructive flex items-center gap-1">{errors.mobile}</p>}

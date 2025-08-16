@@ -15,7 +15,7 @@ export default function ProfileSetup() {
   const router = useRouter();
   const { t } = useLanguage();
   const [formData, setFormData] = useState({
-    name: "John Doe", // Pre-filled from signup
+    name: "Nish Calmers", // Pre-filled from signup
     age: "",
     city: ""
   });

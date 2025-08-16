@@ -40,14 +40,14 @@ const mockDeadSpendData = [{
   color: "text-blue-500"
 }, {
   id: 6,
-  name: "Gym Membership",
-  amount: 899,
-  category: "Fitness",
+  name: "Netflix",
+  amount: 199,
+  category: "Entertainment",
   lastUsed: "120+ days ago",
   confidence: "Very High",
-  reason: "No facility check-ins detected",
-  icon: Dumbbell,
-  color: "text-orange-500"
+  reason: "No streaming activity detected",
+  icon: Tv,
+  color: "text-red-500"
 }];
 export default function DeadSpendDetector() {
   const router = useRouter();

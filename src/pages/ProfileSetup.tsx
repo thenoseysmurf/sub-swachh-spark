@@ -16,7 +16,7 @@ export default function ProfileSetup() {
   const { t } = useLanguage();
   const [formData, setFormData] = useState({
     name: "Nish Calmers", // Pre-filled from signup
-    age: "25",
+    age: "",
     city: ""
   });
   const [errors, setErrors] = useState<Record<string, string>>({});

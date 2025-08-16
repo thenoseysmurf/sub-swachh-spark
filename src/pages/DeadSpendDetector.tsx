@@ -100,9 +100,7 @@ export default function DeadSpendDetector() {
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <h2 className="heading-lg">Inactive Subscriptions</h2>
-            <span className="caption bg-warning/10 text-warning px-2 py-1 rounded-md">
-              {sortedSubscriptions.length} found
-            </span>
+            
           </div>
           
           <div className="space-y-3">

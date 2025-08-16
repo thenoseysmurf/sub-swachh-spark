@@ -66,7 +66,6 @@ export default function Dashboard() {
   const router = useRouter();
   const [activeFilter, setActiveFilter] = useState("All");
   const [userName, setUserName] = useState("John");
-
   useEffect(() => {
     const userProfile = localStorage.getItem("userProfile");
     if (userProfile) {
@@ -98,7 +97,7 @@ export default function Dashboard() {
           <div className="flex items-center justify-between">
             <div className="space-y-1">
               <h1 className="display-md gradient-text">Hi, {userName}! 👋</h1>
-              <p className="caption text-muted-foreground">Welcome back to your dashboard</p>
+              <p className="caption text-muted-foreground">Welcome to your dashboard</p>
             </div>
             <div className="flex space-x-2">
               <Button variant="glass" size="icon-sm" onClick={() => router.push("/notifications")} className="interactive-scale">
@@ -113,33 +112,14 @@ export default function Dashboard() {
 
         {/* Apple-style Key Metrics */}
         <div className="grid grid-cols-2 gap-3 animate-slide-up stagger-1">
-          <MetricCard
-            title="Monthly Spend"
-            value={`₹${monthlySpend.toLocaleString()}`}
-            subtitle={`${totalSubscriptions} subscriptions`}
-            variant="premium"
-            className="cursor-pointer"
-            onClick={() => router.push("/analytics")}
-          />
+          <MetricCard title="Monthly Spend" value={`₹${monthlySpend.toLocaleString()}`} subtitle={`${totalSubscriptions} subscriptions`} variant="premium" className="cursor-pointer" onClick={() => router.push("/analytics")} />
 
-          <MetricCard
-            title="Dead Spend"
-            value={`₹${deadSpend.toLocaleString()}`}
-            subtitle={`${inactiveCount} inactive subs`}
-            variant="warning"
-            className="cursor-pointer"
-            onClick={() => router.push("/dead-spend-detector")}
-          />
+          <MetricCard title="Dead Spend" value={`₹${deadSpend.toLocaleString()}`} subtitle={`${inactiveCount} inactive subs`} variant="warning" className="cursor-pointer" onClick={() => router.push("/dead-spend-detector")} />
         </div>
 
 
         {/* Apple-style Analytics Chart */}
-        <WidgetCard 
-          variant="default" 
-          interactive 
-          onClick={() => router.push("/analytics")}
-          className="animate-slide-up stagger-2"
-        >
+        <WidgetCard variant="default" interactive onClick={() => router.push("/analytics")} className="animate-slide-up stagger-2">
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
@@ -154,23 +134,26 @@ export default function Dashboard() {
             
             <div className="h-32 relative">
               <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={monthlySpendData} margin={{ top: 10, right: 10, left: 10, bottom: 10 }}>
-                  <XAxis 
-                    dataKey="month" 
-                    axisLine={false} 
-                    tickLine={false} 
-                    tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }} 
-                    interval={0} 
-                  />
+                <LineChart data={monthlySpendData} margin={{
+                top: 10,
+                right: 10,
+                left: 10,
+                bottom: 10
+              }}>
+                  <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{
+                  fontSize: 10,
+                  fill: 'hsl(var(--muted-foreground))'
+                }} interval={0} />
                   <YAxis hide />
-                  <Line 
-                    type="monotone" 
-                    dataKey="amount" 
-                    stroke="url(#gradient)" 
-                    strokeWidth={3} 
-                    dot={{ fill: 'hsl(var(--primary))', strokeWidth: 2, r: 3 }}
-                    activeDot={{ r: 5, fill: 'hsl(var(--primary))', strokeWidth: 2 }}
-                  />
+                  <Line type="monotone" dataKey="amount" stroke="url(#gradient)" strokeWidth={3} dot={{
+                  fill: 'hsl(var(--primary))',
+                  strokeWidth: 2,
+                  r: 3
+                }} activeDot={{
+                  r: 5,
+                  fill: 'hsl(var(--primary))',
+                  strokeWidth: 2
+                }} />
                   <defs>
                     <linearGradient id="gradient" x1="0" y1="0" x2="1" y2="0">
                       <stop offset="0%" stopColor="hsl(var(--primary))" />
@@ -197,34 +180,20 @@ export default function Dashboard() {
           </div>
 
           <div className="flex space-x-2 overflow-x-auto pb-2 scrollbar-hide">
-            {filters.map((filter, index) => (
-              <button 
-                key={filter} 
-                onClick={() => setActiveFilter(filter)} 
-                className={`
+            {filters.map((filter, index) => <button key={filter} onClick={() => setActiveFilter(filter)} className={`
                   px-4 py-2 rounded-full caption-lg font-medium whitespace-nowrap transition-all duration-300
-                  ${activeFilter === filter 
-                    ? "bg-gradient-primary text-white shadow-md transform scale-105" 
-                    : "glass-surface text-muted-foreground hover:bg-accent interactive-scale"
-                  }
-                `}
-              >
+                  ${activeFilter === filter ? "bg-gradient-primary text-white shadow-md transform scale-105" : "glass-surface text-muted-foreground hover:bg-accent interactive-scale"}
+                `}>
                 {filter}
-              </button>
-            ))}
+              </button>)}
           </div>
         </div>
 
         {/* Apple-style Subscriptions List */}
         <div className="space-y-3 animate-slide-up stagger-4">
-          {filteredSubscriptions.map((subscription, index) => (
-            <WidgetCard 
-              key={subscription.id} 
-              variant={subscription.isDead ? "warning" : "default"}
-              interactive
-              className="animate-slide-up"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
+          {filteredSubscriptions.map((subscription, index) => <WidgetCard key={subscription.id} variant={subscription.isDead ? "warning" : "default"} interactive className="animate-slide-up" style={{
+          animationDelay: `${index * 0.1}s`
+        }}>
               <div className="flex items-center justify-between">
                 <div className="flex-1 space-y-2">
                   <div className="flex items-center space-x-3">
@@ -233,9 +202,7 @@ export default function Dashboard() {
                       <h4 className="heading-xs text-foreground">{subscription.name}</h4>
                       {subscription.isDead && <AlertCircle className="h-4 w-4 text-destructive" />}
                       {subscription.status === "paused" && <Pause className="h-4 w-4 text-warning" />}
-                      {!subscription.isDead && subscription.status === "active" && (
-                        <Play className="h-4 w-4 text-success" />
-                      )}
+                      {!subscription.isDead && subscription.status === "active" && <Play className="h-4 w-4 text-success" />}
                     </div>
                   </div>
                   
@@ -245,9 +212,9 @@ export default function Dashboard() {
                       <Calendar className="h-3 w-3 text-muted-foreground" />
                       <p className="caption text-muted-foreground">
                         {new Date(subscription.nextRenewal).toLocaleDateString('en-IN', {
-                          month: 'short',
-                          day: 'numeric'
-                        })}
+                      month: 'short',
+                      day: 'numeric'
+                    })}
                       </p>
                     </div>
                   </div>
@@ -259,25 +226,17 @@ export default function Dashboard() {
                   </div>
                 </div>
                 
-                <Button 
-                  variant="primary"
-                  size="sm" 
-                  onClick={() => router.push(`/subscription/${subscription.id}`)}
-                  className="ml-4 font-medium"
-                >
+                <Button variant="primary" size="sm" onClick={() => router.push(`/subscription/${subscription.id}`)} className="ml-4 font-medium">
                   Manage
                 </Button>
               </div>
-            </WidgetCard>
-          ))}
+            </WidgetCard>)}
           
-          {filteredSubscriptions.length === 0 && (
-            <div className="text-center py-12 animate-fade-in">
+          {filteredSubscriptions.length === 0 && <div className="text-center py-12 animate-fade-in">
               <PremiumLoading variant="pulse" size="lg" className="mx-auto mb-4" />
               <p className="body-md text-muted-foreground">No subscriptions found</p>
               <p className="caption text-muted-foreground">Try adjusting your filters</p>
-            </div>
-          )}
+            </div>}
         </div>
 
       </div>

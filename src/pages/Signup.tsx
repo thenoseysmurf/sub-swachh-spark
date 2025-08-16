@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { MobileLayout } from "@/components/ui/mobile-layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,15 +10,24 @@ import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp
 import { Check, Shield, Smartphone, Mail } from "lucide-react";
 export default function Signup() {
   const router = useRouter();
+  const otpRef = useRef<HTMLInputElement>(null);
   const [formData, setFormData] = useState({
     mobile: "",
     otp: "",
     email: "",
-    syncUpiCards: false
+    syncUpiCards: true
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [otpSent, setOtpSent] = useState(false);
   const [otpVerified, setOtpVerified] = useState(false);
+  
+  useEffect(() => {
+    if (otpSent && otpRef.current) {
+      setTimeout(() => {
+        otpRef.current?.focus();
+      }, 100);
+    }
+  }, [otpSent]);
   const handleSendOTP = (e: React.FormEvent) => {
     e.preventDefault();
     const newErrors: Record<string, string> = {};
@@ -128,6 +137,7 @@ export default function Signup() {
                 <div className="flex flex-col gap-3">
                   <div className="flex justify-center">
                     <InputOTP
+                      ref={otpRef}
                       maxLength={6}
                       value={formData.otp}
                       onChange={(value) => setFormData(prev => ({

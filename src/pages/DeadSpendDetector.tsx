@@ -128,7 +128,7 @@ export default function DeadSpendDetector() {
                           
                           <div className="flex items-center space-x-1">
                             <Clock className="h-3 w-3 text-muted-foreground" />
-                            <span className="caption text-muted-foreground">{t('deadSpend.neverUsed')}</span>
+                            <span className="caption text-muted-foreground">90+ days ago</span>
                           </div>
                           
                           

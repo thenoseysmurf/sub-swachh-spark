@@ -69,15 +69,6 @@ export default function VerifyMobile() {
           </WidgetCard>}
 
         {step === "results" && <div className="space-y-3">
-            <WidgetCard variant="savings" className="p-3">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="h-5 w-5 text-success" />
-                  <span className="text-sm font-medium">Accounts Discovered</span>
-                </div>
-                
-              </div>
-            </WidgetCard>
 
             <WidgetCard className="space-y-3">
               <h3 className="text-sm font-medium">Linked Payment Methods</h3>

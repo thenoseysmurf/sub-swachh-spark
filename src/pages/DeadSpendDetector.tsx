@@ -143,9 +143,7 @@ export default function DeadSpendDetector() {
 
         {/* Apple-style Summary Action */}
         <div className="pt-2">
-          <Button variant="outline" className="w-full" onClick={() => router.push("/dashboard")}>
-            Back to Dashboard
-          </Button>
+          
         </div>
       </div>
     </MobileLayout>;
